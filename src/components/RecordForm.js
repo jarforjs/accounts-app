@@ -37,7 +37,7 @@ export default class RecordForm extends Component {
         // RecordsAPI.create(this.state).then(
         RecordsAPI.create(data).then(
             response=>{
-                this.props.handleNewRecord(response.data)
+                this.props.handleNewRecord(response.data);
                 this.setState({
                     date:'',
                     title:'',

@@ -74,7 +74,6 @@ export default class Record extends Component {
         )
     }
     render() {
-        console.log(this.state.edit);
         if(this.state.edit){
             return this.recordForm()
         }else{

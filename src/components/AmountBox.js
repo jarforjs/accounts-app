@@ -13,5 +13,5 @@ const AmountBox = ({text,type,amount})=>{
             </div>
         </div>
     );
-}
+};
 export default AmountBox;
