@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>each-基本循环使用方法</h1>
+<!--基础html框架-->
+<table>
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <p>
+        通过阅读本例，读者已经掌握Handlebars.js一个重要特性：循环。#each可以理解成循环命令，循环的是json对象中的student属性。对于每次循环，都可以读出里边的name、sex、age属性。
+    </p>
+    <tbody id="tableList">
+
+    </tbody>
+</table>
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each student}}
+    <tr>
+        <td>{{name}}</td>
+        <td>{{sex}}</td>
+        <td>{{age}}</td>
+    </tr>
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebars1')</script>
+</body>
+</html>

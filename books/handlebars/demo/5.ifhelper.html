@@ -1,0 +1,10 @@
+{{#people}}
+<div class="person">
+    <p>{{title}}
+        {{#if author}}
+        {{author.first_name}} {{author.last_name}}</p>
+    {{else}}
+    Unknown Author</p>
+    {{/if}}
+</div>
+{{/people}}

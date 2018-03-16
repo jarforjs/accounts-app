@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>if-判断的基本用法</h1>
+<!--基础html框架-->
+<p>
+    在遍历student时，由于数据缺失，并不是每一个学生都有name属性，我们不想显示没有name属性的学生，这时就需要if来做判断。<br>
+
+    {{#if name}}可以用来判断当前上下文中有没有name属性，实际上，它是尝试去读取name属性，如果返回的为<b>undefined、null、""、[]、false</b>任意一个，都会导致最终结果为假。<br>
+
+    if还支持多层次读取，例如：{{#if name.xxx}}，这样写就假设name属性是一个map，检测name属性中是否包含xxx属性。
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>兴趣爱好</th>
+    </tr>
+    </thead>
+    <tbody id="tableList"></tbody>
+</table>
+
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        {{#if name}}
+            <tr>
+                <td>{{addOne @index}}</td>
+                <td>{{name}}</td>
+                <td>{{sex}}</td>
+                <td>{{age}}</td>
+                <td>
+                    {{#with favorite}}
+                        {{#each this}}
+                            <p>{{this}}</p>
+                        {{/each}}
+                    {{/with}}
+                </td>
+            </tr>
+        {{/if}}
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebars-if')</script>
+</body>
+</html>

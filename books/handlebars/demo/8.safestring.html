@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Handlebars Helpers Example</title>
+</head>
+<body>
+<h1>Handlebars Helpers Example!</h1>
+
+<div id="list">
+</div>
+
+<script src="jquery-3.1.0.js" type="text/javascript"></script>
+<script src="handlebars-v4.0.5.js" type="text/javascript"></script>
+
+
+<script id="people-template" type="text/x-handlebars-template">
+    <ul>
+        {{#each items}}
+        <li>{{agree_button}}</li>
+        {{/each}}
+    </ul>
+</script>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var template = Handlebars.compile($("#people-template").html());
+
+        Handlebars.registerHelper('agree_button', function() {
+            return new Handlebars.SafeString(
+                    "<button>I agree. I " + this.emotion + " " + this.name + "</button>"
+            );
+        });
+
+        var context = {
+            items: [
+                {name: "Handlebars", emotion: "love"},
+                {name: "Mustache", emotion: "enjoy"},
+                {name: "Ember", emotion: "want to learn"}
+            ]
+        };
+
+        $('#list').html(template(context));
+
+    });
+
+    events: {
+        'click a[data-rule="imgView"]': function(e){
+            var me = this,
+                    target = me.jQuery(e.target);
+            if( me.get('rule').test( $.trim(target.html()) ) ){
+                e.preventDefault();
+                me.imgShow( target.prop('href') );
+            };
+
+
+
+            var me = this,
+                    target = me.jQuery(e.target),
+                    fileName = target.data('needImgView');
+            if( !fileName ){
+                fileName = $.trim(target.html());
+            };
+            if( me.get('rule').test( fileName ) ){
+                e.preventDefault();
+                me.imgShow( target.prop('href') );
+            };
+
+</script>
+</body>
+</html>
+

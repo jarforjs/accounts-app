@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>由于if功力不足引出的Helper</h1>
+<!--基础html框架-->
+<p>
+    很多时候，我们需要更加复杂的if判断逻辑，显然默认的if不能满足我们的需求。<br>
+
+    本例中，利用Handlebars.js中Helper强大的扩展性，定义了一个compare，它用来比较两个数的大小，如果第一个数大于第二个数，满足条件继续执行，否则执行{{else}}部分。<br>
+
+    Handlebars.registerHelper用来定义Helper，它有两个参数，第一个参数是Helper名称，第二个参数是一个回调函数，用来执行核心业务逻辑。<b>本例中的函数，有三个参数，其中前两个参数是需要比较的两个数，第三个参数是固定的，就叫options，如果加了该参数，就说明这个Helper是一个Block，块级别的Helper，有一定的语法结构，调用的时候加#号</b>，就像if那样。<br>
+
+    关于options的使用，小菜所了解的就是这种用法，return options.fn(this);表示满足条件继续执行，也就是执行{{#compare }}和{{else}}之间的代码；return options.inverse(this);表示不满足条件，也就是执行{{else}}和{{/compare}}之间的代码。<br>
+
+    <b>由于这是一个块级别的Helper，所以调用要加#</b>，例如：{{#compare age 20}}，其中的age就是当前上下文中读取到的年龄，20是小菜随便写的值，意思是只要age比20大，就显示，否则全显示?。<br>
+
+    读者可以看出，Helper中写的可以是任何js代码，现在想想，就知道Handlebars有多灵活了吧！！</p>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>兴趣爱好</th>
+    </tr>
+    </thead>
+    <tbody id="tableList"></tbody>
+</table>
+
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        {{#if name}}
+            {{#compare age 20}}
+                <tr>
+                    <td>{{addOne @index}}</td>
+                    <td>{{name}}</td>
+                    <td>{{transformation sex}}</td>
+                    <td>{{age}}</td>
+                    <td>
+                        {{#with favorite}}
+                            {{#each this}}
+                                <p>{{this}}</p>
+                            {{/each}}
+                        {{/with}}
+                    </td>
+                </tr>
+        {{else}}
+                <tr>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                    <td>?</td>
+                </tr>
+            {{/compare}}
+        {{/if}}
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebars-if-helper')</script>
+</body>
+</html>

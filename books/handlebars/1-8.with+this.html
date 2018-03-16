@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>with-终极this应用</h1>
+<!--基础html框架-->
+<p>
+    本例和上例不同之处在于favorite属性中<b>不再是map项，而是普通字符串</b>，因此对于每个项，可以直接用{{this}}读取，this代表当前字符串。<br>
+
+    <b>若是map项不是普通字符串,this代表当前对象-"[object Object]"</b><br>
+
+    所以说，this非常灵活，读者一定要大胆发挥想象力。
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>兴趣爱好</th>
+    </tr>
+    </thead>
+    <tbody id="tableList"></tbody>
+</table>
+
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        <tr>
+            <td>{{addOne @index}}</td>
+            <td>{{name}}</td>
+            <td>{{sex}}</td>
+            <td>{{age}}</td>
+            <td>
+                {{#with favorite}}
+                    {{#each this}}
+                        <p>{{this}}</p>
+                    {{/each}}
+                {{/with}}
+            </td>
+        </tr>
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebars-with+this')</script>
+</body>
+</html>
