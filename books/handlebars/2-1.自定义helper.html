@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+    <link rel="stylesheet" href="src/less/bootstrap.css">
+    <style>
+        #abc{
+            border: 1px solid red;
+        }
+        p{
+            border: 1px dashed green;
+        }
+    </style>
+</head>
+<body>
+<p>
+    /\{\{.*?\}\}/g == >> 匹配任意字符 {{any character}}
+</p>
+
+<div id="abc">我是id为abc的div</div>
+<div id="tableList"></div>
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#list nav}}
+    <a href="{{url}}">{{title}}</a>
+    {{/list}}
+
+
+
+    {{#each list}}
+        {{eval '{{index}}+1'}}
+        <div>{{city}}有{{age}}年文化历史</div>
+    {{/each}}
+
+
+    {{#ex "{{state}}==='su'"}}
+        <i class="icon cross-danger">1</i>
+    {{else}}
+        <i class="icon cross-success">2</i>
+    {{/ex}}
+</script>
+
+<script>seajs.use('bus/handlebarsKJ')</script>
+</body>
+</html>

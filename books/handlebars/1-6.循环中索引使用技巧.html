@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>循环中使用索引技巧</h1>
+<!--基础html框架-->
+<p>
+    我们已经知道，可以用类似{{../name}}这种语法访问父级循环中的属性，但是这样访问父级索引是不可以的，例如：{{../@index}}，这样写是不正确的。
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <tbody id="tableList"></tbody>
+</table>
+
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+        <tr>
+            <td>{{addOne @index}}</td>
+            <td>{{name}}</td>
+            <td>{{sex}}</td>
+            <td>{{age}}</td>
+        </tr>
+        {{#each family}}
+            <tr>
+                <td>{{../_index}}.{{@index}}</td>
+                <td>{{name}}</td>
+                <td>{{sex}}</td>
+                <td>{{age}}</td>
+            </tr>
+        {{/each}}
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebarsJQ')</script>
+</body>
+</html>

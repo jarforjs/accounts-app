@@ -28,6 +28,11 @@ npm install axios 安装的会写进package.json
 cnpm安装的不会比如:cnpm install jquery
 
 
+books文件夹目录
+bleeding-edge-sample----React(第2版):引领未来的用户界面开发框架
+webpack-react-codes----React全栈:redux-flux-webpack-babel整合开发
+React-tutorial----学习react系列1commentBox
+thinking-in-react----学习react系列2filterableProductTable
 
 
 

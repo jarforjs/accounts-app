@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>关于HTML编码</h1>
+<p>
+    通过{{}}取出来的内容，都会经过编码，也就是说，如果取出的内容中包含html标签，会被转码成纯文本，不会被当成html解析，实际上就是做了类似这样的操作：把 < 用 '&lt;' 替代。<br>
+
+    这样做是很好的，既可以显示html代码，又可以避免xss注入。这个功能在做代码展示的时候是非常有用的。<br>
+
+    但是有时候我们可能需要解析html，不要转码，很简单，把{{}}换成{{{}}}就可以啦。<br>
+
+    本例中，年龄大于20的童鞋个人主页被编码，直接展示出来；而年龄小于20的童鞋，个人主页被当成html解析，显示的是一个超链接。
+</p>
+
+
+<!--基础html框架-->
+<table>
+    <thead>
+    <tr>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>个人主页</th>
+    </tr>
+    </thead>
+    <tbody id="tableList">
+
+    </tbody>
+</table>
+
+<!--插件引用-->
+<!--<script src="../src/js/jquery-1.11.2.js"></script>-->
+<!--<script src="../src/js/handlebars-v4.0.5.js"></script>-->
+
+<!--handlebars.js模板-->
+<!--handlebars.js模板放在script标签中,保留了html原有的层次结构,模板中要写一些操作语句-->
+<!--id可以用来唯一确定一个模板,type是模板固定的写法-->
+
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each student}}
+        {{#if name}}
+            <tr>
+                <td>{{name}}</td>
+                <td>{{transformation sex}}</td>
+                <td>{{age}}</td>
+                {{#compare age 20}}
+                    <td>{{link}}</td>
+                {{!--注释的第一种写法--}}
+                {{!第二种写法}}
+                    {{else}}
+                    <td>{{{homePage}}}</td>
+                {{/compare}}
+            </tr>
+        {{/if}}
+    {{/each}}
+</script>
+
+
+<!--进行数据处理,html结构-->
+<!--<script type="text/javascript">-->
+    <!--$(document).ready(function () {-->
+        <!--//模拟的json对象-->
+        <!--var data = {-->
+            <!--"student": [-->
+                <!--{-->
+                    <!--"name": "张三",-->
+                    <!--"sex": "0",-->
+                    <!--"age": 23-->
+                <!--},-->
+                <!--{-->
+                    <!--"name": "李四",-->
+                    <!--"sex": "0",-->
+                    <!--"age": "18"-->
+                <!--},-->
+                <!--{-->
+                    <!--"name": "妞妞",-->
+                    <!--"sex": 1,-->
+                    <!--"age": 21-->
+                <!--}-->
+            <!--]-->
+        <!--};-->
+
+
+        <!--//注册一个handlebars模板,通过id找到某一个模板,获取模板的html框架-->
+        <!--var template=Handlebars.compile($("#table-template").html());-->
+
+        <!--//注册一个比较大小的helper,判断v1是否大于v2-->
+        <!--Handlebars.registerHelper("compare",function (v1, v2, options) {-->
+            <!--if(v1>v2){-->
+                <!--//满足添加继续执行-->
+                <!--return options.fn(this);-->
+            <!--}else{-->
+                <!--//不满足条件执行{{else}}部分-->
+                <!--return options.inverse(this);-->
+            <!--}-->
+        <!--});-->
+
+        <!--//注册一个翻译用的helper,0翻译成男,1翻译成女-->
+        <!--Handlebars.registerHelper("transformat",function (value) {-->
+            <!--if(value==0){-->
+                <!--return "男";-->
+            <!--}else if(value==1){-->
+                <!--return "女";-->
+            <!--}-->
+        <!--});-->
+
+        <!--//将json对象用刚刚注册的handlebars模板封装,得到最终的html,插入到基础table中-->
+        <!--$('#tableList').html(template(data));-->
+    <!--})-->
+<!--</script>-->
+<script>seajs.use('./src/bus/handlebarsHTML')</script>
+</body>
+</html>

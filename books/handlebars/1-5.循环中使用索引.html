@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>循环中使用索引</h1>
+<!--基础html框架-->
+<p>
+    序号是指：在循环过程中，当前循环的索引，说白了，就是当前为第几次循环，一般从0开始，Handlebars.js中也是如此。<br>
+
+    有什么用呢？最常见的是在显示table的时候，给每行加一个序号，清晰的展示出页面上共有多少条记录，如上边的例子。<br>
+
+    除此之外，小菜为了在循环中区分不同的id，恰好需要一个序号，确保id不重复，用过bootstrap的童鞋应该知道，好多事件可以通过id定位，例如Listgroup控件。<br>
+
+    废话少说，在Handlebars.js中，可以通过{{@index}}来获取当前的索引，也就是说@index这个变量就代表了当前索引。<br>
+
+    在上边的例子里，table的序号从0开始不太好，于是注册了一个Helper，将索引+1。
+</p>
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+        <th>测试</th>
+        <th>测试1</th>
+        <th>测试2</th>
+    </tr>
+    </thead>
+    <tbody id="tableList"></tbody>
+</table>
+
+
+
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    <!--{{#each student}}-->
+        <!--<tr>-->
+            <!--<td>{{addOne @index}}</td>-->
+            <!--<td>{{name}}</td>-->
+            <!--<td>{{transformation sex}}</td>-->
+            <!--<td>{{age}}</td>-->
+        <!--</tr>-->
+    <!--{{/each}}-->
+        {{#each users}}
+        <tr data-id="{{id}}">
+            <td>{{login}}</td>
+            <td data-id="{{groupId}}">{{lookup ../infos @index}}4</td>
+
+            <!--@index代表索引值,这边显示(0,1)是因为当前上下文中的this是[object Object],所以得到的是(0,1)-->
+
+            <!--没有@index是获取不到值的-->
+            <td data-id="{{groupId}}">{{#with (lookup ../groups @index)}}{{title}}{{/with}}</td>
+            <td>{{agree_button "My Text" class="my-class" visible=true counter=4}}</td>
+            <!--<td>{{#with (lookup ../person @index)}}{{blog}}{{name}}{{/with}}</td>-->
+        </tr>
+        {{/each}}
+
+</script>
+
+<script>seajs.use('bus/handlebarsSY')</script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="src/js/sea.js"></script>
+    <script src="src/config.js"></script>
+</head>
+<body>
+<h1>each-循环中使用this</h1>
+<!--基础html框架-->
+<table>
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>性别</th>
+        <th>年龄</th>
+    </tr>
+    </thead>
+    <p>
+        很多时候，我们拿到的json对象，本身就是一个list，并不是map，直接就可以遍历，不需要#each student这样指定遍历某个属性。<br>
+
+        此时可以用#each this，表示遍历当前对象。<br>
+
+        this表示当前上下文，非常灵活，以后还会提及，读者可以举一反三。
+    </p>
+    <tbody id="tableList">
+
+    </tbody>
+</table>
+
+<!--Handlebars.js模版-->
+<!--Handlebars.js模版放在script标签中，保留了html原有层次结构,模版中要写一些操作语句-->
+<!--id可以用来唯一确定一个模版,type是模版固定的写法-->
+<script id="table-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <tr>
+        <td>{{@index}}</td>
+        <td>{{name}}</td>
+        <td>{{sex}}</td>
+        <td>{{age}}</td>
+    </tr>
+    {{/each}}
+</script>
+
+<script>seajs.use('bus/handlebars-this')</script>
+</body>
+</html>
