@@ -8,7 +8,7 @@ class Counter extends Component {
 
   constructor(props) {
     console.log('enter constructor: ' + props.caption);
-    super(props);
+    super();
 
     this.onClickIncrementButton = this.onClickIncrementButton.bind(this);
     this.onClickDecrementButton = this.onClickDecrementButton.bind(this);
