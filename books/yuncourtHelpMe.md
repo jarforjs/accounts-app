@@ -88,6 +88,8 @@ MAVEN_HOME	D:\apache-maven-3.0.5
 
 Path 	%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;%MAVEN_HOME%\bin;
 
+还要修改一下maven的setting文件
+
 还要设置	git config user.name --global
 			git config user.email --global
 
@@ -131,3 +133,11 @@ transition过度动画
 git rm -r --cached .idea/workspace.xml
 git rm -r --cached .idea/
 ```
+
+配置git的最低速度和最低速度时间：
+```
+git config --global http.lowSpeedLimit 0
+
+git config --global http.lowSpeedTime 999999         单位 秒
+```
+--global配置对当前用户生效，如果需要对所有用户生效，则用--system
