@@ -1,6 +1,9 @@
 Survey Builder Sample App
 ========================
 
+    "karma-bro": "^0.6.2",
+
+
 ![](https://travis-ci.org/backstopmedia/bleeding-edge-sample-app.svg?branch=master)
 
 A sample app for a Bleeding Edge Press book.

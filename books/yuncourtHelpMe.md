@@ -141,3 +141,9 @@ git config --global http.lowSpeedLimit 0
 git config --global http.lowSpeedTime 999999         单位 秒
 ```
 --global配置对当前用户生效，如果需要对所有用户生效，则用--system
+
+# 卸载已安装到全局的 node/npm
+1. npm ls -g --depth=0 #查看已经安装在全局的模块，以便删除这些全局模块后再按照不同的 node 版本重新进行全局安装
+2. sudo rm -rf /usr/local/lib/node_modules #删除全局 node_modules 目录
+3. sudo rm /usr/local/bin/node #删除 node
+4. cd /usr/local/bin && ls -l | grep "../lib/node_modules/" | awk '{print $9}'| xargs rm #删除全局 node 模块注册的软链
