@@ -95,3 +95,64 @@ In both cases, the e argument representing**代表** the React event will be pas
 
 # Keys serve as a hint to React but they don’t get passed to your components. If you need the same value in your component, pass it explicitly as a prop with a different name:
 # With the example above, the Post component can read props.id, but not props.key.
+
+# But in most cases, it’s convenient**方便** to have a JavaScript function that handles the submission**服从** of the form and has access to the data that the user entered into the form. The standard way to achieve this is with a technique called “controlled components”.
+
+# textarea
+- In HTML, a <textarea> element defines its text by its children，In React, a <textarea> uses a value attribute instead.
+e.g. <textarea value={this.state.value} />
+
+# select
+- Note that the Coconut option is initially selected, because of the selected attribute. React, instead of using this selected attribute, uses a value attribute on the root select tag. 
+e.g. <select value={this.state.value}><option>其他</option></select>
+
+# Overall, this makes it so that <input type="text">, <textarea>, and <select> all work very similarly - they all accept a value attribute that you can use to implement a controlled component.
+
+# file input is an uncontrolled component
+
+# Handling Multiple Inputs（操作多个input时）
+```
+  handleInputChange(event) {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+  }
+```
+```
+  <form>
+    <label>
+      Is going:
+      <input
+        name="isGoing"
+        type="checkbox"
+        checked={this.state.isGoing}
+        onChange={this.handleInputChange} />
+    </label>
+    <br />
+    <label>
+      Number of guests:
+      <input
+        name="numberOfGuests"
+        type="number"
+        value={this.state.numberOfGuests}
+        onChange={this.handleInputChange} />
+    </label>
+  </form>
+```
+
+# Note how we used the ES6 computed property name syntax to update the state key corresponding to the given input name:
+```
+this.setState({
+  [name]: value
+});
+```
+- It is equivalent to this ES5 code:
+```
+var partialState = {};
+partialState[name] = value;
+this.setState(partialState);
+```
