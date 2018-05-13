@@ -147,3 +147,6 @@ git config --global http.lowSpeedTime 999999         单位 秒
 2. sudo rm -rf /usr/local/lib/node_modules #删除全局 node_modules 目录
 3. sudo rm /usr/local/bin/node #删除 node
 4. cd /usr/local/bin && ls -l | grep "../lib/node_modules/" | awk '{print $9}'| xargs rm #删除全局 node 模块注册的软链
+
+
+# 字符串模板中不能使用逻辑与判空，否则会返回undefined
