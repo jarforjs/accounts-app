@@ -150,3 +150,8 @@ git config --global http.lowSpeedTime 999999         单位 秒
 
 
 # 字符串模板中不能使用逻辑与判空，否则会返回undefined
+
+# 那个编译之前 在项目的  deploy\framework\tools\tomcat\bin  下的catalina.bat (mac catalina.sh) 中新增下启动参数：
+```
+-Dunit.routerule.group=UNITBRAIN_BAK_GROUP 
+```

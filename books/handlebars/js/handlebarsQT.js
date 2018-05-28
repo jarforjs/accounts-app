@@ -5,7 +5,7 @@ define(function (require, exports, module) {
     require('jQuery');
     require('handlebars');
 
-    <!--进行数据处理、html构造-->
+    // <!--进行数据处理、html构造-->
     $(document).ready(function () {
         //模拟的json对象
         var data = [

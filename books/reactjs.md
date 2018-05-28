@@ -156,3 +156,126 @@ var partialState = {};
 partialState[name] = value;
 this.setState(partialState);
 ```
+
+# JSX removes whitespace at the beginning and ending of a line. It also removes blank lines. New lines adjacent to tags are removed; new lines that occur in the middle of string literals are condensed into a single space. So these all render to the same thing:
+JSX会删除每行开头和结尾的空格，并且也会删除空行。邻接标签的空行也会被移除，字符串之间的空格会被压缩成一个空格，因此下面的渲染效果都是相同的：
+```
+<div>Hello World</div>
+
+<div>
+  Hello World
+</div>
+
+<div>
+  Hello
+  World
+</div>
+
+<div>
+
+  Hello World
+</div>
+```
+
+# When to Use Refs
+There are a few good use cases for refs:
+
+Managing focus, text selection, or media playback.
+Triggering imperative animations.
+Integrating with third-party DOM libraries.
+老版本
+```
+<input type="text" ref={(input) => { this.textInput = input; }} />
+```
+
+新版本
+```
+<div ref={this.myRef} />;
+var this.myRef = React.createRef()
+this.myRef.current
+```
+
+# context:Using context, we can avoid passing props through intermediate elements:
+```
+const ThemeContext = React.createContext('light');
+App
+<ThemeContext.Provider value="dark">
+	<Toolbar />
+<ThemeContext.Provider>
+
+Toolbar
+<ThemeButton />
+
+ThemeButton
+<ThemeContext.Consumer>
+	{theme => <Button {...props} theme={theme} />}
+<ThemeContext.Consumer>
+```
+Requires a function as a child. The function receives the current context value and returns a React node. The value argument passed to the function will be equal to the value prop of the closest Provider for this context above in the tree. If there is no Provider for this context above, the value argument will be equal to the defaultValue that was passed to createContext().
+
+Note: passing undefined as a Provider value does not cause Consumers to use defaultValue.
+传递undefined座位提供者不会导致消费者使用defaultValue
+
+# Fragments
+A common pattern is for a component to return a list of children. Take this example React snippet:
+```
+class Table extends React.Component {
+  render() {
+    return (
+      <table>
+        <tr>
+          <Columns />
+        </tr>
+      </table>
+    );
+  }
+}
+```
+<Columns /> would need to return multiple <td> elements in order for the rendered HTML to be valid. If a parent div was used inside the render() of <Columns />, then the resulting HTML will be invalid.
+```
+class Columns extends React.Component {
+  render() {
+    return (
+      <div>
+        <td>Hello</td>
+        <td>World</td>
+      </div>
+    );
+  }
+}
+```
+
+results in a <Table /> output of:
+```
+<table>
+  <tr>
+    <div>
+		<td>Hello</td>
+		<td>World</td>
+    </div>
+  </tr>
+</table>
+```
+
+usage:
+```
+class Columns extends React.Component {
+  render() {
+    return (
+      <React.Fragment>
+        <td>Hello</td>
+        <td>World</td>
+      </React.Fragment>
+    );
+  }
+}
+```
+which results in a correct <Table /> output of:
+```
+<table>
+  <tr>
+    <td>Hello</td>
+    <td>World</td>
+  </tr>
+</table>
+```
