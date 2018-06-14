@@ -110,8 +110,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -196,11 +196,13 @@
       <updated>1525619689587</updated>
       <workItem from="1525619696438" duration="1215000" />
       <workItem from="1525913056627" duration="28000" />
+      <workItem from="1528593851116" duration="78000" />
+      <workItem from="1528609081208" duration="87000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1243000" />
+    <option name="totallyTimeSpent" value="1408000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
