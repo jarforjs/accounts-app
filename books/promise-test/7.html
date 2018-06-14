@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>promise7</title>
+    <script>
+    function Promise(fn) {
+        var state = 'pending',
+            value, deferred = [],
+            ret
+
+        function handle(handler) {
+            if (state === 'pending') {
+                deferred.push(handler)
+                return
+            }
+            try {
+                if (state === 'resolved') {
+                    if (!handler.onFullfilled)
+                        handler.resolve(value)
+                    else {
+                        ret = handler.onFullfilled(value)
+                        handler.resolve(ret)
+                    }
+                } else {
+                    if (!handler.onRejected)
+                        handler.reject(value)
+                    else {
+                        ret = handler.onRejected(value)
+                        handler.reject(ret)
+                    }
+                }
+            } catch (e) {
+                handler.reject(e)
+            }
+        }
+
+        function resolve(newVal) {
+            if (state !== 'pending')
+                return
+            if (newVal && typeof newVal.then === 'function') {
+                newVal.then(resolve, reject)
+                return
+            }
+            value = newVal
+            state = 'resolved'
+            while (deferred.length)
+                handle(deferred.shift())
+        }
+
+        function reject(reason) {
+            if (state !== 'pending')
+                return
+            if (reason && typeof reason.then === 'function') {
+                reason.then(resolve, reject)
+                return
+            }
+            value = reason
+            state = 'rejected'
+            while (deferred.length)
+                handle(deferred.shift())
+        }
+
+        this.then = function(onFullfilled, onRejected) {
+            return new Promise(function(resolve, reject) {
+                handle({
+                    onFullfilled: onFullfilled,
+                    onRejected: onRejected,
+                    resolve: resolve,
+                    reject: reject
+                })
+            })
+        }
+        this['catch']=function(onRejected){
+            return new Promise(function(resolve,reject){
+                handle({
+                    onFullfilled:undefined,
+                    onRejected:onRejected,
+                    resolve:resolve,
+                    reject:reject
+                })
+            })
+        }
+        fn(resolve, reject)
+    }
+
+    var p = new Promise(function(resolve, reject) {
+        var value = Math.random()
+        if (value > 0.5) 
+            resolve(value)
+        else
+            reject(value)
+    })
+
+    p.then(a, b).then(a, b).then(a, b).then(function(v){
+        console.log('now we throw an error')
+        throw 'error'
+    }).catch(function(e){
+        console.log(e)
+        return new Promise(function(resolve){
+            resolve('resolve the error i throwed')
+        })
+    }).then(function(v){
+        console.log('in fullfill: ',v)
+    },function(e){
+        console.log('in reject: ',e)
+    })
+
+    function a(v) {
+        console.log('success--', v)
+        var ap = new Promise(function(resolve, reject) {
+            setTimeout(function(){
+                resolve(100)
+            },2000)
+        })
+        return ap
+    }
+
+    function b(v) {
+        console.log(v)
+        return v
+    }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

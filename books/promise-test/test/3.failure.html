@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        button {
+            padding: 5px 10px;
+            position: fixed;
+            bottom: 50px;
+            right: 0px;
+            left: 0px;
+            margin: auto;
+            width: 200px;
+            display: block;
+            -webkit-appearance: none;
+            background: orange;
+            outline: none;
+            border: 2px solid #DB9E36;
+            color: yellow;
+            border-radius: 10px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        button:active {
+            border-color: #FFFAD5;
+            color: #FFFAD5;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: table;
+            width: 100%;
+            text-align: center;
+        }
+
+        .header {
+            display: table-row;
+            height: 1px;
+            background: maroon;
+        }
+
+        .main {
+            height: 100%;
+            display: table;
+            width: 100%;
+        }
+
+        .box {
+            display: table-cell;
+        }
+
+        .sidebar {
+            width: 100px;
+            background: orange;
+        }
+
+        .footer {
+            display: table-row;
+            height: 1px;
+            background: green;
+            color: #FFFAD5;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="button1">主体内容上添加内容</button>
+    <div class="wrapper">
+        <div class="header">头部</div>
+        <div class="main">
+            <div class="box sidebar">左侧栏</div>
+            <div class="box content">主体内容</div>
+            <div class="box sidebar">有侧栏</div>
+        </div>
+        <div class="footer">页脚底部</div>
+    </div>
+    <script>
+        // document.querySelector(".button1").addEventListener("click", function () {
+        //     var element = document.createElement("div");
+        //     element.innerHTML = "<p>Additional Line</p><p>Additional Line</p><p>Additional Line</p>";
+        //     document.querySelector(".content").appendChild(element);
+        // });
+        function Promise(fn) {
+            var callback = null;
+            this.then = function (cb) {
+                callback = cb;
+            };
+
+            function resolve(value) {
+                // force callback to be called in the next
+                // iteration of the event loop, giving
+                // callback a chance to be set by then()
+                setTimeout(function () {
+                    callback(value);
+                }, 1);
+            }
+
+            fn(resolve);
+        }
+
+        function doSomething() {
+            return new Promise(function (resolve) {
+                var value = 42;
+                resolve(value);
+            });
+        }
+
+        var promise = doSomething()
+
+        // setTimeout(function () {
+            promise.then(function (value) {
+                console.log("got a value", value);
+            });
+        // }, 2);
+    </script>
+</body>
+
+</html>

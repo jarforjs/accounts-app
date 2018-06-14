@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // a(function () {
+        //     console.log('b')
+        // })
+
+        // function a(cb) {
+        //     console.log('a');
+        //     cb();
+        // }
+
+
+        // 最简单的实现
+        // doSomething(function (value) {
+        //     console.log('Got a value:'+ value);
+        // })
+
+        // function doSomething(callback) {
+        //     var value = 42;
+        //     callback(value)
+        // }
+
+        // 基于promise实现的解决方案
+        doSomething().then(function (value) {
+            console.log('Got a value:' + value);
+        })
+
+        function doSomething(callback) {
+            return {
+                then: function (callback) {
+                    var value = 46;
+                    callback(value)
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

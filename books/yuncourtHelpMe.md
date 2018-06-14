@@ -152,6 +152,14 @@ git config --global http.lowSpeedTime 999999         单位 秒
 # 字符串模板中不能使用逻辑与判空，否则会返回undefined
 
 # 那个编译之前 在项目的  deploy\framework\tools\tomcat\bin  下的catalina.bat (mac catalina.sh) 中新增下启动参数：
+或者这个文件\deploy\target\web-deploy\bin\catalina.bat
 ```
 -Dunit.routerule.group=UNITBRAIN_BAK_GROUP 
 ```
+
+#修改vm不生效替换以下文件内容12行
+- F:\alibaba-web\20180604_2341271_hzems_1\bundle\src\main\webapp\META-INF\autoconf\resources.xml.vm
+##<resource-alias pattern="/templates" name="/webroot/templates" />
+<resource pattern="/templates">
+	<res-loaders:file-loader basedir="${app.template.root}"/>
+</resource>

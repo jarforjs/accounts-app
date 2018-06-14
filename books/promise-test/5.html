@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise5</title>
+    <script>
+        function MyPromise(fn){
+            var state='pending'
+            var deferred
+            var value
+            //当调用then方法时，其实是调用handle方法处理回调函数
+            this.then=function(onResolved){
+                //调用handle方法处理回调函数
+                handle(onResolved)
+            }
+            //handle方法的具体实现
+            function handle(onResolved){
+                //先判断当前状态
+                if(state==='pending'){
+                    //如果当前是等等状态，则把回调函数保存在内部变量中
+                    deferred = onResolved
+                    return
+                }
+                //如果不是等等状态，直接调用回调函数
+
+                onResolved(value)
+            }
+            //resolve要做的事情有两件
+            //更新value变量保存的值
+            //改变promise的状态state
+            function resolve(val){
+                value=val
+                state='resolved'
+                if(deferred)
+                    handle(deferred)
+            }
+
+            fn(resolve)
+        }
+
+        var p = new MyPromise(function(resolve){
+            console.log('promise created')
+            resolve(1)
+        })
+        p.then(function(v){
+            console.log('first ',v)
+            return v*2
+        })
+        p.then(function(v){
+            console.log('second ',v)
+            return v*2 
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

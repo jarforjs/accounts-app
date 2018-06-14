@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>promise 6</title>
+    <script>
+    Promise.count=0
+    function Promise(fn) {
+        var count=Promise.count++
+        var state = 'pending'
+        var value
+        var deferred = null
+
+        function resolve(newValue) {
+            value = newValue
+            state = 'resolved'
+            if (deferred)
+                handle(deferred)
+        }
+
+        function handle(handler) {
+            console.log('count',count)
+            if (state === 'pending') {
+                deferred = handler
+                return
+            }
+            if (!handler.onResolved) {
+                handler.resolve(value)
+                return
+            }
+            //value的传递，关键在这里，先把
+            var ret = handler.onResolved(value)
+            handler.resolve(ret)
+
+        }
+
+        this.then = function(onResolved) {
+            return new Promise(function(resolve) {
+                handle({
+                    onResolved: onResolved,
+                    resolve: resolve
+                })
+            })
+        }
+
+        fn(resolve)
+    }
+
+    var p = new Promise(function(resolve) {
+        var value = 1
+        console.log(value)
+        resolve(value)
+    })
+    p.then(add).then(add).then(add).then(add).then(add)
+
+    function add(v) {
+        v += 1
+        console.log(v)
+        return v
+    }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
