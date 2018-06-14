@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>promise final</title>
+    <script>
+    function Promise(fn) {
+        var state = 'pending',
+            deferred = [],
+            value, ret
+
+        function resolve(newVal) {
+            if (state !== 'pending')
+                return
+            if (newVal && typeof newVal.then === 'function') {
+                newVal.then(resolve, reject)
+                return
+            }
+            value = newVal
+            state = 'resolved'
+            while (deferred.length)
+                handle(deferred.shift())
+        }
+
+        function reject(reason) {
+            if (state !== 'pending')
+                return
+            if (reason && typeof reason.then === 'function') {
+                reason.then(resolve, reject)
+                return
+            }
+            value = reason
+            state = 'rejected'
+            while (deferred.length)
+                handle(deferred.shift())
+        }
+
+        function handle(handler) {
+            if (state === 'pending') {
+                deferred.push(handler)
+                return
+            }
+            try {
+                if (state === 'resolved') {
+                    if (!handler.onFullfilled)
+                        handler.resolve(value)
+                    else {
+                        ret = handler.onFullfilled(value)
+                        handler.resolve(ret)
+                    }
+                } else {
+                    if (!handler.onRejected)
+                        handler.reject(value)
+                    else {
+                        ret = handler.onRejected(value)
+                        handler.reject(ret)
+                    }
+
+                }
+            } catch (e) {
+                handler.reject(e)
+            }
+        }
+
+        this.then = function(onFullfilled, onRejected) {
+            return new Promise(function(resolve, reject) {
+                handle({
+                    onFullfilled: onFullfilled,
+                    onRejected: onRejected,
+                    resolve: resolve,
+                    reject: reject
+                })
+            })
+        }
+
+        this['catch'] = function(onRejected) {
+            return this.then(undefined, onRejected)
+        }
+
+        fn(resolve, reject)
+    }
+    Promise.resolve = function(value) {
+        var p = new Promise(function(resolve, reject) {
+            resolve(value)
+        })
+        return p
+    }
+    Promise.reject = function(value) {
+        var p = new Promise(function(resolve, reject) {
+            reject(value)
+        })
+        return p
+    }
+    Promise.all = function(promiseArray) {
+        var i, pro, len = promiseArray.length,
+            result = []
+        var p = new Promise(function(resolve, reject) {
+            for (i = 0; i < len; i++) {
+                pro = promiseArray[i]
+                pro.then(function(v) {
+                    result.push(v)
+                }).then(function() {
+                    if (result.length === len)
+                        resolve(result)
+                }).catch(function(e) {
+                    result.push(e)
+                    reject(e)
+                })
+            }
+        })
+        return p
+    }
+    Promise.race = function(promiseArray) {
+        var i, pro, len = promiseArray.length,
+            result = []
+
+        var p = new Promise(function(resolve, reject) {
+            for (i = 0; i < len; i++) {
+                pro = promiseArray[i]
+                pro.then(function(v) {
+                    result.push(v)
+                    resolve(result)
+                })['catch'](function(e) {
+                    reject(e)
+                })
+            }
+        })
+        return p
+    }
+    var p1 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(1000)
+        }, 1000)
+    })
+    var p2 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(2000)
+        }, 2000)
+    })
+    var p3 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(3000)
+        }, 3000)
+    })
+    var p4 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(4000)
+        }, 4000)
+    })
+    var p5 = new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            resolve(5000)
+        }, 5000)
+    })
+    Promise.all([p1, p2, p3, p4, p5]).then(function(v) {
+        console.log(v)
+    }, function(e) {
+        console.log(e)
+        return e
+    })['catch'](function(e) {
+        console.log(e)
+    })
+
+    var p = Promise.race([p1,p2,p3,p4,p5])
+    Promise.race([p1, p2, p3, p4, p5]).then(function(v) {
+        console.log(v)
+    }, function(e) {
+        console.log(e)
+        return e
+    })['catch'](function(e) {
+        console.log(e)
+    })
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

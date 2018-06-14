@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise4</title>
+    <script>
+        function MyPromise(fn){
+            var value
+            var deferred
+            var state = 'pending'
+
+            function resolve(val){
+                value=val
+                state='resolved'
+                if(deferred)
+                    deferred(value)
+            }
+
+            this.then=function(cb){
+                if(state==='pending'){
+                    deferred=cb
+                    return
+                }
+                cb(value)
+            }
+
+            fn(resolve)
+        }
+
+        var p = new MyPromise(function(resolve){
+            var value = 100
+            resolve(value)
+        })
+
+        p.then(function(v){
+            console.log(v)
+            v *=2
+            return v
+        }).then(function(v){
+            console.log(v)
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>promise 2</title>
+    <script>
+    a().then(function() {
+        console.log('b')
+    })
+
+    function a() {
+        console.log('a')
+        return {
+            then: function(cb) {
+                cb()
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>promise 3</title>
+    <script>
+        function Promise(fn){
+            var value
+            var state = 'pending'
+            var deferred
+            function resolve(val){
+                value = val
+                state = 'resolved'
+
+                if(deferred)
+                    deferred(value)
+            }
+            this.then=function(cb){
+                if(state==='pending'){
+                    deferred=fn
+                    return
+                }
+                cb(value)
+            }
+            fn(resolve)
+        }
+
+        var p = new Promise(function(resolve){
+            console.log('promise created')
+            resolve(1)
+        })
+
+        p.then(function(v){
+            console.log(v)
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
