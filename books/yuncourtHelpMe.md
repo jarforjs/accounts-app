@@ -182,3 +182,11 @@ git config --global http.lowSpeedTime 999999         单位 秒
 1.输入命令：git fsck --lost-found，可以看到好多“dangling commit” 
 2.清空他们：git gc --prune=now，完成
 ```
+
+
+# 四种this的类型：
+- 默认绑定
+- 隐式绑定
+- 显示绑定
+- new绑定
+其中，默认绑定就是什么都匹配不到的情况下，非严格模式this绑定到全局对象window或者global,严格模式绑定到undefined;隐式绑定就是函数作为对象的属性，通过对象属性的方式调用，这个时候this绑定到对象;显示绑定就是通过apply和call调用的方式;new绑定就是通过new操作符时将this绑定到当前新创建的对象中，它们的匹配有限是是从小到大的。
