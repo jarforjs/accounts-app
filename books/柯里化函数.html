@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        var add = function () {
+            var _add = [];
+            return function () {
+                if (arguments.length === 0) {
+                    return _add.reduce(function (a, b) {
+                        return a + b
+                    })
+                }
+
+                [].push.apply(_add, [].slice.call(arguments));
+                return arguments.callee
+            }
+        }
+        var sum = add();
+        console.log(sum(1)(2)(3)(5)());
+        // console.log(sum());
+
+
+        // var sum = add();
+        // console.log(sum(100, 200, 300)());
+        //1
+        // (function () {
+        //     'use strict';
+
+        //     function plus(n) {
+        //         var sum = n;
+
+        //         var _plus = function (n) {
+        //             sum += n;
+        //             return _plus;
+        //         };
+
+        //         _plus.toString = function () {
+        //             return sum;
+        //         };
+
+        //         return _plus;
+        //     }
+
+        //     console.log(plus(0).toString() === 0);
+        //     console.log(plus(1)(1)(2)(3)(5).toString() === 12);
+        //     console.log(plus(1)(4)(2)(3).toString() === 10);
+        //     var plus2 = plus(1)(1);
+        //     console.log(plus2(1)(4)(2)(3).toString() === 12);
+        // })();
+
+        //2
+        // function plus(m){
+        //     var ret = m;
+        //     function t(n){
+        //         ret+=n;
+        //         return ret;
+        //     }
+        //     t.toString=function(){
+        //         return ret;
+        //     }
+        //     return t
+        // }
+
+
+        //3
+        // function plus(x) {
+        //     var _plus = function (y) {
+        //         return plus(x + y);
+        //     }
+        //     _plus.toString = function () {
+        //         return x;
+        //     };
+        //     return _plus;
+        // }
+        // console.log(plus(0).toString() === 0);
+        // console.log(plus(1)(2)(3)(3).toString() === 10);
+    </script>
+</body>
+
+</html>
