@@ -10,7 +10,7 @@ const WrappenComponent = compose(addFunc, addStyle)(Usual);
 class WrappedUsual extends Component {
 
   render() {
-    console.log(this.props, 'props');
+    console.log(this.props, 'props-wrap');
     return (<div>
       <WrappenComponent />
     </div>);

@@ -6,26 +6,30 @@ import { compose } from '../../utils';
 
 // 注意我这里写的顺序。
 //@simpleHoc
-@propsProxyHoc
-// @refHoc
+//@propsProxyHoc
+@refHoc
 export default class Usual extends Component {
-  
-  constructor() {
-    super();
-    this.state = {
-      usual: 'usual',
-    }
-  }
 
-  render() {
-    console.log(this.props, this.state, 'props');
-    let {handleClick}=this.props;
-    return (
-      <div onClick={handleClick}>
-        Usual
+    constructor() {
+        super();
+        this.state = {
+            usual: 'usual',
+        }
+    }
+
+    componentDidMount() {
+        console.log('didMount')
+    }
+
+    render() {
+        console.log(this.props, this.state, 'props');
+        let { handleClick } = this.props;
+        return (
+            <div onClick={handleClick}>
+                Usual
       </div>
-    )
-  }
+        )
+    }
 }
 
 // export default compose(simpleHoc, propsProxyHoc, refHoc)(Usual);
