@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Promise(fn) {
+            var state = 'pending';
+            var value;
+            var deferred = null;
+            function resolve(newValue) {
+                if (newValue && typeof newValue.then === 'function') {
+                    newValue.then(resolve, reject);
+                    return;
+                }
+                state = 'resolved';
+                value = newValue;
+                if (deferred) {
+                    handle(deferred);
+                }
+            }
+            function reject(reason) {
+                state = 'rejected';
+                value = reason;
+                if (deferred) {
+                    handle(deferred);
+                }
+            }
+            function handle(handler) {
+                if (state === 'pending') {
+                    deferred = handler;
+                    return;
+                }
+                var handlerCallback;
+                if (state === 'resolved') {
+                    handlerCallback = handler.onResolved;
+                } else {
+                    handlerCallback = handler.onRejected;
+                }
+                if (!handlerCallback) {
+                    if (state === 'resolved') {
+                        handler.resolve(value);
+                    } else {
+                        handler.reject(value);
+                    }
+                    return;
+                }
+                var ret = handlerCallback(value);
+                handler.resolve(ret);
+            }
+            this.then = function (onResolved, onRejected) {
+                return new Promise(function (resolve, reject) {
+                    handle({
+                        onResolved: onResolved,
+                        onRejected: onRejected,
+                        resolve: resolve,
+                        reject: reject
+                    });
+                });
+            };
+            fn(resolve, reject);
+        }
+        function doSomething() {
+            return new Promise(function (resolve, reject) {
+                var reason = "uh oh, something bad happened";
+                reject(reason);
+            });
+        }
+        doSomething().then(function (firstResult) {
+            // wont get in here
+            console.log("first result:", firstResult);
+        }, function (error) {
+            console.log("got an error:", error);
+        });
+    </script>
+</body>
+
+</html>
