@@ -17,6 +17,7 @@ class App extends React.Component {
                             <Link to='inheritance'>反向代理</Link>
                             <Link to='container'>container</Link>
                             <Link to='hoc-usual'>跟container对比</Link>
+                            <Link to='pass-state'>父子组件通信</Link>
                         </div>
                         <Routes />
                     </div>
