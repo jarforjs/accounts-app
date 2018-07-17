@@ -7,8 +7,7 @@ function ThemeButton(props) {
             {theme => (
                 <button
                     {...props}
-                    style={{ background: theme.background }}>
-                    </button>
+                    style={{ background: theme.background }} />
             )}
         </ThemeContext.Consumer>
     )

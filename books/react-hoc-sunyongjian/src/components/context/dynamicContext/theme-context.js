@@ -12,4 +12,7 @@ export const themes = {
 }
 
 //default value
-export const ThemeContext = React.createContext(themes.dark)
+export const ThemeContext = React.createContext({
+    theme: themes.dark,
+    toggleTheme: () => {}
+})
