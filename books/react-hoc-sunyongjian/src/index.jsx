@@ -8,7 +8,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <h2>welcome to react-quick-start</h2>
+                <h2>Welcome to Hangzhou!</h2>
                 <Router>
                     <div>
                         <div className="menu">
@@ -18,6 +18,7 @@ class App extends React.Component {
                             <Link to='container'>container</Link>
                             <Link to='hoc-usual'>跟container对比</Link>
                             <Link to='pass-state'>父子组件通信</Link>
+                            <Link to='react-context'>react中的context</Link>
                         </div>
                         <Routes />
                     </div>

@@ -6,10 +6,16 @@ import Login from './components/form/login';
 import FuncContainer from './components/container/container-add-func';
 import WrappedUsual from './components/container/hoc-usual';
 
+//几种组件间通讯方式
 import Parent2child from './components/pass-state/parent2child';
 import Child2parentStateInParent from './components/pass-state/child2parentStateInParent';
 import Child2parentStateInChild from './components/pass-state/child2parentStateInChild';
 import CommonContainer from './components/pass-state/commonContainer/container';
+import UseContext from './components/pass-state/useContext/context';
+
+//react context
+//1.dynamicContext
+import DynamicContext from './components/context/dynamicContext/app'
 
 const Routes = () => (
     <div>
@@ -22,7 +28,9 @@ const Routes = () => (
         {/* <Route path="/pass-state" component={Parent2child} /> */}
         {/* <Route path="/pass-state" component={Child2parentStateInParent} /> */}
         {/* <Route path="/pass-state" component={Child2parentStateInChild} /> */}
-        <Route path="/pass-state" component={CommonContainer} />
+        {/* <Route path="/pass-state" component={CommonContainer} /> */}
+        <Route path="/pass-state" component={UseContext} />
+        <Route path="/react-context" component={DynamicContext} />
     </div>
 );
 export default Routes;

@@ -5,6 +5,7 @@ export default class A extends Component {
 
     handleChange = (e) => {
         this.value = e.target.value;
+        console.log(this.value,'value')
     }
 
     handleClick = () => {
