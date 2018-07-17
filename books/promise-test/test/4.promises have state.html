@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Promise(fn) {
+            //直到，在等待……期间
+            var state = 'pending';
+            var value;
+            //推迟
+            var deferred;
+
+            function resolve(newValue) {
+                //42
+                value = newValue;
+                //已解决
+                state = 'resolved';
+
+                if (deferred) {
+                    handle(deferred);
+                }
+            }
+
+            function handle(onResolved) {
+                if (state === 'pending') {
+                    deferred = onResolved;
+                    return;
+                }
+
+                onResolved(value);
+            }
+
+            this.then = function (onResolved) {
+                handle(onResolved);
+            };
+
+            fn(resolve);
+        }
+
+        function doSomething() {
+            return new Promise(function (resolve) {
+                var value = 42;
+                resolve(value);
+            });
+        }
+
+        doSomething().then(function (value) {
+            console.log("got a value", value);
+        });
+        // doSomething().then(function (value) {
+        //     console.log("got a value,again", value);
+        // });
+    </script>
+</body>
+
+</html>
