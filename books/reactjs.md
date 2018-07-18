@@ -214,7 +214,7 @@ ThemeButton
 Requires a function as a child. The function receives the current context value and returns a React node. The value argument passed to the function will be equal to the value prop of the closest Provider for this context above in the tree. If there is no Provider for this context above, the value argument will be equal to the defaultValue that was passed to createContext().
 
 Note: passing undefined as a Provider value does not cause Consumers to use defaultValue.
-传递undefined座位提供者不会导致消费者使用defaultValue
+传递undefined作为提供者不会导致消费者使用defaultValue
 
 # Fragments
 A common pattern is for a component to return a list of children. Take this example React snippet:

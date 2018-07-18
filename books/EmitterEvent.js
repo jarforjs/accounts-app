@@ -5,6 +5,7 @@ class EmitterEvent {
     }
 
     on(eventName, handler) {
+        //严谨点应该判断handler的类型是不是function
         if (this._event[eventName]) {
             this._event[eventName].push(handler);
         } else {
