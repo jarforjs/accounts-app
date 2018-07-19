@@ -2,12 +2,13 @@ import React from 'react';
 import { ThemeContext } from "./theme-context";
 
 function ThemeButton(props) {
+    console.log(props)
     return (
         <ThemeContext.Consumer>
-            {theme => (
+            {({theme}) => (
                 <button
                     {...props}
-                    style={{ background: theme.background }} />
+                    style={{ background: theme.background,color:theme.color}}/>
             )}
         </ThemeContext.Consumer>
     )

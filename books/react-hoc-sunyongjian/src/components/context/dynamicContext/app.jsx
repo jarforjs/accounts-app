@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ThemeContext, themes } from "./theme-context";
-// import ThemedButton from './themed-button';
+import ThemedButton from './themed-button';
 import ThemeTogglerButton from './theme-toggler-button'
 
 function Toolbar(props) {
@@ -17,12 +17,12 @@ export default class App extends Component {
 
         this.toggleTheme = () => {
             this.setState(state => ({
-                theme: state.theme === themes.dark ? themes.light : themes.dark
+                theme: state.theme === themes.green ? themes.red : themes.green
             }))
         }
 
         this.state = {
-            theme: themes.light,
+            theme: themes.red,
             toggleTheme: this.toggleTheme
         }
     }
@@ -31,12 +31,12 @@ export default class App extends Component {
         return (
             <div>
                 <ThemeContext.Provider value={this.state}>
-                    {/* <Toolbar changeTheme={this.toggleTheme} /> */}
+                    <Toolbar changeTheme={this.toggleTheme} />
                     <Content />
                 </ThemeContext.Provider>
-                {/* <div>
+                <ThemeContext.Provider value={this.state}>
                     <ThemedButton>普通按钮</ThemedButton>
-                </div> */}
+                </ThemeContext.Provider>
             </div>
         )
     }

@@ -1,13 +1,15 @@
-import A form './a';
-import B form './b';
+import React, { Component } from 'react';
+import A from './a';
+import B from './b';
 
-const Listener=()=>{
-    return(
+const Listener = () => {
+    return (
         <div>
-            <A/>
-            <B/>
+            <A />
+            <B />
         </div>
     )
 }
-export default Listener;
+
+export default Listener
 //https://github.com/sunyongjian/blog/issues/27

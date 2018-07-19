@@ -19,6 +19,7 @@ class App extends React.Component {
                             <Link to='hoc-usual'>跟container对比</Link>
                             <Link to='pass-state'>父子组件通信</Link>
                             <Link to='react-context'>react中的context</Link>
+                            <Link to='event-emitter'>观察者模式</Link>
                         </div>
                         <Routes />
                     </div>

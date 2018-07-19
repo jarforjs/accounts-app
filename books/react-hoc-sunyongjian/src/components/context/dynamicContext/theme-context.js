@@ -1,18 +1,18 @@
 import React from 'react';
 
 export const themes = {
-    light: {
+    red: {
         color: '#000000',
-        background: '#eeeeee'
+        background: 'red'
     },
-    dark: {
+    green: {
         color: '#ffffff',
-        background: '#222222'
+        background: 'green'
     }
 }
 
 //default value
 export const ThemeContext = React.createContext({
-    theme: themes.dark,
+    theme: themes.green,
     toggleTheme: () => {}
 })

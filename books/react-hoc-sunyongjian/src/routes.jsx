@@ -16,7 +16,10 @@ import UseContext from './components/pass-state/useContext/context';
 //react context
 //1.dynamicContext
 import DynamicContext from './components/context/dynamicContext/app'
+import MultipleContext from './components/context/dynamicContext/multipleContext'
+import EventEmitter from './components/pass-state/eventEmitter/conainer'
 
+console.log(EventEmitter,'e')
 const Routes = () => (
     <div>
         <Route exact path="/" render={() => <div>Welcome to</div>} />
@@ -30,7 +33,9 @@ const Routes = () => (
         {/* <Route path="/pass-state" component={Child2parentStateInChild} /> */}
         {/* <Route path="/pass-state" component={CommonContainer} /> */}
         <Route path="/pass-state" component={UseContext} />
-        <Route path="/react-context" component={DynamicContext} />
+        {/* <Route path="/react-context" component={DynamicContext} /> */}
+        <Route path="/react-context" component={MultipleContext} />
+        <Route path="/event-emitter" component={EventEmitter} />
     </div>
 );
 export default Routes;
