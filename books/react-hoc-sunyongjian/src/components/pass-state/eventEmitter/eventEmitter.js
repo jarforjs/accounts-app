@@ -4,26 +4,26 @@ class EventEmitter {
 
     //on函数用于绑定
     on(eventName, handler) {
-        let listeners = this._event[eventName];
-        if (!listeners || !listeners.length) {
+        let events = this._event[eventName];
+        if (!events || !events.length) {
             this._event[eventName] = [handler];
             return;
         }
-        listeners.push(handler)
+        events.push(handler)
     }
 
     //off用于移除
     off(eventName, handler) {
-        let listeners = this._event[eventName];
-        this._event[eventName] = listeners.filter(l => l != handler);
+        let events = this._event[eventName];
+        this._event[eventName] = events.filter(events => events !== handler);
     }
 
     //emit用于分发消息
     emit(eventName, ...args) {
-        const listeners = this._event[eventName];
-        if (listeners && listeners.length) {
-            for (const l of listeners) {
-                l(...args)
+        const events = this._event[eventName];
+        if (events && events.length) {
+            for (const event of events) {
+                event(...args)
             }
         }
     }

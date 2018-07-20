@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+//属性代理
 const propsProxyHoc = WrappedComponent => class extends Component {
  
   handleClick() {
