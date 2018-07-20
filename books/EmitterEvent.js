@@ -25,18 +25,6 @@ class EmitterEvent {
         }
     }
 
-    emit(eventName) {
-        // 根据eventName找到对应数组
-        var events = this._event[eventName];
-        // 取一下传进来的参数，方便给执行的函数
-        var otherArgs = Array.prototype.slice.call(arguments, 1);
-        var that = this;
-        if (events && events.length) {
-            //这里的this是window
-            events.forEach(event => event.apply(that, otherArgs))
-        }
-    }
-
     // 订阅以后，emit 发布执行一次后自动解除订阅
     once(eventName, handler) {
         var that = this;
@@ -49,4 +37,29 @@ class EmitterEvent {
         this.on(eventName, func);
         //item.apply(this,args)
     }
+
+    emit(eventName) {
+        // 根据eventName找到对应数组
+        var events = this._event[eventName];
+        // 取一下传进来的参数，方便给执行的函数
+        var otherArgs = Array.prototype.slice.call(arguments, 1);
+        var that = this;
+        if (events && events.length) {
+            //这里的this是window
+            events.forEach(event => event.apply(that, otherArgs))
+        }
+    }
+
+    //emit用于分发消息
+    // emit(eventName, ...args) {
+    //     const events = this._event[eventName];
+    //     if (events && events.length) {
+    //         for (const event of events) {
+    //             event(...args)
+    //         }
+    //     }
+    // }
 }
+
+const event = new EventEmitter;
+export { event };

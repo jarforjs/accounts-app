@@ -159,11 +159,12 @@ git config --global http.lowSpeedTime 999999         单位 秒
 
 #修改vm不生效替换以下文件内容12行
 - F:\alibaba-web\20180604_2341271_hzems_1\bundle\src\main\webapp\META-INF\autoconf\resources.xml.vm
-##<resource-alias pattern="/templates" name="/webroot/templates" />
+```
+<resource-alias pattern="/templates" name="/webroot/templates" />
 <resource pattern="/templates">
 	<res-loaders:file-loader basedir="${app.template.root}"/>
 </resource>
-```
+改成
 #if($curDevMode == "server")
 	<resource-alias pattern="/templates" name="/webroot/templates" />
 #end
