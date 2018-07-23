@@ -51,6 +51,7 @@ class EmitterEvent {
     }
 
     //emit用于分发消息
+    //这地方用的是（rest）剩余参数
     // emit(eventName, ...args) {
     //     const events = this._event[eventName];
     //     if (events && events.length) {

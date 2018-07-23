@@ -1,3 +1,5 @@
+import { event } from "./EmitterEvent";
+
 // class EventEmitter {
 //     constructor() {
 //         this._event = {}
@@ -98,6 +100,56 @@
 //     }
 // }
 
+// class EventEmitter {
+//     constructor() {
+//         this._events = {}
+//     }
+
+//     on(eventName, handler) {
+//         let events = this._events[eventName];
+//         if (events) {
+//             events.push(handler)
+//         } else {
+//             this._events[eventName] = [handler]
+//         }
+//     }
+
+//     off(eventName, handler) {
+//         let events = this._events[eventName];
+//         if (events) {
+//             this._events[eventName] = events.filter(event => event !== handler)
+//         }
+//     }
+
+//     once(eventName, handler) {
+//         const that = this;
+//         function func() {
+//             const args = Array.prototype.slice.call(arguments, 0);
+//             handler.apply(that, args);
+//             this.off(eventName, func)
+//         }
+//         this.on(eventName, func)
+//     }
+
+//     emit(eventName) {
+//         let events = this._events[eventName];
+//         let otherArgs = Array.prototype.slice.call(arguments, 1);
+//         const that = this;
+//         if (events && events.length) {
+//             events.forEach(event => event.apply(that, otherArgs))
+//         }
+//     }
+
+//     emit(eventName, ...args) {
+//         let events = this._events[eventName];
+//         if (events && events.length) {
+//             for (const event of events) {
+//                 event(...args)
+//             }
+//         }
+//     }
+// }
+
 class EventEmitter {
     constructor() {
         this._events = {}
@@ -124,22 +176,22 @@ class EventEmitter {
         function func() {
             const args = Array.prototype.slice.call(arguments, 0);
             handler.apply(that, args);
-            this.off(eventName, func)
+            this.off(eventName, func);
         }
         this.on(eventName, func)
     }
 
     emit(eventName) {
-        let events = this._events[eventName];
-        let otherArgs = Array.prototype.slice.call(arguments, 1);
+        const events = this._events[eventName];
+        const args = Array.prototype.slice.call(arguments, 1);
         const that = this;
         if (events && events.length) {
-            events.forEach(event => event.apply(that, otherArgs))
+            events.forEach(event => event.apply(that, args))
         }
     }
 
     emit(eventName, ...args) {
-        let events = this._events[eventName];
+        const events = this._events[eventName];
         if (events && events.length) {
             for (const event of events) {
                 event(...args)
