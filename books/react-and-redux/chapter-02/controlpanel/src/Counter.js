@@ -30,6 +30,7 @@ class Counter extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log('enter componentWillReceiveProps ' + this.props.caption)
+    // console.log(nextProps,this.props)
   }
 
   componentWillMount() {

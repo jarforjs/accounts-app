@@ -2,12 +2,18 @@ import React, { Component, PropTypes } from 'react';
 
 import store from '../Store.js';
 
-class Summary extends Component {
-  render() {
-    return (
-      <div>Total Count: {this.props.sum}</div>
-    );
-  }
+// class Summary extends Component {
+//   render() {
+//     return (
+//       <div>Total Count: {this.props.sum}</div>
+//     );
+//   }
+// }
+
+function Summary({sum}){
+  return(
+    <div>Total Count:{sum}</div>
+  )
 }
 
 Summary.propTypes = {
