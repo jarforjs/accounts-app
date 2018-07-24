@@ -5,7 +5,7 @@ const style = {
   margin: '20px'
 };
 
-class ControlPanel extends Component {
+class ControlPanel extends Component {  
   render() {
     console.log('enter ControlPanel render');
     return (
@@ -22,4 +22,3 @@ class ControlPanel extends Component {
 }
 
 export default ControlPanel;
-
