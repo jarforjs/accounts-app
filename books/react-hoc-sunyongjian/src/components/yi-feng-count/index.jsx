@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import Counter from './components/Counter'
 import counter from './reducers'
 
-const store = createStore(counter)
+const store = createStore(counter,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 const render = () => (
     <Counter
@@ -13,7 +13,7 @@ const render = () => (
     />
 )
 
-export default render();
+export default render;
 store.subscribe(render)
 
 // import ReactDOM from 'react-dom'

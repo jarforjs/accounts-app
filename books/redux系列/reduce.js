@@ -9,7 +9,6 @@ const reverse = str => str.split('').reverse().join('');
 // console.log(upperCase(reverse(str)));
 
 // 2. reduce
-
 // first simple
 const result0 = [reverse, upperCase].reduce((res, cur) => {
   return cur(res);
@@ -28,7 +27,14 @@ const result2 = [str, reverse, upperCase].reduce(reducer);
 const reverseUpper = args => [args, reverse, upperCase].reduce(reducer);
 const result3 = reverseUpper(str);
 
-
 // 6. 提取一个公共的方法，去处理函数组合， 以及参数的传入
 const compose = (...funcs) => args => funcs.reduce(reducer, args);
 const result4 = compose(reverse, upperCase)(str);
+
+
+// const str = 'hello world';
+// const upperCase = str => str.toUpperCase();
+// const reverse = str => str.split('').reverse().join('');
+// const reducer = (state, action) => action(state);
+// const compose = (...funcs) => args => funcs.reduce(reducer, args);
+// const result4 = compose(reverse, upperCase)(str);
