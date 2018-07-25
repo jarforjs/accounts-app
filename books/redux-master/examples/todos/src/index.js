@@ -7,6 +7,10 @@ import rootReducer from './reducers'
 
 const store = createStore(rootReducer)
 
+function abc(...args){
+  console.log(args)
+}
+abc(store.dispatch)
 render(
   <Provider store={store}>
     <App />
