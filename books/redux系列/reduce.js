@@ -38,3 +38,15 @@ const result4 = compose(reverse, upperCase)(str);
 // const reducer = (state, action) => action(state);
 // const compose = (...funcs) => args => funcs.reduce(reducer, args);
 // const result4 = compose(reverse, upperCase)(str);
+
+// const reducer = (state, action) => action(state);
+var sun = function reducer1(state, action) {
+  return action(state);
+};
+
+//const source = (a, b) => (...args) => a(b(...args))
+var source = function reducer(a, b) {
+  return function () {
+    return a(b.apply(undefined, arguments));
+  };
+};

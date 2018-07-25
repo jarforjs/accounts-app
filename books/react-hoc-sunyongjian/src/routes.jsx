@@ -18,7 +18,6 @@ import UseContext from './components/pass-state/useContext/context';
 import DynamicContext from './components/context/dynamicContext/app'
 import MultipleContext from './components/context/dynamicContext/multipleContext'
 import EventEmitter from './components/pass-state/eventEmitter/conainer'
-import YiFengCount from './components/yi-feng-count/index'
 
 console.log(EventEmitter,'e')
 const Routes = () => (
@@ -37,7 +36,6 @@ const Routes = () => (
         {/* <Route path="/react-context" component={DynamicContext} /> */}
         <Route path="/react-context" component={MultipleContext} />
         <Route path="/event-emitter" component={EventEmitter} />
-        <Route path="/yi-feng-count" component={YiFengCount} />
     </div>
 );
 export default Routes;
