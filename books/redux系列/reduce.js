@@ -31,6 +31,50 @@ const result3 = reverseUpper(str);
 const compose = (...funcs) => args => funcs.reduce(reducer, args);
 const result4 = compose(reverse, upperCase)(str);
 
+//莞式的一种实现
+function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg => arg
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0]
+  }
+
+  const last = funcs[funcs.length - 1]
+  const rest = funcs.slice(0, -1)
+  return (...args) => rest.reduceRight((composed, f) => f(composed), last(...args))
+}
+
+//redux source
+function compose(...funcs) {
+  if (funcs.length === 0) {
+    return arg => arg
+  }
+
+  if (funcs.length === 1) {
+    return funcs[0]
+  }
+
+  return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+
+function func1(num) {
+  console.log('func1 获得参数 ' + num);
+  return num + 1;
+}
+
+function func2(num) {
+  console.log('func2 获得参数 ' + num);
+  return num + 2;
+}
+  
+function func3(num) {
+  console.log('func3 获得参数 ' + num);
+  return num + 3;
+}
+var re2 = compose(func3, func2, func1)(0);
+
 
 // const str = 'hello world';
 // const upperCase = str => str.toUpperCase();
@@ -40,12 +84,12 @@ const result4 = compose(reverse, upperCase)(str);
 // const result4 = compose(reverse, upperCase)(str);
 
 // const reducer = (state, action) => action(state);
-var sun = function reducer1(state, action) {
+var sunYongJian = function reducer1(state, action) {
   return action(state);
 };
 
 //const source = (a, b) => (...args) => a(b(...args))
-var source = function reducer(a, b) {
+var reduxSource = function reducer(a, b) {
   return function () {
     return a(b.apply(undefined, arguments));
   };
