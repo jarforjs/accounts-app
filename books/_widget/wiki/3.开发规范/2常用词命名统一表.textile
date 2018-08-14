@@ -1,0 +1,28 @@
+规则：
+
+1. *可读性强，见名知义。*
+1. 尽量不与 jQuery 社区已有的习惯冲突。
+1. 尽量写全。不用缩写，除非是下面列表中约定的。
+
+大家一起来，逐步完善。
+
+
+| 常用词 | 说明 |
+| options | 表示配置，与 jQuery 社区保持一致，不要用 config, opts 等 |
+| active | 表示当前，不要用 current 等 |
+| index | 表示索引，不要用 idx 等 |
+| trigger | 触点元素 |
+| triggerType | 触发类型、方式 |
+| context | 表示传入的 this 对象 |
+| object | 推荐写全，不推荐简写为 o, obj 等 |
+| element | 推荐写全，不推荐简写为 el, elem 等 |
+| length | 不要写成 len, l |
+| prev | previous 的缩写 |
+| constructor | 不能写成 ctor |
+| easing | 表示动画平滑函数 |
+| min | minimize 的缩写 |
+| max | maximize 的缩写 |
+| DOM | 不要写成 dom, Dom |
+| .tpl | 使用 tpl 后缀表示模版 |
+| btn | button 的缩写 |
+

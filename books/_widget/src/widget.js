@@ -272,6 +272,7 @@ var Widget = Base.extend({
 
     for (var attr in attrs) {
       if (!attrs.hasOwnProperty(attr)) continue
+      //ON_RENDER = '_onRender';
       var m = ON_RENDER + ucfirst(attr)
 
       if (this[m]) {
