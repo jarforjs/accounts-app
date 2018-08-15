@@ -8,18 +8,26 @@ seajs.use(['arale/widget/1.1.1/widget','jquery/jquery/1.7.2/jquery'], function(W
     var MyWidget = Widget.extend({
         attrs: {
             class: null,
-            count: 0
+            count: 0,
+            number:0,
+            countt:0
         },
         events: {
             'click': 'click'
         },
     
         click: function() {
-            this.set('class', 'class-three');
-            console.log(this.get("count"), my.get("class"));
+            var number = this.get('number')
+            this.set('class', 'class-three'+number);
+            this.set('number', ++number);
+            console.log(this.get("count"), this.get("class"));
+            console.log(this.get("number"),'number');
         },
         _onChangeClass: function(val) {
             this.set('count', this.get('count') + 1);
+        },
+        _onChangeNumber: function(val) {
+            this.set('countt', this.get('countt') + 1);
         },
         _onRenderClass: function(val) {
             this.element.addClass(val);

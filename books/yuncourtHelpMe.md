@@ -195,3 +195,11 @@ git config --global http.lowSpeedTime 999999         单位 秒
 # viva内存溢出
 node_modules/.bin/webpack.cmd
 --max_old_space_size=8192
+
+# js优化技巧
+- if弹框确认框后续语句提前return，避免后续执行
+- JSON.parse异常处理
+- 三目运算改成与运算
+- 简单循环使用for语法片段，而不是优先用forEach（堆栈内存）
+- 参数传递，需减少潜在的闭包调用，可先进行缓存，或类似状态管理方式
+- 对下标的方法引用需要先判断是否存在
