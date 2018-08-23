@@ -203,3 +203,34 @@ node_modules/.bin/webpack.cmd
 - 简单循环使用for语法片段，而不是优先用forEach（堆栈内存）
 - 参数传递，需减少潜在的闭包调用，可先进行缓存，或类似状态管理方式
 - 对下标的方法引用需要先判断是否存在
+
+# Medium Start
+104.16.120.127  medium.com
+104.16.120.145  api.medium.com
+104.16.120.145  cdn-static-1.medium.com
+104.16.120.145  cdn-images-1.medium.com
+104.16.120.145  cdn-images-2.medium.com
+# Medium End
+```
+刷新DNS解析缓存
+ipconfig /flushdns
+```
+
+# 新建分支必须要从master上面切
+
+# react声明周期：
+								start
+								getDefaultProps
+								getInitialState
+								componentWillMount
+								render
+								componentDidMount
+
+								running
+
+	props changed				state changed					unmount
+componentWillReceiveProps 	shouldComponentUpdate false		componentWillMount
+								true							end
+								componentWillUpdate
+								render
+								ComponentDidUpdate
