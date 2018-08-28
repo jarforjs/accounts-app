@@ -234,3 +234,124 @@ componentWillReceiveProps 	shouldComponentUpdate false		componentWillMount
 								componentWillUpdate
 								render
 								ComponentDidUpdate
+
+# for究极循环优化
+```
+console.time('three');
+for (let i = 0, item; item = arr[i++];) {
+    // item
+}
+console.timeEnd('three');
+```
+
+# 箭头函数带来方便的同事，以下这些地方不能使用箭头函数
+- 在对象上定义函数
+- 定义原型方法
+- 定义事件回调函数
+- 定义构造函数
+
+# JavaScript 函数表达式
+在使用函数表达式的时候可能会碰到*函数提升*的过程
+```
+console.log(add(1,2));   //"3"
+console.log(sub(5,3));   //"unexpected identifier"，报错
+function add(a1,a2){
+    return a1+a2;
+}
+var sub = function(a1,a2){
+    return a1-a2;
+}
+```
+
+```
+var sub = function f(a1,a2){
+    console.log(typeof f);  //"function"
+    return a1-a2;
+}
+console.log(typeof f);   //"Uncaught ReferenceError: f is not defined(…)"
+```
+通过上面的例子可以看到，函数名称f只能在函数对象内部使用，函数表达式的函数名称并不存在于变量对象中。
+
+# 使用场景
+- *函数递归*
+```
+function factorial(num){
+    if(num <= 1){
+         return 1; 
+    }else{
+         return num * factorial(num - 1);
+    }
+}
+```
+这是一个经典的阶乘函数，但是这个例子存在的一个问题是函数名称factorial与函数体紧密耦合在一起，执行下面的语句就会报错：
+```
+var anotherFactorial = factorial;
+factorial = null;
+console.log(anotherFactorial(5));   //"Uncaught TypeError: factorial is not a function"
+```
+报错的原因在于在函数体*内部会调用factorial函数，而变量factorial对函数的引用已经被解除*所以报错。这种情况的解决方法一般可以使用arguments.callee来解决，arguments.callee始终指向当前的函数，例如：
+```
+function factorial(num){
+    if(num <= 1){
+         return 1; 
+    }else{
+         return num * arguments.callee(num - 1);
+    }
+}
+```
+这样在此执行anotherFactorial函数就可以得到正确结果了。但是在严格模式"strict"下，arguments.callee是不能通过脚本访问的，这是就可以使用函数表达式来解决这个问题了，例如：
+```
+var factorial = (function f(num){
+    if(num <= 1){
+         return 1; 
+    }else{
+         return num * f(num - 1);
+    }
+});
+console.log(factorial(5));   //"120"
+```
+- *代码模块化*
+JavaScript中没有块级作用域，但我们可以使用函数表达式模块化JavaScript代码。模块化代码中可以封装不必让使用者知道的细节，只暴露给使用者相关接口，同时可以避免对全局环境的污染，例如：
+```
+var person = (function(){
+    var _name = "";
+    return{
+        getName:function(){
+             return _name;
+        },
+        setName:function(newname){
+             _name = newname;
+        }
+    };
+}());
+person.setName("John");
+person.getName();   //"John"
+```
+这个例子中创建了一个匿名函数表达式，这个函数表达式中包含了模块自身的私有变量和函数；这个函数表达式的执行结果返回一个对象，对象中包含了模块暴露给使用者的公共接口。代码模块化的具体形式还有很多，例如在一些常用的JavaScript库中通常都会使用类似下面例子的立即执行函数：
+```
+(function(){
+    var _name = "";
+    var root = this;
+    var person = {
+        getName: function(){
+            return _name;
+        },
+        setName: function(newname){
+            _name = newname;
+        }
+    };
+    root.person = person;
+}.call(this));
+person.setName("John");
+person.getName();   //"John"
+```
+这种方式直接将包含模块公共接口的对象作为全局对象的一个属性，这样在其它地方直接可以使用全局对象的这个属性来使用这个模块了。
+
+# CORS
+```
+//必须的，表示接受任意域名的请求
+res.header("Access-Control-Allow-Origin", "*");
+//必须的，允许请求跨域的http方法
+res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+res.header("Content-Type", "application/json;charset=utf-8");
+```
