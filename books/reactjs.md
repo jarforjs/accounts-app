@@ -77,7 +77,6 @@ In React apps, whether a component is stateful or stateless is considered an imp
   this.handleClick = this.handleClick.bind(this);
 ```
 
-
 # Passing Arguments to Event Handlers
 Inside a loop it is common to want to pass an extra parameter to an event handler. For example, if id is the row ID, either of the following would work:
 ```
@@ -195,6 +194,32 @@ var this.myRef = React.createRef()
 this.myRef.current
 ```
 
+# 转发refs
+```
+const FancyButton = React.forwardRef((props, ref) => (
+  <button ref={ref} className="FancyButton">
+    {props.children}
+  </button>
+));
+
+// You can now get a ref directly to the DOM button:
+const ref = React.createRef();
+<FancyButton ref={ref}>Click me!</FancyButton>;
+```
+通过这种方式，使用 FancyButton 的组件可以获得底层 button DOM 节点的引用并在必要时访问它 - 就像他们直接使用 DOM button 一样。
+
+以下是对上述示例中发生情况逐步的说明：
+
+- 我们通过调用 React.createRef 创建一个 React ref 并将其分配给 ref 变量。
+- 通过将 ref 变量传递给指定ref为 JSX 属性的 <FancyButton ref={ref}>。
+- React将ref传递给 forwardRef 中的 (props, ref) => ... 函数作为第二个参数。
+- 我们将这个ref参数转发到指定ref为 JSX 属性的 <button ref = {ref}> 。
+- 当附加 ref 时，ref.current 将指向 <button> DOM节点。
+
+*注意*
+第二个 ref 参数仅在使用 React.forwardRef 调用定义组件时才存在。常规函数或类组件不接收 ref 参数，而且 props 也不提供 ref 。
+Ref 转发不限于 DOM 组件。您也可以将 refs 转发给类组件实例。
+
 # context:Using context, we can avoid passing props through intermediate elements:
 ```
 const ThemeContext = React.createContext('light');
@@ -215,6 +240,16 @@ Requires a function as a child. The function receives the current context value 
 
 Note: passing undefined as a Provider value does not cause Consumers to use defaultValue.
 传递undefined作为提供者不会导致消费者使用defaultValue
+
+# 对于provider是对象时，每次重新渲染都会重新渲染所有consumer，为了防止这种结果，我们应该将value提升到父节点state里
+```
+<Provider value={{something: 'something'}}>
+```
+===》
+this.state={
+  value={something: 'something'}
+}
+<Provider value={this.state.value}>
 
 # Fragments
 A common pattern is for a component to return a list of children. Take this example React snippet:

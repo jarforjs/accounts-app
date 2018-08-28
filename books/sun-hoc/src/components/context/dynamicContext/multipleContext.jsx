@@ -11,8 +11,6 @@ const UserContext = React.createContext({
 export default class App extends Component {
     render() {
         console.log(this,'this');
-        console.log(this.props,'props');
-        const { signedInUser, theme } = this.props;
 
         // App component that provides initial context values
         return (
@@ -32,7 +30,7 @@ function Content() {
             {theme => (
                 <UserContext.Consumer>
                     {user => (
-                        <div user={user} theme={theme}>{theme}-{user.name}</div>
+                        <div user={user.name} theme={theme}>{theme}-{user.name}</div>
                     )}
                 </UserContext.Consumer>
             )}
