@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1" class="div1">
+    <div id="1">第一个div</div>
+    <div id="2"></div>
+    <span id="3"></span><div id="div2"></div>
+    <div id="5"></div>
+    <div id="6">二弟</div>
+    <span id="7"></span>
+    <span id="8"></span>
+</div>
+
+<script>
+    function allBrothers(ele) {
+        var array = [], p = ele.previousSibling, n = ele.nextSibling;
+        while (p){
+                if(p&&p.nodeType == 1) {
+                array.unshift(p);
+            }
+            p = p.previousSibling;
+        }
+
+        while (n){
+                if(n&&n.nodeType == 1) {
+                array.push(n);
+            }
+            n = n.nextSibling;
+        }
+        return array;
+    }
+    var oDiv2 = document.querySelector("#div2");
+    console.log(allBrothers(oDiv2));
+</script>
+</body>
+</html>

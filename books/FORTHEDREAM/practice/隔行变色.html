@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bg1{
+            background: yellow;
+        }
+        .bg2{
+            background: navajowhite;
+        }
+        .bg3{
+            background: violet;
+        }
+        .bg4{
+            background: lightcyan;
+        }
+    </style>
+</head>
+<body>
+<ul id="oUl">
+    <li>1111111111111111111111111111</li>
+    <li>2222222222222222222222222222</li>
+    <li>3333333333333333333333333333</li>
+    <li>44444444444444444444444444444</li>
+    <li>5555555555555555555555555555</li>
+</ul>
+
+<!--
+<script>
+    oUl=document.getElementById('oUl');
+    oLis=oUl.getElementsByTagName('li');
+    for(var i=0;i<oLis.length;i++){
+            switch (i%3){
+                case 0:
+                    oLis[i].className="bg1";
+                    break;
+                case 1:
+                    oLis[i].className="bg2";
+                    break;
+                default:
+                    oLis[i].className="bg3"
+            }
+        oLis[i].selfClassName=oLis[i].className;
+        oLis[i].onmousemove=function(){
+            this.className="bg4";
+        }
+        oLis[i].onmouseout=function(){
+            this.className=this.selfClassName;
+        }
+    }
+</script>
+-->
+
+<script>
+    var oUl=document.getElementById('oUl');
+    var oLis=oUl.getElementsByTagName('li');
+    for(var i =0;i<oLis.length;i++){
+        var oli=oLis[i];
+        if(i%2){
+            oli.className='bg1';
+            oli.zhufeng='bg1';
+        }else{
+            oli.className='bg2';
+            oli.zhufeng='bg2'
+        }
+        oli.onmouseover=function(){
+            this.className='bg3';
+        }
+        oli.onmouseout=function(){
+            this.className=this.zhufeng;
+        }
+    }
+</script>
+
+
+</body>
+</html>

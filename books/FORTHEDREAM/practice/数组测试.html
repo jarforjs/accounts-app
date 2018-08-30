@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="wrap">abcd</div>
+<script>
+    /*
+     var ary = [12, 23, 44, 66, 33, 234, 993, 2342, 3333];
+     */
+    //    for(var i= 0;i<ary.length;i++){
+    //        console.log(ary[i]);
+    //    }
+
+    //    for(var key in ary){
+    //            console.log(key, ary[key]);
+    //    }
+    //    var res=ary.pop();
+    //    console.log(res,ary);
+    //    ary.length--;
+    //    var newAry = ary.slice(17, 24);
+    //    console.log(newAry);
+    //
+    //    var al = function () {
+    //        console.log(1000);
+    //    }
+    //    console.log(ary.reverse());
+
+
+    /*
+     var obj={
+     name:"zhufeng",
+     age:6
+     };
+     obj.name="lama";
+     obj["age"]=6;
+     console.log(obj);
+     var age1="height";
+     obj[age1]="178cm";
+     console.log(obj);
+     console.dir(Array.prototype)
+     */
+
+    /*    var obj={
+     name:"zhufeng",
+     age:28,
+     height:'178cm'
+     };
+     var ary=[];
+     for(var o in obj){
+     ary.push(o);
+     }
+     alert(ary.join('\n'));*/
+    var oDiv = document.getElementById('wrap');
+
+    function getCode() {
+        var strRange = "abcdefghijklmnopqrstuvwxyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var str = "";
+        for (var i = 0; i < 4; i++) {
+            var ran = Math.round(Math.random()*(61 - 0) + 0);
+            str+= strRange.charAt(ran);
+        }
+        oDiv.innerHTML = str;
+    }
+    getCode();
+    oDiv.onclick = function () {
+        getCode();
+    }
+
+</script>
+</body>
+</html>

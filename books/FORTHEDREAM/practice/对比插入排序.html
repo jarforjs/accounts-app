@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function insertSort(array) {
+        var len = array.length, i, j, tmp, result;
+        result = array.slice();// 设置数组副本
+        for (i = 1; i < len; i++) {
+            debugger;
+            tmp = result[i];
+            j = i - 1;
+            while (j >= 0 && tmp < result[j]) {
+                result[j + 1] = result[j];
+                j--;
+            }
+            result[j + 1] = tmp;
+        }
+        return result;
+    }
+    var array=[3,2,5,7,23,444,31,1];
+    var result=insertSort(array);
+    console.log(result);
+</script>
+</body>
+</html>

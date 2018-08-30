@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+        #codeDiv {
+            margin: 100px auto;
+            width: 400px;
+            height: 400px;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body id="abc">
+<div id="codeDiv">GDEF</div>
+<script>
+    /*var codeDiv = document.getElementById('codeDiv');
+     var area = "abcdefghijklmnopqrstuvwxyz" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789";
+     function getCode() {
+     var str = "";
+     while (str.length < 4) {
+     var ran = Math.round(Math.random() * 61);
+     var temp = area[ran];
+     if (str.indexOf(temp) > -1) {
+     continue;
+     }
+     str += temp;
+     }
+     codeDiv.innerHTML = str;
+     }
+     getCode();
+     codeDiv.onclick = getCode;*/
+
+
+    var codeDiv = document.getElementById('codeDiv');
+    var area = "abcdefghijklmnopqrstuvwxyz" + "0123456789" + "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    function getCode() {
+        var str = "";
+        while (str.length < 4) {
+            var ran = Math.round(Math.random() * 61);
+            var temp = area[ran];
+            if (str.toUpperCase().indexOf(temp) < 0 && str.toLowerCase().indexOf(temp) < 0) {
+                str += temp;
+                console.log(str);
+            }
+        }
+        codeDiv.innerHTML = str;
+    }
+    getCode();
+    abc.onkeydown = getCode;
+</script>
+</body>
+</html>

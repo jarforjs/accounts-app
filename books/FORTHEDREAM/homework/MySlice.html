@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    Array.prototype.MySlice = function (n, m) {
+        var str = [];
+        /*if(!/^\\d+$/(n||m){
+         //alert("您输入的非正整数，请重新输入！")
+         }*/
+        /*if(typeof n&&typeof m==='undefined'){
+         return this;
+         }*/
+
+        if (typeof n === 'undefined' || n < 0 || isNaN(n)) {
+            n = 0;
+        }
+        if (typeof m === 'undefined' || m > this.length) {
+            m = this.length;
+        }
+        if (n > m) {
+            var temp = null;
+            temp = n;
+            n = m;
+            m = temp;
+        }
+        for (var i = n; i < m; i++) {
+            str[str.length] = this[i];
+        }
+        return str;
+    };
+    var ary = [12, 12, 3, 4, 5, 6, 7, 8, 3];
+    console.log(ary.MySlice(-1));
+</script>
+</body>
+</html>

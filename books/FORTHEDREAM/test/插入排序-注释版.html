@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    /*插入排序思想：依次把数组中的每一项都拿出来，当函数运行开始我就拿出一个放到新的数组里，当从数组中取第二个的时候跟新的数组里已经有的项目分别去比较，如果小于新数组的当前项，就放在左面，大于就放右面，直到循环结束把新的数组返回*/
+    var array = [3, 4, 2, 1, 5, 7, 6];
+    function insertSort(array) {
+        var newArray = [];
+        //这是字面量创建一个数组，还有一个是实例是：new Array();
+        newArray.push(array[0]);
+        //先把第一项3放到新数组里面;
+        //newArray=[3];
+        for (var i = 1; i < array.length; i++) {
+            //分别把数组里面的每一项拿出来;
+            //把拿出来的数组和新数组里的项目区比较，如果小于就放在左面，大于就放在右面
+            var cur = array[i];
+            for (var j = newArray.length - 1; j >= 0; /*j--*/) {
+                //这个for循环是新数组的循环，分别对比位置
+                if (cur < newArray[j]) {//比如cur小于数组里面的每一项：但是如果cur=2，newArray=[3,4],cur=2比4小，还比3小，还得循环，这时候我们就要用到j--
+                    //比如：这会新数组里面存在[3,4],拿当前项2去和4,在循环再去和3比较
+                    j--;
+                    if (j == -1) {//如果超过边界，我们就直接插到最前面
+                        newArray.unshift(cur);
+                    }
+                } else {
+                    newArray.splice(j + 1, 0, cur);//大于放在newArray[j]的后面
+                    //把cur放在这个j的后面
+                    j = -1;//已经找到位置，循环就没有必要继续的执行下去了，人为破坏循环条件(j>=0)
+                }
+            }
+        }
+        return newArray;
+    }
+    console.log(insertSort(array));
+</script>
+</body>
+</html>

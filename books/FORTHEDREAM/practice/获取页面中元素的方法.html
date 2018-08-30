@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div id="'div1">
+    <ul>
+        <li>1</li>
+        <!--我是li2上面的注释-->
+        <li id="li2">2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+
+
+<script type="text/javascript">
+    //1、document.getElementById('元素的ID')
+    //2、[context].getElementsByTagName('元素的标签名')
+    //3、[context].getElementsByClassName('样式类名')
+    //4、document.getElementsByName('name值')
+    //5、document.getElements    获取整个HTML，document.body  获取整个body
+    //    document.document.clientWidth||document.body.clientWidth
+    //    document.document.clientHeight||document.body.clientHeight
+    //想要兼容所有浏览器，必须document.document和.body都要写，中间用||分隔。并且document.documentElement必须在前
+    //6、[context].querySelector()    获取一个   用在移动端的
+    //   [context].querySelectorAll()   获取所有
+
+
+    //previousElementSibling
+    function prevEleSibing(ele) {    //param获取谁的元素哥哥的节点
+        /*
+         步骤：1、先获取一个哥哥节点
+         2、如果是哥哥元素那么停止向上查找，如果不是继续向上查找直到找到一个元素类型的哥哥为止，如果找到一个哥哥节点仍然没有元素哥哥节点则返回一个null
+         */
+        var pre = ele.previousSibling;  //获取了哥哥节点
+        while (pre && pre.nodeType !== 1) {    //循环的条件：
+            pre = pre.previousSibling;  //如果满足条件说明不是我们想要的元素哥哥节点，那么我们为了保证循环继续向上查找，我们要不断更新我们的循环的条件（不断的更新就是不断赋值的过程）
+        }
+        return pre;
+    }
+    console.log(prevEleSibing(document.getElementById('li2')));
+
+
+    function prevAll(ele,tagName) { //指定元素标签tagName
+        var pre = ele.previousSibling;
+        var cont = [];
+        while (pre) {
+            if (pre.nodeType == 1) {    //要多一步，判断元素标签是不是一样（对比的时候要注意元素标签是大写的）
+                //a.push(pre);  //倒序了，所以不用
+                cont.unshift(pre); //为了保证哥哥们顺序不乱
+            }
+            pre = pre.previousSibling;    //继续循环
+        }
+        return cont;
+    }
+    console.log(prevAll(document.getElementById('li2')));
+</script>
+</body>
+</html>

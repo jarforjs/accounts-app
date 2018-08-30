@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        input {
+            width: 200px;
+            height: 200px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value=""><input type="button" value=""><input type="button" value="">
+<script>
+
+    /*var name = '中国';
+     var age = 5000;
+     name = (function (name, age) {
+     // name 变量 覆盖掉 上面的了！注意这个右侧是个自执行函数，却没有返回值，那么这个 输出这个name 就是undefined
+     arguments[0] = '珠峰';  // 函数中内置的arguments ，改变索引为0的项
+     age = age || this.age; // 这个this==>>window
+     console.log(name, age); // 珠峰 5000
+     })(name); //把name="中国" 的值当实参传入自执行函数中
+     console.log(name, age);*/
+    //debugger;
+    /*var name = '中国';
+     var age = 5000;
+     name = (function (name, age) {
+     // name 变量 覆盖掉 上面的了！注意这个右侧是个自执行函数，却没有返回值，那么这个 输出这个name 就是undefined
+     arguments[0] = '珠峰';  // 函数中内置的arguments ，改变索引为0的项
+     age = age || this.age; // 这个this==>>window
+     console.log(name, age); // 珠峰 5000
+     })(name); //把name="中国" 的值当实参传入自执行函数中
+     console.log(name, age);*/
+
+
+    /*ary.sort(function (a, b) {
+     return a - b
+     });
+     ary.pop();
+     ary.length--;
+     ary.splice(ary.length - 1);
+     ary.slice(n - 1, m);
+     document.documentElement.clientWidth || document.body.clientWidth;
+     div.insertBefore();
+     div.appendChild();
+     function preElement(ele) {
+     var pre = ele.previousSibling;
+     while (pre && ele.previousSibling.nodeType == 1) {
+     pre = pre.previousSibling;
+     }
+     return pre;
+     }
+     Math.round(Math.random() * (m - n) + n);
+     ary.replace();
+     odiv = document.getElementById('div');
+     oli = document.getElementsByTagName('li')[0];
+     oul = document.getElementsByName('ul');
+     true, true;
+     undefined
+     undefined;
+     console.log(num);
+     if (!("num" in window)) {
+     var num = 100;
+     }
+     console.log(num);
+     undefined
+     undefined*/
+
+    //debugger;
+    /*var ary = [100, 200];
+     ~function (ary) {
+     ary.length--;
+     ary = [];
+     ary[ary.length] = 300;
+     alert(ary);
+     }(ary);
+     alert(ary);*/
+
+
+
+    /*function fn(i) {
+     return function (n) {
+     console.log(n * (++i));
+     }
+     }
+     var f = fn(2);
+     fn(5)(4);//24
+     f(6);//18
+     fn(6)(3);//21
+     f(9);//36*/
+
+
+
+
+    /*function Fn(num) {
+     this.x = this.y = num;
+     }
+     Fn.prototype = {
+     x: 20,
+     sum: function () {
+     console.log(this.x + this.y);
+     }
+     };
+     var f = new Fn(10);
+     console.log(f.sum === Fn.prototype.sum);
+     f.sum();
+     Fn.prototype.sum();
+     console.log(f.constructor);*/
+
+
+    //obtn();
+    /*var num = 1;//4//14//22
+     //debugger;
+     var obj = {
+     num: 2,//
+     fn: (function (num) {
+     this.num = num * 2;
+     num++;//3
+     return function (n) {
+     this.num += n;
+     num++;
+     console.log(num);//4//5
+     }
+     })(2)
+     }
+     var fn = obj.fn;
+     fn(10);
+     obj.fn(20);
+     console.log(num, obj.num);*/
+
+
+    /*var number = 3;//9
+     var obj = {
+     number: 2,//8
+     fn1: (function () {
+     debugger;
+     this.number *= 3;
+     number *= 2;//
+     var number = 5;
+     return function () {
+     this.number *= 4;//32
+     number *= 2;
+     console.log(number);//10//50
+     }
+     })(),
+     db2: function () {
+     this.number *= 3;
+     }
+     };
+     var fn1 = obj.fn1;
+     console.log(number);//9
+     fn1();
+     obj.fn1();*/
+
+
+    /*
+     var inpList = document.getElementsByTagName('input');
+     var ary = ["red", "green", "orange"];
+     //function obtn() {
+     for (var i = 0; i < inpList.length; i++) {
+     */
+
+
+    /*~function (i) {
+     inpList[i].onclick = function () {
+     console.log(i);
+     };
+     }(i);*/
+
+
+    /*inpList[i].onclick = (function (i) {
+     return function () {
+     console.log(i);
+     }
+     })(i);*/
+
+
+    /*(function(i){
+     inpList[i].onclick=function(){
+     console.log(i);
+     }
+     })(i);*/
+
+    /*inpList[i].onclick = (function (i) {
+     return function () {
+     console.log(i)
+     }
+     })(i);*/
+    /*
+     inpList[i].self=i;
+     inpList[i].onclick=function(){
+     console.log(this.self);
+     }
+
+     }*/
+
+
+    /*var i = 4;//8//9//19//20//41
+     function fn() {
+     i *= 2;//18
+     return function (n) {
+     console.log(n * (++i));
+     }
+     }
+     var f = fn();
+     f(3);//27
+     fn()(3);//57
+     f(3);//60
+     fn()(4);//164*/
+
+
+    /*var num = 2;//6/24
+    var obj = {
+        num: 5,//20
+        fn: (function () {
+            this.num *= 3;
+            num += 2;
+            var num = 6;//7
+            return function () {
+                this.num *= 4;
+                num += 1;//
+                console.log(num);//7//8
+            }
+        })()
+    }
+    var fn = obj.fn;
+    fn();//
+    obj.fn();
+    console.log(window.num, obj.num);*/
+
+
+    var str = "54321";
+    var ary = ["五", "四", "三", "二", "一"];
+    //console.log(/\d/g.exec(str));
+    var str1 = str.replace(/\d/g, function () {
+        return ary[arguments[1]];
+    });
+    console.log(str1);
+</script>
+
+</body>
+</html>

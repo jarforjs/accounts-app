@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        li {
+            list-style: none;
+            border: 1px solid pink;
+            width: 500px;
+            line-height: 30px;
+            margin: 10px auto;
+        }
+
+        .bg1 {
+            background: indianred;
+        }
+
+        .bg2 {
+            background: azure;
+        }
+
+        .bg3 {
+            background: yellowgreen;
+        }
+    </style>
+</head>
+<body>
+<ul>
+    <li>结_英语学习_外语学习_教育专区。While用法小</li>
+    <li>结_英语学习_外语学习_教育专区。While用法小</li>
+    <li>结_英语学习_外语学习_教育专区。While用法小</li>
+</ul>
+<script>
+    /*
+     var oLis = document.getElementsByTagName('li');
+     var i = 0;
+     while (i < oLis.length) {
+     switch (i) {
+     case 0:
+     oLis[i].className = "bg1";
+     break;
+     case 1:
+     oLis[i].className = "bg2";
+     break;
+     default :
+     oLis[i].className = "bg3";
+     }
+     i++;
+     }
+     */
+
+
+    var oLis = document.getElementsByTagName('li');
+    var i = 0;
+    while (i < oLis.length) {
+        switch (i) {
+            case 0:
+                oLis[i].style.backgroundColor="rgb(123,2,1)";
+                break;
+            case 1:
+                oLis[i].className = 'bg2';
+                break;
+            default:
+                oLis[i].className = 'bg3';
+        }
+        i++;
+    }
+
+
+
+</script>
+</body>
+</html>

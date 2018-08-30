@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<script>
+    function add() {
+        var count = null;
+        for (var i = 0; i < arguments.length; i++) {
+            if (!isNaN(arguments[i])) {
+                count += Number(arguments[i]);
+            }
+        }
+        return count;
+    }
+    console.log(add(9, 3, 3, 3, 3));
+</script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<div></div>
+<div class="w1"></div>
+<div class="   w2   w1   "></div>
+<div class=" w3   w2"></div>
+<div class="      w2   w1   "></div>
+</body>
+</html>
+<script type="text/javascript">
+    console.log(getByClass('w2'));
+
+    function toArray(likeArray) {
+        if ("getComputedStyle" in window) {
+            return Array.prototype.slice.call(likeArray);
+        }
+        var arr = [];
+        for (var i = 0; i < likeArray.length; i++) {
+            arr[arr.length] = likeArray[i];
+        }
+        return arr;
+    }
+
+    function getByClass(strClass, context) {
+        context = context || document;
+        if ("getComputedStyle" in window) {
+            return toArray(context.getElementsByClassName(strClass));
+        }
+        var strList = strClass.replace(/^ +| +$/g,"").split(/\s+/);
+        var nodeList = context.getElementsByTagName("*");
+        for (var i = 0; i < nodeList.length; i++) {
+            var curNode = nodeList[i];
+            var arr = [];
+            var flag = true;
+            for (var j = 0; j < strList.length; j++) {
+                var reg = new RegExp("(^| +)" + strList[j] + "( +|$)");
+                if (!reg.test(curNode.className)) {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) {
+                arr.push(curNode);
+                debugger;
+            }
+        }
+        return arr;
+    }
+
+
+
+//        function getByClass(strClass,context) {
+//            context=context||document;
+//            if("getComputedStyle" in window){
+//                return listToArray(context.getElementsByClassName(strClass));
+//            }
+//            var strList=strClass.replace(/^ +| +$/g, "").split(/\s+/);
+//            var nodeList=context.getElementsByTagName("*");
+//
+//            var arr=[];
+//            for(var i=0;i<nodeList.length;i++){
+//                var curNode=nodeList[i];
+//                var _flag=true;
+//                for(var j=0;j<strList.length;j++){
+//                    console.log(strList[i]);
+//                    var reg=new RegExp("(^| +)"+strList[j]+"( +|$)");
+//                    if(!reg.test(curNode.className)){
+//                        _flag=false;
+//                        break;
+//                    }
+//                }
+//                if(_flag){
+//                    arr.push(curNode);
+//                }
+//            }
+//            return arr;
+//        }
+
+    function getByClass(strClass,context) {
+        context=context||document;
+        if("getComputedStyle" in window){
+            return listToArray(context.getElementsByClassName(strClass));
+        }
+        var strList=strClass.replace(/^ +| +$/g,'').split(/\s+/);
+        var nodeList=context.getElementsByTagName("*");
+        var arr=[];
+        for(var i=0;i<nodeList.length;i++){
+            var curNode=nodeList[i];
+            var flag=true;
+            for(var j=0;j<strList.length;j++){
+                var reg=new RegExp("(^| +)"+strList[j]+"( +|$)");
+                if(!reg.test(curNode.className)){
+                    flag=false;
+                    break;
+                }
+            }
+            if(flag){
+                arr.push(curNode);
+            }
+        }
+        return arr;
+    }
+    function listToArray(likeArray) {
+        if("getComputedStyle" in window){
+            return Array.prototype.slice.call(likeArray);
+        }
+        var arr=[];
+        for(var i=0;i<likeArray.length;i++){
+            arr[arr.length]=likeArray[i];
+        }
+        return arr;
+    }
+</script>
+
+
+
+
+
+

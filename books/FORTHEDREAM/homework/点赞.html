@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style></head>
+<body>
+<input type="button" value="" id="input"><span>0</span>
+<script>
+    var input1=document.getElementById('input');
+    console.log(input1);
+    var span=document.getElementsByTagName('span')[0];
+    //console.log(span);
+    /*var count=0;
+    input1.onclick=function(){
+        count++;
+        span.innerHTML=count;
+    }*/
+
+
+    /*~function(){
+        var count=0;
+        input1.onclick=function() {
+            count++;
+            span.innerHTML = count
+        }
+    }();*/
+
+
+
+    input1.onclick=function(){
+        ++span.innerHTML;
+    }
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function sum(n) {
+        if (n === 0) {
+            //为了保证这个递归不无限执行下去，我们设置的拦截条件
+            return 0;
+        }
+        return n + sum(n - 1);
+    }
+    sum(100);
+
+
+    function mul(n) {
+        if (n === 1) {
+            return 1;
+        }
+        if (n % 2 !== 0) {
+            return mul(n - 1);
+        }
+        return n * sum(n - 1);
+    }
+    sum(10);
+</script>
+</body>
+</html>

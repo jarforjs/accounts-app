@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 10px auto;
+            width: 400px;
+        }
+
+        #box ul {
+            position: relative;
+            top: 1px;
+            overflow: hidden;
+        }
+
+        #box ul li {
+            list-style: none;
+            float: left;
+            border: 1px solid red;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+
+        #box ul li.select {
+            background: lightblue;
+            border-bottom: 1px solid lightblue;
+        }
+
+        #box div {
+            display: none;
+            border: 1px solid red;
+            height: 300px;
+        }
+
+        #box div.select {
+            display: block;
+            background: lightblue;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <div class="select">111111111111111111111111111111111111111111</div>
+    <div>22222222222222222222222222222222222</div>
+    <div>333333333333333333333333333333333333333</div>
+</div>
+
+
+<script>
+    oBox = document.getElementById('box');
+    oLis = oBox.getElementsByTagName('li');
+    oDivs = oBox.getElementsByTagName('div');
+    function tab(n) {
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].className = null;
+            oDivs[i].className = null;
+
+        }
+        oLis[n].className = "select";
+        oDivs[n].className = "select";
+    }
+    /*for(var i=0;i<oLis.length;i++){
+     oLis[i].shenfengzheng=i;
+     oLis[i].onclick=function(){
+     tab(this.shenfengzheng);
+     }
+     }*/
+    /*
+     for(var i=0;i<oLis.length;i++){
+     oLis[i].onclick=function(i){
+     return function (){
+     tab(i);
+     }
+     }(i);
+     }
+     */
+    for (var i = 0; i < oLis.length; i++) {
+        (function (i) {
+            oLis[i].onclick = function () {
+                tab(i);
+            }
+        })(i);
+    }
+
+
+    //    for(var i = 0; i<oLis.length;i++){
+    //        oLis[i].shenfenzheng = i;
+    //        oLis[i].onmouseover = function () {
+    //            for(var j = 0; j<oDivs.length;j++){
+    //                oLis[j].className = "";
+    //                oDivs[j].className = "";
+    //            }
+    //            this.className = 'active';
+    //            oDivs[this.shenfenzheng].className="active";
+    //        }
+    //    }
+</script>
+</body>
+</html>

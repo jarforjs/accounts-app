@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<script>
+/*
+    var name="中国";
+    var age=5000;
+    age=(function(name,age){
+        name="珠峰";
+        arguments[1]=7;
+        this.name=arguments[0];
+        console.log(name,age);
+    })(name,age);
+    console.log(name,age);
+*/
+
+/*
+    function fn(){
+        var i=5;//
+        return function (n){
+            console.log(n*(--i));//
+        }
+    }
+    var f=fn();
+    f(10);//40
+    fn()(10);//40
+    fn()(20);//80
+    f(20);//60
+*/
+
+    var num=10;//22//32
+    var obj={num:20};//40
+    obj.fn=(function(num){
+        this.num=num+2;
+        return function (n){
+            this.num+=n;
+            num--;
+            console.log(num);
+        }
+    })(obj.num);
+    var fn=obj.fn;
+    fn(10);//19
+    obj.fn(20);//18
+    console.log(num,obj.num);
+
+</script>
+
+</body>
+</html>

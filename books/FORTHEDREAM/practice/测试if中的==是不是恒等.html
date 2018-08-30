@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        html,body{
+            margin:0;
+            padding: 0;
+            cursor: pointer;
+            width: 100%;
+            height:100%;
+        }
+        .box{
+            margin: 100px auto;
+            width: 400px;
+            height: 300px;
+            border-radius: 10px;
+            border: 1px solid chartreuse;
+        }
+
+    </style>
+</head>
+<body id="oBody" style="background-color: white">
+<div class="box"></div>
+
+
+<script>
+    var oBody=document.getElementById('oBody');
+    oBody.onclick=function() {
+        var bg = this.style.backgroundColor;
+        switch (bg) {
+            case "white":
+                this.style.backgroundColor = "blue";
+                break;
+            case "blue":
+                this.style.backgroundColor = "red";
+                break;
+            default :
+                this.style.backgroundColor = "white";
+        }
+    }
+
+/*
+    var a = '10';
+    a===10?console.log('10'):console.log('NaN');
+//    if(a===10){
+//        alert('10');
+//    }else{
+//        alert('NaN');
+//    }
+*/
+</script>
+</body>
+</html>

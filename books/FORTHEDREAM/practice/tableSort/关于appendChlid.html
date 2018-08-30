@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #tab{
+            width: 400px;
+            border: 1px solid red;
+            height: 400px;
+        }
+        #tab tr{
+            border: 1px solid orange;
+        }
+        #tab td{
+            border: 1px solid yellow;
+        }
+    </style>
+</head>
+<body>
+<table id="tab">
+
+</table>
+<script>
+    var tab=document.getElementById('tab');
+    var tr=document.createElement('tr');
+    var td=document.createElement('td');
+    td.innerHTML=1234567890;
+    tr.appendChild(td);
+    tab.appendChild(tr);
+</script>
+</body>
+</html>

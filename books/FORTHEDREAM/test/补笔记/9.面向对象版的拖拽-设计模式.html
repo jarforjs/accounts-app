@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background: red;
+            cursor: move;
+            -webkit-user-select: none;
+        }
+
+        #div2 {
+            top: 120px;
+            left: 100px;
+            background: yellow;
+        }
+
+        #div3 {
+            top: 60px;
+            left: 170px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"><img src="pic.jpg" style="width: 100px;" alt=""></div>
+<div id="div2"></div>
+<div id="div3"></div>
+</body>
+</html>
+<script src="event.js"></script>
+<script>
+    function EventEmitter() {
+
+    }
+
+    EventEmitter.prototype.on=function (type,fn) {
+        if(!this[type]){
+            this[type]=[];
+        }
+        var a=this[type];
+        if(a&&a.length){
+            for(var i=0;i<a.length;i++){
+                if(a[i]==fn)return;
+            }
+        }
+        a.push(fn);
+    }
+
+    EventEmitter.prototype.fire=function (type,obj,e) {
+        var a=this[type];
+        if(a&&a.length){
+            for(var i=0;i<a.length;){
+                if(typeof a[i]=="function"){
+                    a[i].call(obj,e);
+                    i++;
+                }else{
+                    a.splice(i,1);
+                }
+            }
+        }
+    }
+
+    EventEmitter.prototype.off=function (type, fn) {
+        var a=this[type];
+        if(a&&a.length){
+            for(var i=0;i<a.length;i++){
+                if(a[i]==fn) {
+                    a[i] = null;
+                    return;
+                }
+            }
+        }
+    }
+
+    function Drag(ele) {//实现实例的初始化:构造函数
+        this.x=null;
+        this.y=null;
+        this.mx=null;
+        this.my=null;
+        this.ele=ele;
+        this.DOWN=processThis(this,this.down);
+        this.MOVE=processThis(this,this.move);
+        this.UP=processThis(this,this.up);
+        on(this.ele,"mousedown",this.DOWN);
+        //实例:是一个Drag类的实例,是个对象
+        //每一个对象类型的实例都是存值的载体(数据结构)
+    }
+
+    Drag.prototype=new EventEmitter();
+
+    Drag.prototype.down=function (e) {//拖拽的初始化
+        this.x=this.ele.offsetLeft;
+        this.y=this.ele.offsetTop;
+        this.mx=e.pageX;
+        this.my=e.pageY;
+        if(this.ele.setCapture){
+            this.ele.setCapture();
+            on(this.ele,"mousemove",this.MOVE);
+            on(this.ele,"mouseup",this.UP);
+        }else{
+            on(document,"mousemove",this.MOVE);
+            on(document,"mouseup",this.UP);
+        }
+        e.preventDefault();
+        this.fire("dragStart",this.ele,e);
+    };
+
+    Drag.prototype.move=function (e) {
+        this.ele.style.left=this.x+(e.pageX-this.mx)+"px";
+        this.ele.style.top=this.y+(e.pageY-this.my)+"px";
+        this.fire("dragging",this.ele,e);
+    };
+
+    Drag.prototype.up=function (e) {
+        if(this.ele.releaseCapture){
+            this.ele.releaseCapture();
+            off(this.ele,"mousemove",this.MOVE);
+            off(this.ele,"mouseup",this.UP);
+        }else{
+            off(document,"mousemove",this.MOVE);
+            off(document,"mouseup",this.UP);
+        }
+        this.fire("dragEnd",this.ele,e);
+    };
+
+    //每一个单独的行为,是依赖一个主体,上下文
+    //每一个主体都是一个类的实例
+    //类是一种统筹管理的方式
+
+    var zIndex=1;
+    function increaseIndex() {
+        //先累加
+        this.style.zIndex=++zIndex;
+    }
+
+    function clearEffect() {
+        //第二次增加内容,解决动画开始之后鼠标再次点击div晃动的问题
+        clearTimeout(this.flyTimer);
+        clearTimeout(this.dropTimer);
+    }
+
+    function getSpeed(e) {
+        //第一次增加内容
+        //拖拽加左右飞出的效果
+        //this.preX//记录上一次move事件触发的时候鼠标X轴的位置
+        if(!this.preX){
+            this.preX=e.clientX;
+        }else{
+            this.speed=e.clientX-this.preX;//速度总是这次的位置-上一次的位置
+            this.preX=e.clientX;
+            //两次move事件之间的事件间隔大体是一样的
+            //速度=单位时间的距离
+        }
+    }
+
+    function fly() {
+        clearTimeout(this.flyTimer);
+        var maxRight=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
+        //谁执行这个动画,this就是谁
+        this.speed*=.98;
+        if(this.offsetLeft+this.speed>=maxRight){
+            this.style.left=maxRight+"px";
+            this.speed*=-1;
+        }else if(this.offsetLeft+this.speed<=0){
+            this.style.left=0;
+            this.speed*=-1;
+        }else {
+            this.style.left=this.offsetLeft+this.speed+"px";
+        }
+        //凡是用安排在定时器队列中驱动的方法,this都是window;还应注意动画累积问题,在fly进来之前先清动画
+        if(Math.abs(this.speed)>=0.5)
+            this.flyTimer=window.setTimeout(processThis(this,arguments.callee/*fly*/),30);
+    }
+
+    function drop() {
+        clearTimeout(this.dropTimer);
+        var maxBottom=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+        //其实后面可以不写,因为我们用的文档是html
+        if(!this.dropSpeed){
+            this.dropSpeed=9.8;//第一次初始化下落的速度
+        }else{
+            this.dropSpeed+=9.8;//让速度累加,这其实是个加速度的动画
+        }
+        this.dropSpeed*=.98;//动能衰减
+        if(this.offsetTop+this.dropSpeed>=maxBottom){
+            this.style.top=maxBottom+"px";
+            this.dropSpeed*=-1;//反弹
+            this.flag++;
+        }else{
+            this.style.top=this.offsetTop+this.dropSpeed+"px";
+            this.flag=0;
+        }if(this.flag<2){
+            this.dropTimer=window.setTimeout(processThis(this,arguments.callee),30);
+        }else{
+            this.dropSpeed=null;
+        }
+    }
+
+
+    var obj1=new Drag(div1);//obj1是唯一的
+    obj1.on("dragStart",increaseIndex);
+    obj1.on("dragStart",clearEffect);
+    obj1.on("dragging",getSpeed);
+    obj1.on("dragEnd",fly);
+    obj1.on("dragEnd",drop);
+    //现在的方法都依赖这个obj1这个上下文,这个实例了
+    //on(obj1,"",fn);
+    var obj2=new Drag(div2);//obj1是唯一的
+    var obj3=new Drag(div3);//obj1是唯一的
+
+
+    /*下面是把报警器类装到水壶上*/
+    function Kettle() {
+
+    }
+    Kettle.prototype=new EventEmitter();
+    Kettle.prototype.boiling=function () {
+        console.log("水烧开了!");
+        this.fire("myBoiling");
+    }
+    function washFace() {
+        console.log("洗脸了~~~");
+    }
+    var kettle1 = new Kettle();
+    kettle1.on("myBoiling", washFace);
+</script>

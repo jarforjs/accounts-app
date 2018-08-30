@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <br id="abc">
+    <ul style="background: indianred">
+        <br>
+        <li style="background: wheat">
+            <br>
+            <a href="#">
+            <span style="background: darkblue">
+                最最底层的元素!
+            </span>
+            </a>
+            <br>
+        </li>
+        <br>
+    </ul>
+    <br>
+</div>
+</body>
+</html>
+
+<script>
+    function fn(e) {
+        alert(this.nodeName);
+        e.stopPropagation();
+        e.preventDefault()
+    }
+
+    eles = document.body.getElementsByTagName('*');
+    for (var i = 0; i < eles.length; i++) {
+        eles.item(i).addEventListener('click', fn,false);
+    }
+
+//    document.body.addEventListener('click', fn, false);
+//    document.addEventListener('click', fn, false);
+</script>

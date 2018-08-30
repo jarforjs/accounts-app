@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul li {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        #box {
+            margin: 10px auto;
+            width: 400px;
+        }
+
+        #box ul {
+            position: relative;
+            top: 1px;
+            overflow: hidden;
+        }
+
+        #box ul li {
+            float: left;
+            border: 1px solid red;
+            margin-right: 10px;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            background: lightgreen;
+        }
+
+        #box ul li.select {
+            border-bottom: 1px solid lightgreen;
+        }
+
+        #box div {
+            display: none;
+            border: 1px solid red;
+        }
+
+        #box div.select {
+            display: block;
+            background: lightgreen;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="select">1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <div class="select">1</div>
+    <div>2</div>
+    <div>3</div>
+</div>
+
+
+<script>
+    var box = document.getElementById('box');
+    var oLis = box.getElementsByTagName('li');
+    var oDivs = box.getElementsByTagName('div');
+    function tabChange(n) {
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].className = null;
+            oDivs[i].className = null;
+        }
+        oLis[n].className = 'select';
+        oDivs[n].className = 'select';
+    }
+
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].onclick = function (i) {
+            return function () {
+                tabChange(i);
+            }
+        }(i);
+    }
+</script>
+</body>
+</html>

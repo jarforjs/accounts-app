@@ -1,0 +1,6 @@
+[{"img":"images/banner1.jpg","desc":"hajhjhjhjhj"},
+{"img":"images/banner2.jpg","desc":"hajhjhjhjhj"},
+{"img":"images/banner3.jpg","desc":"hajhjhjhjhj"},
+{"img":"images/banner4.jpg","desc":"hajhjhjhjhj"}
+
+]

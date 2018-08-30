@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+/*
+    #div1.__proto__->HTMLDivElement.prototype->HTMLElement.prototype->Element.prototype->Node.prototype->EventTarget.prototype(包含dom二级事件)->Object.prototype
+
+    我们模拟一下他是怎么做到的
+    function myObject(){}
+
+    myObject.prototype={
+        constructor:myObject,
+        hasOwnProperty:function(){
+        },
+        toString:function(){
+        }
+    }
+
+    function myEventTarget(){}
+    //EventTarget的上一级是Object
+    myEventTarget.prototype=new myObject();
+    MyEventTarget.prototype.addEventListener=function(){}
+
+    function myNode(){}
+    myNode.prototype=new EventTarget();
+    //Node的上一级是EventTarget
+    myNode.prototype.createElement=function(){};
+
+
+    var node=new myNode;
+    //通过以上操作就会发现它跟我们的#div1就一模一样的
+ */
+    //1."原型继承"是我们JS中最常用的一种继承方式:
+        //想让子类B继承父类A中的所有属性和方法(私有+公有),只需要让子类的原型等于父类的实例(B.prototype=new A;(对象)即可)
+    //原型继承的特点:它是把父类中私有的+公有的都继承到了子类原型上(子类公有的)
+
+    //核心:原型继承并不是把父类中的属性和方法克隆一份一模一样的的给B,而是让B和A之间增加了原型链的连接
+    //正因为原型继承的这种方式我们可以通过prototype或者__proto__将父类上的方法和属性重写,导致父类下别的实例也会跟着受影响,在ie下就禁用了(__proto__)这个方法;另外一个如果不写constructor,实例的constructor会指向父类,而不是构造函数本身.
+</script>

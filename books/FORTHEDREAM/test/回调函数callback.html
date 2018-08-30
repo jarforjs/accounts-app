@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+/*    function A() {
+        console.log('a');
+    }*/
+    function B(callBack) {
+        console.log(this,'b');
+        //var t=callBack.call(obj,100,200);
+        typeof callBack==='function'?callBack.call(obj,100,200):null;
+        console.log(callBack.call(obj,100,200));
+    }
+    var obj={fn:B};
+    obj.fn(function (num1,num2) {
+        //console.log(this,num1,num2);
+        return num1+num2;
+    });
+</script>

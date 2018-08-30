@@ -1,0 +1,186 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>无标题文档</title>
+    <style type="text/css">
+        ul, li {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        ul {
+            width: 480px;
+            height: 640px;
+            padding: 5px;
+            background: #0FF;
+            margin: 100px auto;
+            position: relative;
+        }
+
+        li {
+            width: 150px;
+            height: 150px;
+            margin: 5px;
+            background: #FC6;
+            float: left;
+            overflow: hidden;
+            cursor: move;
+            -webkit-user-select: none;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<ul>
+    <li><img src="img/1.png"></li>
+    <li><img src="img/2.png"></li>
+    <li><img src="img/3.png"></li>
+    <li><img src="img/4.png"></li>
+    <li><img src="img/5.png"></li>
+    <li><img src="img/6.png"></li>
+    <li><img src="img/7.png"></li>
+    <li><img src="img/8.png"></li>
+    <li><img src="img/9.png"></li>
+    <li><img src="img/10.png"></li>
+    <li><img src="img/11.png"></li>
+    <li><img src="img/12.png"></li>
+</ul>
+</body>
+</html>
+<script src="event.js"></script>
+<script src="drag.js"></script>
+<script src="tween.js"></script>
+<!--
+<script>
+var oLis=document.getElementsByTagName("li");
+/*for(var i=0;i<oLis.length;i++){
+	var oLi=oLis.item(i);
+	//把浮动布局改造绝对定位布局
+	with(oLi.style){
+		//position="absolute";//只要是做了绝对定位，则这个盒子的位置自动到父元素左上角，相当于left=0;top=0,则offsetLeft也会随之变化
+		left=oLi.offsetLeft+"px";
+		top=oLi.offsetTop+"px";
+		
+		//position="absolute";//为什么写在这儿也不行呢
+			
+	}
+	new Drag(oLi);	
+}
+
+
+for(var i=0;i<oLis.length;i++){
+	var oLi=oLis.item(i);
+	with(oLi.style){
+		position="absolute";//如果后做绝对定位则没有问题
+		margin=0;
+		}
+}*/
+var zIndex=0;
+function increaseIndex(){this.ele.style.zIndex=++zIndex}
+function goHome(){animate(this.ele,{left:this.ele.l,top:this.ele.t},600,4);}
+for(var i=oLis.length-1;i>=0;i&#45;&#45;){
+	var oLi=oLis.item(i);
+	with(oLi.style){
+		top=(oLi.t=oLi.offsetTop)+"px";
+		left=(oLi.l=oLi.offsetLeft)+"px";
+		position="absolute";
+		margin=0;
+	}
+	new Drag(oLi).on("dragstart",increaseIndex).on("dragend",goHome);
+}
+</script>
+-->
+<script>
+    var oLis = document.getElementsByTagName("li");
+    for (var i = oLis.length - 1; i >= 0; i--) {
+        var oLi = oLis[i];
+        oLi.l = oLi.offsetLeft;
+        oLi.t = oLi.offsetTop;
+        with (oLi.style) {
+            top = oLi.t + "px";
+            left = oLi.l + "px";
+            position = "absolute";
+            margin = 0;
+        }
+        on(oLi, "mousedown", down);
+        on(oLi, "selfDragStart", increaseZIndex);
+        on(oLi, "selfDragEnd", restore);
+        on(oLi, "selfDragging", getHitedEle);
+        //on(oLi, "selfDragEnd", goHome);
+        on(oLi,"selfDragEnd",changePosition);
+    }
+
+    var zIndex = 1;
+    function increaseZIndex() {
+        this.style.zIndex = ++zIndex;
+        this.style.background = "lightblue"
+    }
+    function restore() {
+        this.style.background = "";
+    }
+    function goHome() {
+        animate(this, {left: this.l, top: this.t}, 600, 3);
+    }
+
+    //两两检测
+    function isHited(r, b) {//碰撞检测的方法，如果两个元素撞上了，则返回true，否则返回false;
+        if (r.offsetLeft + r.offsetWidth < b.offsetLeft || r.offsetTop + r.offsetHeight < b.offsetTop || r.offsetLeft > r.offsetLeft + b.offsetWidth || r.offsetTop > r.offsetTop + b.offsetHeight) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function getHitedEle() {
+        this["aHitedEle"]=[];
+        for (var i = 0; i < oLis.length; i++) {
+            var oLi = oLis[i];
+            if (this == oLi)continue;
+            oLi.style.backgroundColor="";
+            if (isHited(this, oLi)) {
+                oLi.style.backgroundColor = "lightgreen";
+                this["aHitedEle"].push(oLi);
+            }
+        }
+    }
+
+    function changePosition(){
+        var a=this["aHitedEle"];
+        if(a&&a.length){
+            var oMin={};
+            for(var i=0;i<a.length;i++){
+                var oLi=a[i];
+                if(!oMin.ele){
+                    oMin.min=Math.sqrt(Math.pow(this.offsetLeft-oLi.offsetLeft,2)+Math.pow(this.offsetTop-oLi.offsetTop,2));
+                    oMin.ele=oLi;
+                }else{
+                    var distance=oMin.min=Math.sqrt(Math.pow(this.offsetLeft-oLi.offsetLeft,2)+Math.pow(this.offsetTop-oLi.offsetTop,2));
+                    if(oMin.min>distance){
+                        oMin.min=distance;
+                        oMin.ele=oLi;
+                    }
+                }
+            }
+            //交换位置
+            var ele=oMin.ele;
+            animate(ele,{left:this.l,top:this.t},600,4);
+            animate(this,{left:ele.l,top:ele.t},600,3);
+            var objTemp={l:this.l,t:this.t};
+            this.l=oMin.ele.l;
+            this.t=oMin.ele.t;
+            oMin.ele.l=objTemp.l;
+            oMin.ele.t=objTemp.t;
+            this["aHitedEle"]=null;
+        }else{
+            animate(this,{left:this.l,top:this.t},500,2)
+        }
+    }
+</script>

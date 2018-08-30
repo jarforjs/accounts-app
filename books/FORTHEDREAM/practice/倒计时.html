@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body id="time">
+
+
+<script>
+    //var time=document.getElementById('time');
+    function diff() {
+        var targetTime = new Date("2016/4/6 17:30:00");
+        var curTime = new Date();
+
+        var tagTime1970 = targetTime.getTime();
+        var curTime1970 = curTime.getTime();
+
+        var durationTime = tagTime1970 - curTime1970;
+        if (durationTime <= 0) {
+            window.clearInterval(timer);
+            time.innerHTML = "00:00:00";
+            return;
+        }
+
+        var hours = Math.floor(durationTime / (1000 * 3600));
+        var minutes = Math.floor((durationTime - hours * 3600 * 1000) / (1000 * 60));
+        //分子：分钟所占用的ms数=总的时间间隔-小时所占用的ms数，分母：把ms换成分钟
+        var seconds = Math.floor((durationTime - hours * 3600 * 1000 - minutes * 60 * 1000) / 1000);
+
+        function zero(num) {
+            return num >= 10 ? num : '0' + num;
+        }
+
+        time.innerHTML = zero(hours) + ":" + zero(minutes) + ":" + zero(seconds);
+    }
+    diff();
+    var timer = window.setInterval(diff, 1000);
+
+</script>
+</body>
+</html>

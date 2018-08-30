@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{
+            width:200px;
+            height:300px;
+            top:150px;
+            left:50%;
+            position: absolute;
+            background: red;
+            opacity: 1;
+        }
+        input{
+            width:200px;
+            height:35px;
+            border:1px solid green;
+            margin: 50px auto;
+            cursor: pointer;
+            display: block;
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<input type="button" value="操作" id="submit">
+<div id="div1">
+    <div id="box">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div id="div2">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div id="div3"></div>
+    <div id="div4"></div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body>
+</html>
+<script src="jquery-1.11.3.js"></script>
+<script>
+    //$()就是创建一个jQuery类的实例->jQuery对象
+    //jQuery的方法分为两部分:一部分是把它当做一个类,定义在jQuery.prototype上的,这类方法只有通过$()获取一个实例后才可以调用.例如:$("div").addClass();
+//    jQuery = function( selector, context ) {
+//        return new jQuery.fn.init( selector, context );
+//    }
+    //另一部分把它当做一个普通的对象,通过对象键值对的方式存储的,这类方法在调取的时候直接用jQuery.属性名调取即可,例如:$.ajax();
+    //基于jQuery扩展方法:
+    //$.fn.extend({[attr]:[value]}):把方法扩展到原型上(扩展插件)
+    //$.extend({[attr]:[value]}):把方法扩展到私有属性上(完善类库)
+
+    jQuery.fn.extend({
+        banner:function () {
+
+        }
+    })
+    $(".inner").banner();
+
+    jQuery.extend({
+        aryDistinct:function () {
+
+        }
+    })
+    $.aryDistinct([2,123,34,123,21,21,2,23,32,4345,23,123,1,1,2,3])
+
+    /*
+    * jQuery拥有非常强大的循环/遍历系统
+    * 不仅在原型上有一个叫做each的方法(遍历jQuery对象集合的),在且在私有属性上也有一个叫做each的方法(遍历对象\数组\类数组的)
+    * */
+    $("div").each(function (index,item) {
+        //index:当前循环这一项索引
+        //item:当前循环的这一项(js对象),把它变为jQuery对象$(item),或者就直接$(this):说明回调函数中的this是当前循环的每一项
+        console.log(index,item);
+    })
+    //jQuery选择器获取到的一组元素集合,当使用元素集合调取一个方法的时候,相当于给元素集合中的每一项都分别执行了这个方法(内置循环)
+
+
+
+
+
+
+
+
+
+
+
+    /*选择器:jQuery通过传递对应规则的内容(ID,变签名,样式类名...),获取到页面中指定的元素/元素的集合,它获取到的结果是一个jQuery对象,可以使用jQuery中提供的那些属性合方法,但是不能直接的使用浏览器内置的属性合方法
+
+    js获取到的结果是属于元素对象/元素结合/节点集合...它们可以使用浏览器为其提供的那些天生自带的属性和方法
+
+    2.关于原生js对象和jQuery对象之间的转换
+    1)原生转变为jQuery:$(原生JS对象)
+    $("#div1")
+    $(oDiv)
+
+
+    2)jquery转变为原生:直接通过索引获取对应的元素对象即可
+    $oDiv[0]等同于$oDiv.get(0):通过索引来获取指定位置的元素对象(JS原生对象)*/
+    var $oDiv=$('#div1');
+    var oDiv=document.getElementById('div1');
+
+    function fn1(value) {
+        console.log("fn1:"+value);
+    }
+    function fn2(value) {
+        console.log("fn2:" + value);
+    }
+    var $call=$.Callbacks();//创建一个回调函数的内容集合
+    $call.add(fn1);//向集合中增加一个叫做fn1的函数
+    $call.fire(100);
+    $call.add(fn2);
+    $call.fire(200);
+
+    $(document).ready(function () {});
+    //只要HTML结构加载完成就会触发对应行为,而且在一个页面中可以使用多次
+
+    $(function () {/*"1.所有的HTML都加载完了.2.它还是一个匿名函数,形成了一个闭包"*/});
+    //它和原生js中的window.onload对应
+    //window.onload的意思是:当页面中的HTML结构,图片,文字等都加载完成才会触发这个行为,并且在一个页面中它只能执行一次,后面编写的会把前面的覆盖掉
+
+    //1.属性
+    //attr:获取和设置元素的自定义属性,等价于原生js中的set/getAttribute
+//    var $box=$("#box");
+//    $box.attr("zhufeng",100);
+//    console.log($box.attr("zhufeng"));
+//    //$box.removeAttr("zhufeng");
+//    $box.attr("zhufeng",1000);
+//    console.log($box.attr("zhufeng"));
+//
+//    $box.attr({
+//        index:1,
+//        name:"guhongbo",
+//        age:30
+//    })
+
+    //prop:获取和设置元素的属性和attr是不同的两套方式,两者之间不能相互的混用(用attr设置的只能用attr删除或者修改或者获取,同理用prop设置的也只能用prop操作)
+    //prop内置的属性可以在HTML结构中体现出来,但是如果不是内置的是体现不出来的(但是可以获取到)
+        //attr和prop的区别:attr一般都是用来设置和操作元素的自定义属性的,而prop一般都是用来操作元素的内置属性(尤其是表单元素的操作我们大部分都在使用prop)
+    var $box=$("#box");
+    $box.prop("index","0");
+    //$box.prop("id","0");
+
+
+    //2.关于jQuery内置遍历机制和手动循环的方法
+    //扩展:jQuery选择器:
+    //格式:jQuery(selector,context);
+    //context一般不需要传递,默认是document,但是我们也可以指定具体的上下文来获取需要的元素.
+    //$("div",$box)==$("#box div");
+    //$("#box>div")==$box.chlidren("div");
+
+    //$boxDivList.addClass("w1");
+    //通过jQuery选择器获取到一个结合,然后让集合直接调用jQuery中提供的方法,相当于给集合中的每一个元素都调取了对应的方法(jQuery内置循环操作)
+    var $div2=$("#div2");
+    var $boxDivList=$("div",$div2);
+    for(var i=0;i<$boxDivList.length;i++){
+        //$boxDivList[i].addClass("w1");
+        //$boxDivList[i]获取到的是js原生对象,不能直接使用jQuery方法,所以我们要转变他
+        $($boxDivList[i]).addClass("w12");
+    }
+
+    //each:可以便利jQuery集合中的每一项(和数组的forEach类似)
+    $boxDivList.each(function (index,item) {
+        //this就是我们当前遍历的这一项内容:item
+        //$(item).addClass("w2");
+        $(this).addClass("w2");
+    })
+    //回调函数可以在each这个方法里面把我们的这个回调函数执行多次,并且还可以给他传值,也可以改变this.我只是在写each这个方法的时候让匿名函数执行,并且让传参传进来了,并且把this变为item
+    //自己写一个each方法(jQuery each方法)可以遍历jQuery每一项跟它实现一模一样的效果就真真明白回调函数是怎么实现的
+
+
+    /*$box.css({
+        width:100,
+        height:100,
+        padding:20,
+        margin:15,
+        border:"10px solid green"
+    })*/
+    //innerWidth/innerHeight:获取或者设置元素可见区域的宽和高(width+左右padding)获取的时候等价于clientWidth/clientHeight.设置的时候,保留padding值,把width值进行改变
+    //outerWidth/outerHeight:获取或者设置元素可见区域的宽和高(包括边框)获取的时候等价于offsetWidth/offsetHeight.设置的时候,保留padding值,把width值进行改变
+        //如果传递进来的参数是true,默认的把margin的值也也计算在内了
+
+    //jQuery有一个很棒的地方在于它的链式写法(执行完成后返回的结果还是一个jQuery对象,这样就可以继续的调用下一个方法执行了)
+
+    var oDiv5=document.createElement("div");
+    oDiv5.id="div5";
+    $box.append(oDiv5);
+    //3.文档处理:
+    //append:content.append(元素)向指定元素内部末尾追加内容
+    //appendTo:元素.append(content)
+    var oDiv6=document.createElement("div");
+    oDiv6.id="div6";
+    $box.append(oDiv6);
+    $(oDiv6).appendTo($box);
+
+    //prepend/prependTo:向指定元素内部前置内容
+    //after/before:在当前元素后面/前面追加新元素(类似于css3中的after/before伪类)
+    //insertAfter/insertBefore:把选择器获取到的元素插入到指定元素的后面或者前面
+
+    //4.筛选
+    //eq(index),first(),last()
+    //hasClass(strClass)检测当前的元素中是否包含某个特定的类
+    //filter,children,find:常用的三个筛选方法
+        //filter:同级过滤(首先通通过选择器获取一个集合,在获取的内容中进行二次筛选)
+        //children:子集过滤
+        //find:后代过滤
+
+    //jQuery这个元素对象的私有属性中叫做selector的这个属性存储的值是当前查找选择器的内容,context是当前查找的上下文
+    //$("*",$box)//context:document,selector:"#box *"
+    //$("*",document.getElementById("box"))//context:"div#box",selector:"*"
+
+
+    /*$.ajax({
+        url:"json/test.txt?_="+Math.random(),
+        type:"get",
+        dataType:"json",//"test","html","jsonp"...
+        success:function (data) {
+            console.log(data);
+        }
+    })*/
+
+    $("#box").on("click",function () {
+        console.log(1);//this:当前元素(js原生对象),在jQuery下得转变:$(this)
+    })
+
+
+
+    //工具
+    //each:jQuery有2个each(也有两个map和each的原理一样,只是可以支持返回值)
+        //1循环选择器获取到的jQuery集合中的每一项
+        //$("div").each(function(index,item){console.log(item);});
+
+        //2循环数组,类数组,对象中的每一项
+        //$.each([12,45,67],function (index,item){console.log(item);})
+
+    //trim去除字符串首尾空格
+
+    //动画
+    /*$box.animate({
+        left:400,
+        top:400
+    },2000,linear,function () {
+        
+    })*/
+    //stop:结束之前正在运行的动画,开启下一个新的动画
+    //delay:延迟
+    //finish
+    //fadeIn,fadeOut,fadeToggle
+    //
+
+    $(function () {
+        var $submit=$("#submit");
+        $submit.on("click",function () {
+            //上来先结束上一个动画
+            //$box.stop().hide(500);
+            //$box.stop().slideToggle(500);
+            //$box.stop().delay.slideToggle(500);
+            //stop的意思是结束上一个动画,下一个动画是紧接着当前位置开始运动
+            //$box.slideUp(500).stop().slideToggle(500);
+            //finish的意思是结束上一个动画,并且让元素快速到达目标位置,在开始下一个动画
+            //$box.slideUp(500).finish().delay.slideToggle(500);
+            $box.stop().animate({
+                width:20,
+                height:30,
+                opacity:0.5
+            },1000,function () {
+                $(this).css("background","#000")
+            })
+
+        })
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<input type="button" value="1"/>
+<input type="button" value="1"/>
+<input type="button" value="1"/>
+<input type="button" value="1"/>
+<input type="button" value="1"/>
+<input type="button" value="1"/>
+<script>
+/*
+    var oBtns = document.getElementsByTagName('input');
+    function btn() {
+        for (var i = 0; i < oBtns.length; i++) {
+            (function (i) {
+                oBtns[i].onclick = function () {
+                    alert(i);
+                }
+            })(i)
+        }
+    }
+    btn();
+*/
+
+
+
+/*
+    var oBtns=document.getElementsByTagName("input");
+    function oBtn(){
+        for(var i=0;i<oBtns.length;i++){
+            (function (i){
+                oBtns[i].onclick= function () {
+                    alert(i);
+                }
+            })(i)
+        }
+    }
+    oBtn();
+*/
+
+
+
+
+
+    var oBtns=document.getElementsByTagName('input');
+    function oBtn(){
+        for(var i=0;i<oBtns.length;i++){
+            (function (i){
+                oBtns[i].onclick=function(){
+                    alert("我是第"+i+"个按钮");
+                }
+            })(i);
+        }
+    }
+    oBtn();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+    function boiling() {
+        console.log("水烧开了!");
+        fire();
+    }
+    function drink() {
+        console.log("喝水!");
+    }
+    function waterFlower() {
+        console.log("浇花!");
+    }
+    function washFace() {
+        console.log("洗脸!");
+    }
+
+    var oEvent={};
+    function on(type,fn) {
+        //
+        type="selfBoiling";
+        if(!oEvent[type]){
+            oEvent[type]=[];
+        }
+        var a=oEvent[type];
+        a.push(fn);
+    }
+
+    function fire() {
+        var a=oEvent["selfBoiling"];
+        if(a){
+            for(var i=0;i<a.length;i++){
+                a[i]();
+            }
+        }
+    }
+
+    on("selfBoiling",drink);
+    on("selfBoiling",washFace);
+    on("selfBoiling",waterFlower);
+    boiling();
+</script>

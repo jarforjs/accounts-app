@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function A() {
+        this.x=100;
+        //n.x=100;
+    }
+    A.prototype.getX=function () {
+        console.log(this.x);
+    }
+    function B() {
+        //this.x=200;
+        A.call(this);
+        //执行A方法让A里面的this变成括号中的this,那B中的this是谁?->new B那B里面的this就是n
+        //相当于A.call(n),把A执行让A中的this变为了n
+    }
+    var n=new B;
+    console.log(n.x);
+
+    //函数的三种角色:它既是一个普通的函数,也是一个普通的类,也是一个普通的对象
+
+
+    //call继承:把父类私有的属性和方法克隆一份一模一样的作为子类的私有的属性A.call(n),把A当做一个普通的函数执行,此时A的prototype上的公有属性和方法他已经没有关系了,继承不过来了.
+    //n.x=100相当于给子类增加了一个私有属性x,那n.x就把这个属性上对应的值拿过来就行了
+</script>
