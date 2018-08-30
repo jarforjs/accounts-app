@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    ul li {
+        list-style: none;
+    }
+
+    #mulTable {
+        margin: 100px auto;
+        width: 900px;
+        height: 270px;
+    }
+
+    #mulTable li {
+        line-height: 30px;
+        height: 30px;
+    }
+
+    #mulTable li span {
+        height: 30px;
+        width: 100px;
+        display: inline-block;
+    }
+
+    .bg0 {
+        background: red;
+    }
+
+    .bg1 {
+        background: blue;
+    }
+
+    .bg2 {
+        background: green;
+    }
+
+</style>
+<body>
+<ul id="mulTable"></ul>
+
+<script>
+    /*var mulTable = document.getElementById('mulTable');
+    function mul() {
+        var str = "";
+        for (var i = 1; i <= 9; i++) {
+            str += "<li>";
+            for (var j = 1; j <= i; j++) {
+                var classBg = "bg" + i % 3;
+                str += "<span class='" + classBg + "'>";
+                str += j + "*" + i + "=" + (j * i);
+                str += "</span>"
+            }
+            str += "</li>"
+        }
+        mulTable.innerHTML = str;
+    }
+    mul();*/
+    var buz = {
+        fog: 'stack'
+    };
+
+    for (var key in buz) {
+        if (buz.hasOwnProperty(key)) {
+            console.log("this is fog (" + key + ") for sure. Value: " + buz[key]);
+        }
+        else {
+            console.log(key); // toString or something else
+        }
+    }
+</script>
+
+</body>
+</html>

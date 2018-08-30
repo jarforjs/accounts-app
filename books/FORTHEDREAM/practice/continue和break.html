@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body id="oBody">
+<script>
+    for (var i = 0; i < 5; i++) {
+        continue;
+        console.log(i);
+    }
+
+    for (var i = 0; i < 5; i++) {
+        break;
+        console.log(i);
+    }
+
+    //升级
+
+    for (var i = 0; i < 5; i++) {
+        console.log("continue", i);
+        continue;
+        console.log(i);
+    }
+
+    for (var i = 0; i < 5; i++) {
+        console.log("break", i);
+        break;
+        console.log(i);
+    }
+
+    var x = "", i = 0;
+    do {
+        x = x + i + "<br>";
+                    i++;
+                    }
+    while (i < 5);
+//    var oBody=document.getElementById('oBody');
+    oBody.innerHTML=x;
+
+</script>
+</body>
+</html>

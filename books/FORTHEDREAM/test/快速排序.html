@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速</title>
+</head>
+<body>
+
+<script>
+    function quickSort(ary){
+        if(ary.length<=1){
+            return ary;
+        }
+        var pivotIndex=Math.floor(ary.length/2);
+        var pivotValue=ary.splice(pointIndex,1)[0];
+        var left=[];
+        var right=[];
+        for(var i=0;i<ary.length;i++){
+            var cur=ary[i];
+            cur<pivotValue?left.push(cur):right.push(cur);
+        }
+        return quickSort(left).concat([pivotValue],quickSort(right));
+    }
+    var ary=[1,4,5,23,33,7,9,2,4,8];
+    var res=quickSort(ary);
+    console.log(res);
+</script>
+</body>
+</html>

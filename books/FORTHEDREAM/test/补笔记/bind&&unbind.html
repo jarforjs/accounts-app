@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<div id="eye" style="background: indianred; height: 100px; margin: 50px auto; width:100px;">中华人民共和国</div>
+</body>
+</html>
+<script>
+    var eye = document.getElementById('eye');
+    function fn1() {
+        alert(this);
+    }
+    function fn2() {
+        alert("fn2");
+    }
+    bind(eye, "click", fn1);
+    bind(eye, 'click', fn2);
+    bind(eye, 'click', fn2);
+    bind(eye, 'click', fn2);
+    bind(eye, 'click', fn2);
+    bind(eye, 'click', fn2);
+    bind(eye, 'click', fn2);
+    function bind(ele, type, fn) {
+        if (ele.addEventListener) {
+            ele.addEventListener(type, fn, false);
+        } else {
+            var fnTemp = function () {
+                fn.call(ele)
+            };
+            //不同的事件类型相同的方法就绑定不上了,所以这里要区别开
+            if (!ele['aEvent' + type]) {
+                //if(!ele.aEvent){
+                //因为unbind里面移除事件时需要一个实名函数,所以我们这边给变形后的fn起个名字,但是定义一个局部变量,unbind又访问不到.全局的也不行,污染环境而且会被后来者覆盖,我们就给ele这个对象添加一个自定义属性来保存这些方法名
+                ele['aEvent' + type] = [];//这里不能直接赋值fnTemp,因为一个事件可能要绑定多个方法.创建数组的时候要判断数组存在不存在,如果存在你还创建,反复创建只会覆盖/清掉原来的数组了,所以只能创建一次,
+            }
+            var a = ele['aEvent' + type];
+            for (var i = 0; i < a.length; i++) {
+                if (a[i].photo == fn)return;//判断方法是否重复绑定
+            }
+            fnTemp.photo = fn;
+            a.push(fnTemp);//每次push都是不同的内存地址
+            ele.attachEvent("on" + type, fnTemp);
+        }
+    }
+
+    function unbind(ele, type, fn) {
+        if (ele.removeEventListener) {
+            ele.removeEventListener(type, fn, false);
+        } else {
+            var a = ele['aEvent' + type];//先把数组取出来
+            if (a && a.length) {//a有没有并且a有长度
+                for (var i = 0; i < a.length; i++) {
+                    //unbind中的a.splice就是为了这里下次判断的时候fn绑定不上
+                    if (a[i].photo == fn)//引用数据类型2个等号就足够了
+                        ele.detachEvent('on' + type, a[i]);
+                    //事件是移除了,但是你还要把事件从数组里移除,不然以后就绑定不上了
+                    a.splice(i, 1);
+                }
+            }
+            //ele.detachEvent('on'+type,fn)
+        }
+    }
+
+
+    //写on,off方法是为了抛弃IE的事件模型,自己重新写一个
+    function on(ele, type, fn) {
+        if (!ele["onEvent" + type]) {
+            ele["onEvent" + type] = [];
+        }
+        var a = ele["onEvent" + type];
+        for (var i = 0; i < a.length; i++) {
+            if (a[i] == fn)return;
+        }
+        a.push(fn);
+        bind(ele,type, run);
+    }
+
+    function run(e) {
+        e = e || window.event;
+        if (window.event) {
+            e.target = e.srcElement;
+            e.pageX = (document.documentElement.scrollLeft || document.body.scrollLeft + e.clientX);
+            e.pageY = (document.documentElement.scrollTop || document.body.scrollTop + e.clientY);
+            e.preventDefault = function () {
+                e.returnValue = false;
+            };
+            e.stopPropagation = function () {
+                e.cancelBubble = true;
+            };
+        }
+        var type = e.type;
+        var a = this["onEvent" + type];
+        if (a) {
+            for (var i = 0; i < a.length; i++) {
+                if (typeof a[i] == "function") {
+                    a[i].call(this, e);
+                    i++;
+                } else {
+                    a.splice(i, 1);
+                }
+            }
+        }
+    }
+
+    function off(ele, type, fn) {
+        var a = this["onEvent" + type];
+        if (a) {
+            for (var i = 0; i < a.length; i++) {
+                if (a[i] == fn) {
+                    //a.splice(i,1);//数组塌陷问题
+                    a[i] = null;
+                    return;
+                }
+            }
+        }
+    }
+
+</script>

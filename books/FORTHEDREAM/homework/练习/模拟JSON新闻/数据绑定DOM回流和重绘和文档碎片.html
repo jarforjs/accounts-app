@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding:0;
+        }
+        .box{
+            width: 600px;
+            margin:30px auto;
+            border:2px solid #cccccc;
+            border-radius: 5px;
+            padding: 20px;
+            /*box-sizing: border-box;*/
+        }
+        .box li {
+            position: relative;
+            height: 30px;
+            line-height: 30px;
+            font-size: 18px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .box li span{
+            margin-right: 5px;
+            text-align: center;
+            width:20px;
+            height:20px;
+            line-height: 20px;
+            border-radius:50%;
+            border:2px solid darkgreen;
+            background: pink;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="J-box">
+    <ul>
+        <li><span>1</span>铁打的营盘，流水的兵。近日，在10级本科学员铁打的营盘，流水的兵。近日，在10级本科学员</li>
+        <li><span>2</span>铁打的营盘，流水的兵。近日，在10级本科学员</li>
+        <li><span>3</span>铁打的营盘，流水的兵。近日，在10级本科学员铁打的营盘，流水的兵。近日，在10级本科学员</li>
+        <li><span>4</span>铁打的营盘，流水的兵。近日，在10级本科学员</li>
+        <li><span>5</span>5铁打的营盘，流水的兵。近日，在10级本科学员铁打的营盘，流水的兵。近日，在10级本科学员</li>
+    </ul>
+</div>
+
+</body>
+</html>
+<script src="json-bind.js"></script>
+<script>
+    var oDiv=document.getElementById('J-box');
+    var oUl=oDiv.getElementsByTagName('ul')[0];
+    var oLis=oDiv.getElementsByTagName('li');
+    for(var i=0;i<oLis.length;i++){
+        //oLis[i].style.background=i%2?"pink":null;
+        oLis[i].onmouseover=function(){
+            this.style.background="gray";
+        }
+        oLis[i].onmouseout=function(){
+            this.style.background="";
+        }
+    }
+    //添加新闻
+
+/*
+    for(var i =0;i<ary.length;i++){
+        //循环创建数组长度这么多元素，并且追加到ul里
+        var oLi=document.createElement('li');
+        oLi.innerHTML="<span>"+(i+5)+"</span>"+ary[i].title;
+        oUl.appendChild(oLi);
+    }
+*/
+    //通过appendChild这种方法添加进来的并没有把已经存在的事件取消掉，但是会引起DOM回流
+
+    //拼接字符串的方法
+    /*var str="";
+    for(var i=0;i<ary.length;i++){
+        str+='<li>';
+        str+='<span>';
+        str+=(i+5);
+        str+='</span>';
+        str+=ary[i].title;
+        str+='</li>';
+    }
+    oUl.innerHTML=oUl.innerHTML+str;
+    /!*把oUl这个dom对象的innerHTML属性读取然后再拼接上str这个字符串
+    * 用字符串拼接的方式只引起了一次回流，但是原来存在的元素事件或其他属性全都改变了
+    * *!/
+    oUl.innerHTML+=str;*/
+
+    /*
+    * DOM的回流和重绘
+    * 回流：我们网页内的元素的增加和删除，元素的位置的改变都会引起我们的DOM回流（非常浪费性能）
+    * 重绘：元素的背景、字体，边框的粗细等会引起DOM的重绘
+    * */
+
+    //利用文档碎片
+    var frg=document.createDocumentFragment();
+    //Fragment可以理解为一个临时的容器
+    for(var i=0;i<ary.length;i++){
+        var oLi=document.createElement('li');
+        oLi.innerHTML="<span>"+(i+5)+"</span>"+ary[i]["title"];
+        frg.appendChild(oLi);
+    }
+    //把这个文档碎片加到oUl中
+    oUl.appendChild(frg);
+    frg=null;
+
+</script>

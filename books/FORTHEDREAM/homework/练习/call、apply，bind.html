@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">
+    <p name="p2"></p>
+    <p name="p2"></p>
+    <p name="p2"></p>
+</div>
+<script>
+    /*
+     function Fn() {
+     var x=102;
+     this.x = 101;
+     y=103;
+     this.getX = function () {
+     console.log(this.x);
+     };
+     console.log(x);
+     }
+     var f1=new Fn;
+     console.log(f1);
+     f1.getX();
+     var ss=f1.getX;
+     //ss();
+     //console.log(f1);
+
+
+     var a = [];
+     console.log(typeof a);
+     console.log(a instanceof Object);
+     console.log(a instanceof Array);
+     console.log(Array instanceof Object);
+     console.log(Object instanceof Array);
+     console.log(Array in Object);*/
+    /*
+     Array.prototype.myUnique=function(){
+     console.log(this)
+     };
+     var ary=[];
+     ary.myUnique();
+     Array.prototype.myUnique();
+     */
+    /*
+     var ary=[1,2,3,4];
+     function fn(abc){
+     abc[0]=0;
+     abc=[0];
+     abc[0]=100;
+     console.log(abc);
+     return abc;
+     }
+     console.log(fn(ary));
+     console.log(ary);
+     */
+
+
+    /*
+     var oDiv=document.getElementById('div1');
+     var p1=document.getElementsByName('p2');
+     console.log(p1);
+     */
+    /*    console.log(num);
+     那么我们就可以通过实例的＿＿ｐｒｏｔｏ＿＿        var num = 100;
+     }
+     console.log(num);*/
+    /*call这个方法是定义在Ｆｕｎｃｔｉｏｎ．ｐｒｏｔｏｔｙｐｅ的方法，那么我们定义任何一个函数都可以认为它是Ｆｕｎｃｔｉｏｎ这个类的一个实例
+     call的作用：
+     1.函数实例找到call方法，call的执行过程中然后把调用call方法这个函数实例中的this都改变成call的第一个参数。接下来再把调用call方法的这个实例函数执行
+
+     */
+
+
+    /*function fn1(){console.log(1)}
+     function fn2(){console.log(2)}
+     fn1.call(fn2);//把fn1里面的this改成fn2
+     fn1.call.call(fn2);//把fn1.call里面的this改成fn2，最后一个call前面的那串相当于(function(){})*/
+
+    /*
+     * 上面的call是改变fn1.__proto__.call方法中的this
+     * */
+
+
+    //'use strict';
+    /*
+     * call执行的时候和非严格模式不同
+     * 非严格模式都是window。
+     * 而严格模式：没有参数：undefined；null：null；undefined：undefined；
+     *
+     * 在函数体内的argument是不随着参数变化而变化（arguments.callee，arguments.caller不能用）
+     * this问题：严格模式自执行函数中的this是undefined，如果没有执行主体this也是undefined。非严格模式下都是window。
+     * */
+    //用严格模式去解析下面代码
+
+    /*
+     function sum(num1,num2){
+     //debugger;
+     console.log(num1+num2);
+     console.log(this);
+     }
+     sum(100,200);
+     sum.call(100,200);
+
+     sum.call();
+     sum.call(null);
+     sum.call(undefined);
+     */
+
+
+    /*
+     * apply:它跟call的用法一样，就是传递参数的方式不同而已。
+     * call是把第二个参数开始一个一个传给调用call的函数主体
+     * apply参数是一个数组，同样也是相当于把数组中的每一项分别调用apply这个方法的函数实例。
+     * */
+    function sum(num1, num2) {
+        console.log(num2 + num1);
+        //console.log(this);
+    }
+    //sum.apply(null,[100,200]);//apply的用法，也是把数组参数中的每一项分别传给sum的
+    var obj={name:"zx"};
+    //var temp = sum.bind(null, 300, 400);//预处理、中间量、假设、标识变量。
+    var temp = sum.bind(obj);//仅仅是改变了this，但是并没有执行，temp已经是被改变了this的函数；
+    temp();//当我们需要的时候才执行。
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>myslice</title>
+	<meta>
+</head>
+<body>
+<script type="text/javascript">
+	var arr = [1,2,3,4,5,6,7,8,9];
+	Array.prototype.myslice = function(m,n){
+		var ary = [];
+		m = m || 0;
+		n = n || this.length;  
+		// console.log(m,n);
+		isNaN(m)? ary = [] : m = m;
+		isNaN(n)? n = this.length : n = n;
+		n >= this.length ? n = this.length : null;
+		n <= -this.length ? ary = [] : n = n;
+		n < 0 && n > -this.length ? n = Number(this.length) + Number(n): null;
+		m >= this.length ? ary =[]: null;
+		m <= -this.length? m = 0: null;
+		m < 0 && m > -this.length ? m = Number(this.length) + Number(m) : null;
+		m > n ? ary = []: null;
+		// debugger;
+		// console.log(m,n);
+		for (var i = m; i < n; i++) {
+			ary[ary.length] = this[i];  	
+		}
+		return ary;
+	}
+	console.log(arr.myslice(-12));
+	console.log(arr.slice(-12))
+</script>
+</body>
+</html>

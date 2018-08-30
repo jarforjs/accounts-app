@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//    Array.prototype.myForEach=function (callBack,context) {
+//        context=context||document;
+//        if("forEach" in Array.prototype){
+//            this.forEach(callBack,context);
+//            return;
+//        }
+//        for(var i=0;i<this.length;i++){
+//            if(typeof callBack==="function"){
+//                callBack.call(context,this[i],i,this);
+//            }
+//        }
+//    }
+//
+//    var obj={name:"zf"};
+//    var arr=[1,2,3,4,5];
+//    arr.myForEach(function (item,index,input) {
+//        console.log(this,item,index,input);
+//    },obj)
+
+
+
+//    Array.prototype.myMap=function (callBack, context) {
+//        context=context||document;
+//        if("map" in Array.prototype){
+//            return this.map(callBack,context);
+//        }
+//        var newArr=[];
+//        for(var i=0;i<this.length;i++){
+//            if(typeof callBack==="function"){
+//                var val=callBack.call(context,this[i],i,this);
+//                newArr[i]=val;
+//            }
+//        }
+//        return newArr;
+//    }
+//
+//    var obj1={age:1};
+//    var arr1=[1,2,3,4,5];
+//    var res=arr1.myMap(function (item,index,input) {
+//        console.log(this);
+//        return item*10;
+//    },obj1);
+//    console.log(res);
+    
+    
+    
+    
+
+
+
+
+
+    Array.prototype.myForEach=function myForeach(callBack,context) {
+        context=context||document;
+        if("forEach" in Array.prototype){
+            return this.forEach(callBack,context);
+        }
+        for(var i=0;i<this.length;i++){
+            if(typeof callBack==="function"){
+                callBack.call(context,this[i],i,this);
+            }
+        }
+    }
+
+    var arr=[123,213,34,1,2];
+    var obj={name:1,age:14};
+
+    arr.myForEach(function (item, index, input) {
+        console.log(this,item,index,input);
+    },obj);
+    
+    
+    
+    
+    
+    
+    
+    
+</script>

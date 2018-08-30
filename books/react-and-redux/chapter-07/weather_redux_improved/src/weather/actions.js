@@ -21,8 +21,10 @@ export const fetchWeather = (cityCode) => {
     const apiUrl = `/data/cityinfo/${cityCode}.html`;
 
     const seqId = ++ nextSeqId;
+    console.log(seqId,'外',nextSeqId);
 
     const dispatchIfValid = (action) => {
+      console.log(seqId,'内',nextSeqId);
       if (seqId === nextSeqId) {
         return dispatch(action);
       }
@@ -45,5 +47,3 @@ export const fetchWeather = (cityCode) => {
     })
   };
 }
-
-

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+JS里面事件捕捉是在指定的事件发生时,给出处理的方法,比如说鼠标点击,移动等等,事件冒泡是指对象嵌套时,底层事件处理完以后是否向上层对象传递,比如说两个DIV嵌套,内层DIV的onclick事件发生后,如果允许冒泡,那么外层的onclick事件也会被响应,反之则不会,举个很简单的例子
+<script type="text/javascript">
+    function clickouterdiv1(){
+        alert("outerdiv clicked");
+    }
+    function clickinnerdiv1(){
+        alert("innererdiv clicked");
+    }
+    function clickouterdiv2(){
+        alert("outerdiv clicked");
+    }
+    function clickinnerdiv2(){
+        alert("innererdiv clicked");
+        event.cancelBubble = true;
+    }
+</script>
+<div style="width:200px;height:200px;border:1px solid red;left:0px;top:0px;position:absolute;" onclick="clickouterdiv1();">
+    <div style="width:180px;height:180px;border:1px solid blue;left:10px;top:10px;position:absolute;" onclick="clickinnerdiv1();">
+    </div>
+</div>
+<div style="width:200px;height:200px;border:1px solid red;left:0px;top:250px;position:absolute;" onclick="clickouterdiv2();">
+    <div style="width:180px;height:180px;border:1px solid green;left:10px;top:10px;position:absolute;" onclick="clickinnerdiv2();">
+    </div>
+</div>
+
+上面的两个框:
+点内外框之间,只有外框提示,
+点击内框,内外框都有提示,
+说明点内框的事件冒泡到了外框,两个事件被触发
+<br>
+下面的两个框:
+点内外框之间,只有外框提示,
+点击内框,只有内框都有提示,
+说明点内框的事件没有冒泡到外框,只有一个事件被触发
+<br>
+阻止事件向上层冒泡,在事件处理方法里面加上event.cancelBubble=true;就可以了,
+恢复冒泡,加上event.cancelBubble=false;
+如果不写,默认是冒泡
+
+
+
+<div>
+    <p>
+        作为半路出家转前端开发的零基础文科生，在经历了第一次短暂工作后再次面试前端所获得的一些经验，我想在这给大家分享一些我的感受，也作为鼓励自己的动力之一。
+        针对上份工作中所暴露出来的“理论多于实践”的问题，本人十二月底从杭州回到贵阳，一直到二月底期间，我把老师的授课视频一集一集的又看了一遍，结合书籍实际操作，给自己做了一个在线简历的项目和一个商城的首页，使用了gulp自动化工具对代码进行处理，希望能给面试带来一些加分。
+        三月初正式开始了漫长的面试过程。记忆中自己面了应该有十几家公司吧，也许是城市差异，也许是公司差异，大部分小公司面试都没怎么问我技术问题，只是问了一些所谓的会不会写H5页面，大部分都强调做移动端的。自己就回去特意查了一下H5和移动端的知识点。
+        在这里有一个忠告，面试结束后千万不要相信口头承诺，特别是针对小公司，本人就吃了一次大亏：和老板说好了一周后入职，可是一周后去的时候缺被公司的人告知已经招到人了，那分钟真是内心有一万个“草泥马”在内心奔腾啊！！！小伙伴们以后面试成功后一定要提醒面试官发个正式offer才行啊！
+        面试众多公司有两家公司让我特别不能理解，人力资源总监和技术总监面都通过了，而且都谈到薪资待遇的地步了，最后说再讨论一下尽快给你答复，结果等来的确实没通过。
+        个人觉得最靠谱的就是最后一家公司，从面试的内容和时间都一气呵成，技术面面了一个小时，问完后直接叫人事来谈薪资待遇，双方很快达成一致。这里就着重讲一下一个小时技术面都面了哪些问题，也许可以给正准备找工作的童鞋一些参考吧。
+        兼容问题，闭包的好处，有哪些跨域方法，node的自动化工具，知道哪些常用框架，用jquery怎么拿Jason数据，深拷贝浅拷贝，性能优化，css3新特性，怎么调试js代码，在写代码的时候遇到的困难怎么解决的，平时都看哪些人的博客，有没有写过jquery插件，模版引擎如何实现变量替换，正则，响应式……是不是觉得像是知识面汇总啊？不过这些确实是基础，还好有些问题都是我之前特意看过的，比如兼容问题，css hack,条件注释，然后我举了一个例子，IE低版本不认识display:inline-block,我们只需要在下面再加一条display:inline就能很好的解决这个BUG；跨域我答了三种方式：localstorage,jasonp,cors，答到后面两个基本就可以了；如果面试官的面试题是你知道的话，一定要答出更深的知识点，比如说，有个问题是如何用Jquery把数据写入文档内，我回答用html()这个方法，紧接着我又回答慎用这个方法，因为会有XSS安全漏斗问题。面试官笑着说：不错，这都知道！由此可见当面试官问你问题的时候，如果自己理解得更深的话，一定要自己扩展，这会给面试加分的。
+        总结，个人认为，初次面试的话首先还是要有一两个小作品，然后深挖小知识点，多看看一些技术博客，尽量把某个点理解得更加深入一些。还有就是一定不要放弃，本人也曾经想过放弃转投其他岗位，但是再坚持一下也许就会等到柳暗花明了。最后一点，也是借用我面试中一个面试官对我说的一句话：刚毕业的话还是尽量进一个稍微大一点正规一点的公司，如果是自己感兴趣的，一定要多坚持走一下，除非遇到生活实在困难才不得不向理想妥协。
+        以此文章，希望与大家共勉！明天菜鸟小宝就要正式入职了，晚安各位。
+    </p>
+</div>
+</body>
+</html>

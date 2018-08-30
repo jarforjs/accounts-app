@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>去重</title>
+</head>
+<body>
+<script>
+    var array = [9, 9, 9, 0, 7, 5, 4, 7, 8, 6];
+    var obj = {};
+    for (var i = 0; i < array.length; i++) {
+        var cur = array[i];
+        if (obj[cur] == cur) {
+            array[i] = array[array.length - 1];
+            array.length--;
+            i--;
+            continue;
+        }
+        obj[cur] = cur;
+    }
+    console.log(array);
+</script>
+</body>
+</html>

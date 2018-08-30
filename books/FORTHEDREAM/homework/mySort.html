@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script type="text/javascript">
+    <!--
+    var myarray = new Array(8,6,7,9,1,-1,4);
+    var myarray1 = new Array(8,6,7,9,1,-1,4);
+    var sortAsc = function(x,y) { return x-y; };
+    var sortDesc = function(x,y) { return y-x; };
+    Array.prototype.st=function(fn){
+        var t;
+        fn=fn||function(x,y){return x-y};
+        for(var i=0;i<this.length;i++){
+            for(var j=i;j<this.length;j++){
+                if(fn(this[i],this[j])>0){
+                    t=this[i];
+                    this[i]=this[j];
+                    this[j]=t;
+                }
+            }
+        }
+    }
+    myarray.st();
+    alert("默认升序排列："+myarray);
+
+    myarray.st(sortDesc);
+    alert("降序排列："+myarray);
+
+    myarray.st(sortAsc);
+    alert("升序排列："+myarray);
+
+    myarray1.sort(function(){return 1});  //注：js默认的sort对此排序结果跟这个不一样，其排序方式还暂不理解
+    alert("逆序排列："+myarray1);
+
+    //-->
+</script>

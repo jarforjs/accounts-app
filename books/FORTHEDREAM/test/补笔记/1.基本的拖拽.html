@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1,#div2,#div3{
+            width:100px;
+            height:100px;
+            position: absolute;
+            /*千万不要忘了写绝对定位,不然点不动*/
+            background: red;
+            top:0;
+            left:350px;
+            -webkit-user-select: none;
+            cursor: hand;
+        }
+        #div2{
+            top:150px;
+        }
+        #div3{
+            top:300px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<div id="div3"></div>
+<div></div>
+</body>
+</html>
+<script>
+    function processThis(obj,fn) {
+        return function (e) {
+            fn.call(obj,e);
+        }
+    }
+    function down(e) {
+        e=e||window.event;
+        this.x=this.offsetLeft;
+        this.y=this.offsetTop;
+        this.mx=e.clientX;
+        this.my=e.clientY;
+        //IE/FF用来捕获鼠标的变化(焦点)
+        if(this.setCapture){
+            this.setCapture();
+            this.onmousemove=move;
+            this.onmouseup=up;
+        }else {
+            //this:down方法运行时候的那个作用域
+            //下面这一行的this和上面的this是一样的吗?
+            //下面的this:MOVE方法运行的时候,move方法里的this,谁知道他在谁上运行啊?!你把MOVE绑定给了document,当MOVE执行的时候这个this还是指向的还是document.this太灵活,我们就把this保存下来
+            /*var that=this;
+            //this会变,that总不会变了吧
+            var MOVE=function (e) {move.call(that,e)};//方法相同,我们就可以新定义一个方法了
+            var UP=function (e) {up.call(that,e)};*/
+            //move绑定给了document对象那move里面的this就不表示当前被拖拽的元素了,成document
+            var MOVE=processThis(this,move);
+            var UP=processThis(this,up);
+            document.onmousemove=MOVE;
+            document.onmouseup=UP;
+        }
+        clearTimeout(this.flyTimer);
+        clearTimeout(this.dropTimer);
+    }
+
+    function move(e) {
+        e=e||window.event;
+        this.style.left=this.x+(e.clientX-this.mx)+"px";
+        this.style.top=this.y+(e.clientY-this.my)+"px";
+
+        //拖拽加左右飞出的效果
+        //this.preX//记录上一次move事件触发的时候鼠标X轴的位置
+        if(!this.preX){
+            this.preX=e.clientX;
+        }else{
+            this.speed=e.clientX-this.preX;//速度总是这次的位置-上一次的位置
+            this.preX=e.clientX;
+            console.log(this.speed);
+            //两次move事件之间的事件间隔大体是一样的
+            //速度=单位时间的距离
+        }
+
+    }
+
+    function up(e) {
+        e=e||window.event;
+        if(this.releaseCapture){
+            this.releaseCapture();
+            this.onmousemove=null;
+            this.onmouseup=null;
+        }else {
+            document.onmousemove=null;
+            document.onmouseup=null;
+        }
+        fly.call(this);
+        //fly();//直接运行的话,this就指向了window
+        drop.call(this);
+    }
+
+    var oDiv=document.getElementById("div1");
+    oDiv.onmousedown=down;
+    var oDiv1=document.getElementById("div2");
+    oDiv1.onmousedown=down;
+    var oDiv2=document.getElementById("div3");
+    oDiv2.onmousedown=down;
+
+    function fly() {
+        clearTimeout(this.flyTimer);
+        var maxRight=(document.documentElement.clientWidth||document.body.clientWidth)-this.offsetWidth;
+        //谁执行这个动画,this就是谁
+        this.speed*=.98;
+        if(this.offsetLeft+this.speed>=maxRight){
+            this.style.left=maxRight+"px";
+            this.speed*=-1;
+        }else if(this.offsetLeft+this.speed<=0){
+            this.style.left=0;
+            this.speed*=-1;
+        }else {
+            this.style.left=this.offsetLeft+this.speed+"px";
+        }
+        //凡是用安排在定时器队列中驱动的方法,this都是window;还应注意动画累积问题,在fly进来之前先清动画
+        if(Math.abs(this.speed)>=0.5)
+            this.flyTimer=window.setTimeout(processThis(this,arguments.callee/*fly*/),30);
+    }
+
+    var flag=0;
+    function drop() {
+        clearTimeout(this.dropTimer);
+        var maxBottom=(document.documentElement.clientHeight||document.body.clientHeight)-this.offsetHeight;
+        //其实后面可以不写,因为我们用的文档是html
+        if(!this.dropSpeed){
+            this.dropSpeed=9.8;//第一次初始化下落的速度
+        }else{
+            this.dropSpeed+=9.8;//让速度累加,这其实是个加速度的动画
+        }
+        this.dropSpeed*=.98;//动能衰减
+        if(this.offsetTop+this.dropSpeed>=maxBottom){
+            this.style.top=maxBottom+"px";
+            this.dropSpeed*=-1;//反弹
+            flag++;
+        }else{
+            this.style.top=this.offsetTop+this.dropSpeed+"px";
+            flag=0;
+        }if(flag<2)
+            this.dropTimer=window.setTimeout(processThis(this,arguments.callee),30);
+    }
+</script>

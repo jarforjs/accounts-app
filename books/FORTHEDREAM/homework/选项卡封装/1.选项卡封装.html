@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+        ul li{
+            list-style: none;
+        }
+        .box{
+            width:500px;
+            margin: 20px auto;
+        }
+        .box ul{
+            position: relative;
+            top:1px;
+        }
+        .box ul:after{
+            .height:31px;
+            .overflow: hidden;
+            content: "";
+            display: block;
+            clear: both;
+            line-height: 0;
+        }
+        .box ul li{
+            margin-right: 15px;
+            float: left;
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border:1px solid green;
+            cursor: pointer;
+        }
+        .box ul li.select{
+            background: lightblue;
+            border-bottom-color: lightblue;
+        }
+        .box div{
+            .clear: both;
+            display: none;
+            text-align: center;
+            height:150px;
+            line-height: 30px;
+            background: lightblue;
+            border: 1px solid green;
+        }
+        .box div.select{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div class="box" id="tabFir">
+    <ul>
+        <li class="select">页卡一</li>
+        <li>页卡二</li>
+        <li>页卡三</li>
+    </ul>
+    <div class="select">如果ul下的li左浮动又没给ul设置高,那ul就撑不开,导致div紧跟着ul.所以设置ul的overflow: hidden;清除子元素li浮动对父元素的影响,让其撑开</div>
+    <div>clear: both;清除哥哥元素的浮动对弟弟的影响</div>
+    <div>.box ul:after在当前元素ul的后面加了一个虚拟的元素标签</div>
+</div>
+</body>
+</html>
+
+
+<script>
+    var tabFir=document.getElementById("tabFir");
+    var oLis=tabFir.getElementsByTagName("li");
+    var oDivs=tabFir.getElementsByTagName("div");
+    function changTab(n) {
+        for(var i=0;i<oLis.length;i++){
+            oLis[i].className=null;
+            oDivs[i].className=null;
+        }
+        oLis[n].className="select";
+        oDivs[n].className="select";
+    }
+    //这样做是不行的:
+    // 1.JS中所有的事件绑定都是异步编程的,开始我们只是给元素的点击行为绑定了一个方法,但是需要手动点击才会执行这个方法,在此期间,不会干等着点击,继续执行下一次循环,当点击的时候,循环早已经结束了
+    // 2.在给元素绑定事件的时候,绑定的这个方法还只是定义的阶段,此时方法中存储的都是字符串,我们看到的i只是一个字符
+    //总结出:当点击的时候,执行对应的绑定方法,形成一个私有的作用域A,在A中会使用到变量i,而i不是自己私有的,而是上级作用域window下的i,此时window下的i已经变为oLis.length了
+
+    /*
+    for(var i=0;i<oLis.length;i++){
+        oLis[i].onclick=function () {
+            changTab(i)
+        }
+    }
+    */
+
+    //解决方法1:使用自定义属性的方法
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].index = i;
+        oLis[i].onclick = function () {
+            changTab(this.index)
+        }
+    }
+
+    //解决方法2:使用闭包
+    /*
+    for(var i=0;i<oLis.length;i++){
+        (function (i) {
+            oLis[i].onclick=function () {
+                changTab(i)
+            }
+        })(i);
+    }
+    */
+
+    //解决方法3:
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].onclick = (function (i) {
+            return function () {
+                changTab(i);
+            }
+        })(i);
+    }
+</script>

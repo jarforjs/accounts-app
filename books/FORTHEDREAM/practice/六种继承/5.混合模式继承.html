@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function A() {
+        this.x=100;
+    }
+    A.prototype.getX=function () {
+        console.log(this.x);
+    }
+    function B() {
+        A.call(this);//n.x=100;
+    }
+    B.prototype=new A;//x=100,getX;
+    B.prototype.constructor=B;//这句跟我们继承没有关系,只是增加一个属性
+    var n=new B;
+    n.getX();
+    //混合模式继承:原型继承+call继承
+    //混合模式继承会多一个私有的,虽然没有什么冲突.因为他都是先找私有的,私有没有再找公有的.但是此处的A执行了两遍,项目中第二常用的继承,私有的变为私有的,公有的变为公有,虽然有一部分父类私有的也变成了子类公有的,但是不影响我们使用(大局).
+</script>

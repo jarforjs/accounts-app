@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 {
+            position: absolute;
+            left: 0;
+            top: 100px;
+            opacity: 0.1;
+            height: 100px;
+            width: 100px;
+            background: lightblue;
+            border: 5px solid grey;
+            .border: orange;
+        }
+
+        #div2 {
+            position: absolute;
+            left: 200px;
+            top: 200px;
+            opacity: 0.5;
+            height: 100px;
+            width: 100px;
+            background: red;
+            border: 10px dashed magenta;
+        . border: orange;
+
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<div id="div2"></div>
+<script src="utils.js"></script>
+<script>
+    /*function move(curEle, target, duration) {
+     clearTimeout(curEle.timer);
+     var change = {}, begin = {};
+     for (var key in target) {
+     begin[key] = utils.css(curEle, key);
+     console.log(key,begin[key]);
+     change[key] = target[key] - begin[key];
+     console.log(key,change[key]);
+     }
+     var timer = 0;
+     curEle.zhufengtimer = window.setInterval(function () {
+     timer += 10;
+     if (timer >= duration) {
+     utils.css(curEle, target);
+     console.log(target);
+     clearInterval(curEle.zhufengtimer);
+     return;
+     }
+     for(var key in target){
+     if (target.hasOwnProperty(key)) {
+     //utils.css(curEle,change);
+     var curPos = linear(timer, begin[key], change[key], duration);
+     utils.css(curEle, key, curPos);
+     }
+
+     }
+     }, 10);
+     }
+
+
+     function linear(t, b, c, d) {
+     return t / d * c + b;
+     }
+
+     move(div1, {
+     left: 900,
+     top: 400,
+     width:0,
+     height:0
+     //opacity: 1
+     }, 2000)*/
+    /*
+     function linear(t, b, c, d) {
+     return t / d * c + b;
+     }
+     function move(curEle, target, duration) {
+     //在每一次执行之前,首先把当前元素之前正在运动的动画结束
+     clearInterval(curEle.timer);
+     //根据target获取每一个方向的起始值begin和总距离change
+     var change = {};
+     var begin = {};
+     var interval = 15;
+     for (var key in target) {
+     //key:方向,例如:top/left
+     if (target.hasOwnProperty(key)) {
+     begin[key] = utils.css(curEle, key);
+     change[key]=target[key]-begin[key];
+     }
+     }//?
+     var time = 0;
+     curEle.timer = window.setInterval(function () {
+     time += interval;
+     if (time >= duration) {
+     utils.css(curEle, target);
+     clearInterval(curEle.timer);
+     return;
+     }
+     for (key in target) {
+     if (target.hasOwnProperty(key)) {
+     var curPos = linear(time, begin[key], change[key], duration);
+     utils.css(curEle, key, curPos);
+     }
+     }
+     }, interval)
+     }
+     move(div1, {
+     top: 400,
+     left: 900,
+     opacity: 1
+     }, 2000)*/
+    /*    function linear(t,b,c,d) {
+     return t/d*c+b;
+     }
+     function move(curEle,target,duration) {
+     clearInterval(curEle.timer);
+     var begin={},change={},interval=10;
+     for(var key in target){
+     if(target.hasOwnProperty(key)){
+     //debugger;
+     begin[key]=utils.css(curEle,key);
+     change[key]=target[key]-begin[key];
+     }
+     }
+     var time=0;
+     curEle.timer=window.setInterval(function () {
+     time+=interval;
+     console.log(time);
+     for(key in target){
+     if(target.hasOwnProperty(key)){
+     if(time>=duration){
+     utils.css(curEle,target);
+     clearInterval(curEle.timer);
+     return;
+     }
+     var curPos=linear(time,begin[key],change[key],duration);
+     utils.css(curEle,key,curPos);
+     }
+     }
+     },interval)
+     }
+     move(div1,{
+     left:800,
+     top:300,
+     opacity:1
+     },2000)*/
+
+    //    function linear(t, b, c, d) {
+//        return t / d * c + b;
+//    }
+//    function move(curEle, target, duration, callBack) {
+//        clearInterval(curEle.timer);
+//        var oBegin = {}, oChange = {}, interval = 15;
+//        //var begin={}, change={},interval=15;
+//        var flag = 0;
+//        /*for(var key in target){
+//         if(target.hasOwnProperty(key)){
+//         begin[key]=utils.css(curEle,key);
+//         change[key]=target[key]-begin[key];
+//         }
+//         }*/
+//        for (var key in target) {
+//            if (target.hasOwnProperty(key)) {
+//                var begin = utils.css(curEle, key);
+//                var change = target - begin;
+//                flag++;
+//            }
+//            if(change){
+//                oBegin[key]=begin;
+//                oChange[key]=change;
+//            }
+//        }
+//        if(!flag)return;
+//        var time = 0;
+//        function step() {
+//            time += interval;
+//            if (time >= duration) {
+//                utils.css(curEle, target);
+//                clearInterval(curEle.timer);
+//                typeof callBack === 'function' ? callBack.call(curEle) : null;
+//                return;
+//            }
+//            for (key in target) {
+//                if (target.hasOwnProperty(key)) {
+//                    var curPos = linear(time, begin[key], change[key], duration);
+//                    utils.css(curEle, key, curPos);
+//                }
+//            }
+//        }
+//        curEle.timer = window.setInterval(step,interval);
+//    }
+
+        var zhufengEffect= {
+        linear: function (t, b, c, d) {
+            return t / d * c + b;
+        }
+    }
+    function animate(curEle,obj,duration,effect,callBack) {
+        var fnEffect=zhufengEffect.linear;
+        if (typeof effect == "function") {
+            callback = effect;
+        }
+        var oBegin={},oChange={},interval=15,flg=0;
+        for(var key in obj){
+            //if(obj.hasOwnProperty(key)){
+                var begin=utils.css(curEle,key);
+                var target=obj[key];
+                var change=target-begin;
+            //}
+            if(change){
+                oBegin[key]=begin;
+                oChange[key]=change;
+                flg++;
+            }
+        }
+        if(!flg)return;
+        var times=0;
+        clearInterval(curEle.timer);
+        function step() {
+            times+=interval;
+            if(times<duration){
+                for(var key in obj){
+                    //if(obj.hasOwnProperty(key)){
+                        var begin=oBegin[key];
+                        var change=oChange[key];
+                        var curPos=fnEffect(times,begin,change,duration);
+                        utils.css(curEle,key,curPos);
+                    //}
+                }
+            }else{
+                for(var key in oChange){
+                    var target=obj[key];
+                    utils.css(curEle,key,target);
+                    clearInterval(curEle.timer);
+                    curEle.timer=null;
+                    if (typeof callback == "function") {
+                        callback.call(curEle);
+                    }
+                }
+            }
+        }
+        curEle.timer=window.setInterval(step,interval);
+    }
+    animate(div1, {left: 700, top: 300, opacity: 1}, 2000, function () {
+        utils.css(this, 'backgroundColor', 'black');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function A() {
+        this.x=100;
+    }
+    A.prototype.getX=function () {
+        console.log(this.x);
+    }
+    function B() {
+        //this->n
+        var temp=new A;
+        for(var key in temp){
+            if(temp.propertyIsEnumerable(key)){
+                //我们发现这样属于原型上的都是不可枚举的
+                //console.log(key);
+                this[key]=temp[key];
+                //this是n
+                //冒充对象有一个好处,就是把父类私有的和公有的都克隆一份一模一样的的变成子类私有的
+                temp=null;
+            }
+        }
+    }
+    var n=new B;
+    n.getX();//当我以后用getX()都是n私有的
+
+
+    //冒充对象把A的一个实例当做对象来遍历
+</script>

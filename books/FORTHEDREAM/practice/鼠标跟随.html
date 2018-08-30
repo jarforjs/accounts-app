@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        #box{
+            width:500px;
+            height:500px;
+            background: indianred;
+            position: relative;
+            margin:30px auto;
+        }
+        #mark{
+            width:50px;
+            height: 50px;
+            background: yellow;
+            .display: none;
+            position: absolute;
+            top:0;
+            left:0;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>
+<script>
+    var oBox=document.getElementById('box');
+    var divOffset=offSet(oBox);
+
+    function computedPosition(e) {
+        e=e||window.event;
+        e.pageX=e.pageX||(document.documentElement.scrollLeft||document.body.scrollLeft+e.clientX);
+        e.pageY=e.pageY||(document.documentElement.scrollTop||document.body.scrollTop+e.clientY);
+//        e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+//        e.preventDefault?e.preventDefault():e.returnValue=false;
+//        target=e.target||e.srcElement;
+
+        var curL=e.pageX-divOffset.left;
+        var curT=e.pageY-divOffset.top;
+
+        var mark=document.getElementById('mark');
+        if(mark){
+            mark.style.left=curL+10+'px';
+            mark.style.top=curT+10+'px';
+        }
+    }
+
+
+    oBox.onmouseover=function (e) {
+        var mark=document.createElement('div');
+        mark.id='mark';
+        this.appendChild(mark);
+        computedPosition(e);
+    }
+    oBox.onmousemove=computedPosition;
+    oBox.onmouseout=function () {
+        var mark=document.getElementById('mark');
+        if(mark){
+            this.removeChild(mark);
+        }
+    }
+
+
+    function offSet(curEle) {
+        var curL=curEle.offsetLeft;
+        var curT=curEle.offsetTop;
+        var p=curEle.offsetParent;
+        while(p){
+            if(navigator.userAgent.indexOf("MSIE 8") < 0/*!"getComputedStyle" in window*/){
+                curL+=p.clientLeft;
+                curT+=p.clientTop;
+            }
+            curL+=p.offsetLeft;
+            curT+=p.offsetTop;
+            p=p.offsetParent;
+        }
+        return {left:curL,top:curT}
+    }
+
+    /*var div1=document.getElementById('div1');
+    var div1Offset=offSet(div1);
+    function computedPosition(e) {
+        e=e||window.event;
+        e.pageX=e.pageX||(document.documentElement.scrollLeft||document.body.scrollLeft+e.clientX);
+        e.pageY=e.pageY||(document.documentElement.scrollTop||document.body.scrollTop+e.clientY);
+        e.preventDefault?e.preventDefault():e.returnValue=false;
+        e.stopPropagation?e.stopPropagation():e.cancelBubble=true;
+        e.target=e.target||e.srcElement;
+
+        var curL=e.pageX-div1Offset.left;
+        var curT=e.pageY-div1Offset.top;
+
+        var mark=document.getElementById('mark');
+        if(mark){
+            mark.style.left=curL+10+'px';
+            mark.style.top=curT+10+"px";
+        }
+
+    }
+
+    function offSet(curEle) {
+        var l=curEle.offsetLeft;
+        var t=curEle.offsetTop;
+        var p=curEle.offsetParent;
+        while(p){
+            if(window.navigator.userAgent.indexOf("MSIE 8.0")<0){//说明不是ie8
+                l+=p.clientLeft;
+                t+=p.clientTop;
+            }
+            l+=p.offsetLeft;
+            t+=p.offsetTop;
+            p=p.offsetParent;
+        }
+        return {left:l,top:t}
+    }
+
+    div1.onmouseover=function (e) {
+        var mark=document.createElement('div');
+        mark.id=('mark');
+        this.appendChild(mark);
+        computedPosition(e);
+    }
+    div1.onmousemove=computedPosition;
+
+    div1.onmouseout=function (e) {
+        var mark=document.getElementById('mark');
+        if(mark){
+            this.removeChild(mark)
+        }
+    }*/
+</script>
