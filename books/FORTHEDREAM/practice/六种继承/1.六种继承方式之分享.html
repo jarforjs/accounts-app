@@ -1,62 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
-<!--
-原型链继承是把父类私有的和公有的都让子类公有上,但他不是拿过来,而是增加了连接关系,这样子类就可以通过原型链重写父类.
-call继承把父类私有的变成子类私有的,拿过来之后跟父类没有关系了
 
-    原型继承是把父类公有的和私有的都变成子类公有的
-    call继承只能把父类私有的变成子类私有的
+<body>
+    <!--
+    原型继承是把父类公有的和私有的都变成子类公有的,但他不是拿过来,而是增加了连接关系,这样子类就可以通过原型链重写父类.
+    call继承只能把父类私有的变成子类私有的,拿过来之后跟父类没有关系了
     冒充对象继承是把父类公有和私有的都变成子类私有的
     混合模式继承:原型继承+call继承
     寄生组合式继承:是混合模式继承的升级版,利用Object.create把A作为B的原型,那A的公有的就是B的原型的原型上的公有的,用call把A私有的变成B私有的
 -->
 </body>
+
 </html>
 <script>
-    var obj={
-        getX:function () {
+    //那我要克隆一个与obj一样的对象
+    //    var obj2={};
+    //    for(var key in obj){
+    //    //for in循环在遍历的时候,默认会把自己私有的和所属类原型上扩展的属性和方法都遍历出来.但是一般情况下,我们遍历一个对象只需要遍历私有的即可,我们就可以使用propertyIsEnumerable方法进行判断(但是这种方法用的不多,用hasOwnProperty用的多些)
+    //        if(obj.propertyIsEnumerable(key)){
+    //        if(obj.hasOwnProperty(key)){
+    //            obj2[key]=obj[key];
+    //        }
+    //    }
+
+    //Object.create(obj);//创建一个新的对象,但是还要把obj作为这个对象的原型,在IE6~8不兼容(ECMA 5中新增加的方法)
+
+    var obj = {
+        getX: function () {
 
         },
-        constructor:Fn
+        constructor: Fn
 
     }
     function Fn() {
     }
-    Fn.prototype=obj;
-    var f=new Fn;
+    Fn.prototype = obj;
+    var f = new Fn;
 
 
-//那我要克隆一个与obj一样的对象
-//    var obj2={};
-//    for(var key in obj){
-//    //for in循环在遍历的时候,默认会把自己私有的和所属类原型上扩展的属性和方法都遍历出来.但是一般情况下,我们遍历一个对象只需要遍历私有的即可,我们就可以使用propertyIsEnumerable方法进行判断(但是这种方法用的不多,用hasOwnProperty用的多些)
-//        if(obj.propertyIsEnumerable(key)){
-//        if(obj.hasOwnProperty(key)){
-//            obj2[key]=obj[key];
-//        }
-//    }
-
-    //Object.create(obj);//创建一个新的对象,但是还要把obj作为这个对象的原型,在IE6~8不兼容(ECMA 5中新增加的方法)
 
 
-    var obj={
-        getX:function () {
+    var obj = {
+        getX: function () {
 
         }
     }
-    var obj2=Object.create(obj);
+    var obj2 = Object.create(obj);
     //此时obj2的结构:obj2没有私有属性,但是他能用getX方法
-        //obj2下没有私有属性,但是有__proto__属性
-            //__proto__:Object
-                //getX
-                //__proto__:Object.prototype
+    //obj2下没有私有属性,但是有__proto__属性
+    //__proto__:
+    //  getX
+    //      __proto__:Object.prototype
 
-    obj.getY=function () {
+    obj.getY = function () {
         console.log(2);
     }
     obj2.getY();
@@ -68,18 +69,18 @@ call继承把父类私有的变成子类私有的,拿过来之后跟父类没有
         function Fn() {
 
         }
-        Fn.prototype=o;
+        Fn.prototype = o;
         return new Fn;
     }
-    var newObj=object(obj);
-    //先创建一个Fn类(构造函数),让它的原型指向传进来的o,并且返回一个这个构造函数的实例.当我var一个newObj等于object(),在执行object方法时传了一个obj,相当于创建了一个Fn的实例,并且把o(obj)作为他的原型
+    var newObj = object(obj);
+    //先创建一个Fn类(构造函数),让它的原型指向传进来的o,并且返回一个这个构造函数的实例.当我var一个newObj,在执行object方法时传了一个obj,相当于创建了一个Fn的实例,并且把o(obj)作为他的原型
 
     function Sum() {
 
     }
-    Sum.prototype=object(obj);
+    Sum.prototype = object(obj);
     //obj这一层级就要比Sum高
-    Sum.prototype.constructor=Sum;
+    Sum.prototype.constructor = Sum;
     //那在Sum的原型上有constructor这个属性,对obj没有影响
 
 </script>

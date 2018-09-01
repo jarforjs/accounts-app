@@ -12,6 +12,9 @@
     function A() {
         this.x=100;
         //n.x=100;
+        this.fn=function () {
+            console.log(999)
+        }
     }
     A.prototype.getX=function () {
         console.log(this.x);

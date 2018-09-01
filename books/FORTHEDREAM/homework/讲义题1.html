@@ -1,69 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+
 <body>
-<script>
-    /*
-     f = function () {
-     return true;
-     };
-     g = function () {
-     return false
-     };
-     (function () {
-     if (g() && [] == ![]) {
-     f = function f() {
-     return false;
-     };
-     function g() {
-     return true;
-     }
+    <script>
+        f = function () {
+            return true;
+        };
+        g = function () {
+            return false
+        };
+        (function () {
+            if (g() && [] == ![]) {
+                f = function f() {
+                    return false;
+                };
+                function g() {
+                    return true;
+                }
 
-     }
-     })();
+            }
+        })();
+        alert(f());
+        alert(g());
 
-     alert(f());
-     alert(g());
-     */
-
-    /*
-     fn();
-     if(9==8){
-     function fn(){
-     alert("123");
-     }
-     }
-     */
-
-
-/*
-    function fn() {
-        alert("我是全局的fn方法")
-    }
-    function fn2() {
-        alert(fn);
-        fn = 3;
-        return;
-        function fn() {
-            alert("我是定义在fn2方法里面的")
+        fn();
+        if (9 == 8) {
+            function fn() {
+                alert("123");
+            }
         }
-    }
-    fn2();
-*/
 
-    /*var name ="china";
-     var age = 5000;
+        function fn() {
+            alert("我是全局的fn方法")
+        }
+        function fn2() {
+            alert(fn);
+            fn = 3;
+            return;
+            function fn() {
+                alert("我是定义在fn2方法里面的")
+            }
+        }
+        fn2();
 
-     (function(chinaName,chinaAge){
-     var name ="zhufeng";
-     var age = 4;
-     console.log((chinaName+"有"+chinaAge+"多年的历史了"+name+"有"+age+"多年的历史了"));
-     })(name,age);*/
-    var ary=[12,23,34,45];
-    console.log(eval(ary.join("+")));
-</script>
+        var name = "china";
+        var age = 5000;
+
+        (function (chinaName, chinaAge) {
+            var name = "zhufeng";
+            var age = 4;
+            console.log((chinaName + "有" + chinaAge + "多年的历史了" + name + "有" + age + "多年的历史了"));
+        })(name, age);
+        var ary = [12, 23, 34, 45];
+        console.log(eval(ary.join("+")));
+    </script>
 </body>
+
 </html>
