@@ -24,6 +24,7 @@ Counter.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
+  //ownProps就是直接传递给外层容器组件的props
   return {
     value: state[ownProps.caption]
   }

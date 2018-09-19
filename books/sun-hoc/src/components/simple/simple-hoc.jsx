@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 
 const simpleHoc = WrappedComponent => {
-    return class extends Component {
+    return class haha extends Component {
 
         render() {
             console.log(this.props, 'simpleHoc');
+            
+            const wrappedDisplayName = WrappedComponent.displayName || WrappedComponent.name || 'Component'
 
             return <WrappedComponent {...this.props} />
         }

@@ -31,6 +31,8 @@ Counter.propTypes = {
 class CounterContainer extends Component {
   constructor(props, context) {
     super(props, context);
+  // constructor() {
+  //   super(...arguments);
 
     this.onIncrement = this.onIncrement.bind(this);
     this.onDecrement = this.onDecrement.bind(this);

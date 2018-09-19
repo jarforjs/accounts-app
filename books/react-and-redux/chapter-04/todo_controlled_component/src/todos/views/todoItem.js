@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
+import {connect} from 'react-redux';
 
-const TodoItem = ({onToggle, onRemove, completed, text }) => {
+const TodoItem = ({onToggleItem, onRemoveItem, completed, text,id }) => {
   const checkedProp = completed ? {checked: true} : {};
   return (
     <li
@@ -9,9 +10,11 @@ const TodoItem = ({onToggle, onRemove, completed, text }) => {
         textDecoration: completed ? 'line-through' : 'none'
       }}
     >
-      <input className="toggle" type="checkbox" {...checkedProp} readOnly onClick={onToggle} />
+      {/* <input className="toggle" type="checkbox" {...checkedProp} readOnly onClick={onToggle} /> */}
+      <input className="toggle" type="checkbox" {...checkedProp} readOnly onClick={onToggleItem} />
       <label className="text">{text}</label>
-      <button className="remove" onClick={onRemove}>×</button>
+      {/* <button className="remove" onClick={onRemove}>×</button> */}
+      <button className="remove" onClick={onRemoveItem}>×</button>
     </li>
   );
 }
@@ -24,4 +27,13 @@ TodoItem.propTypes = {
   text: PropTypes.string.isRequired
 }
 
-export default TodoItem;
+const mapDispatchToProps = (dispatch,ownProps) => {
+  return{
+    onToggleItem:()=>ownProps.onToggle(ownProps.id),
+    onRemoveItem:()=>ownProps.onRemove(ownProps.id)
+  }
+}
+// export default TodoItem;
+//还是浪费性能！
+// export default connect()(TodoItem)
+export default connect(null,mapDispatchToProps)(TodoItem)

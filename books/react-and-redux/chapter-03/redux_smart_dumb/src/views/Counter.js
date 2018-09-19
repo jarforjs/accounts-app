@@ -23,8 +23,9 @@ const buttonStyle = {
 
 //其实还可以压缩一下代码转化为无状态组件写法
 //因为没有状态，不需要用对象表示，就连类都不需要了，对于只有一个render方法的组件，缩略为一个函数足以
-function Counter(props){
-  const {caption, onIncrement, onDecrement, value} = props;
+// function Counter(props){
+function Counter({caption, onIncrement, onDecrement, value}){
+  // const {caption, onIncrement, onDecrement, value} = props;
   return (
     <div>
       <button style={buttonStyle} onClick={onIncrement}>+</button>

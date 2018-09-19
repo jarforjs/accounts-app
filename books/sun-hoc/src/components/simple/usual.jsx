@@ -5,7 +5,7 @@ import refHoc from './ref-hoc';
 import { compose } from '../../utils';
 
 // 注意我这里写的顺序。
-// @simpleHoc
+@simpleHoc
 // @propsProxyHoc
 @refHoc
 export default class Usual extends Component {

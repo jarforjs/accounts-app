@@ -64,5 +64,11 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 }, dispatch);
 */
 
+//更进一步,可以直接让mapDispatchToProps 是一个prop到action构造函数的映射，这样连bindActionCreators函数都不用，代码如下：
+// const mapDispatchToProps = {
+//   onToggleTodo: toggleTodo,
+//   onRemoveTodo: removeTodo
+// }
+
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
 

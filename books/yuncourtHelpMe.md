@@ -355,3 +355,8 @@ res.header("Access-Control-Allow-Origin", "*");
 res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
 res.header("Content-Type", "application/json;charset=utf-8");
 ```
+
+# 提示Enter passphrase for key '/Users/MYNAME/.ssh/id_rsa':
+```
+ssh-add ~/.ssh/id_rsa 
+```
