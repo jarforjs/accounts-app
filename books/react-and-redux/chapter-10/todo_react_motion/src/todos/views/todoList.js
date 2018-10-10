@@ -34,12 +34,23 @@ const getStyles = (todos) => {
 
 
 const TodoList = ({todos}) => {
+  // const defaultStyles = todos.map(item=>{
+  //   return {
+  //     key: item.id.toString(),
+  //     data: item,
+  //     style: {
+  //       height: 0,
+  //       opacity: 0
+  //     }
+  //   }
+  // })
   const styles = getStyles(todos);
   return (
     <TransitionMotion
       willLeave={willLeave}
       willEnter={willEnter}
       styles={styles}
+      // defaultStyles={defaultStyles}
     >
       {
         interpolatedStyles =>
@@ -59,8 +70,8 @@ const TodoList = ({todos}) => {
             })
           }
         </ul>
-        }
-      </TransitionMotion>
+      }
+    </TransitionMotion>
   );
 };
 
@@ -68,10 +79,6 @@ TodoList.propTypes = {
   todos: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state) => {
-  return {
-    todos: selectVisibleTodos(state)
-  };
-}
+// const mapStateToProps = (state) => ({todos: selectVisibleTodos(state)})
 
-export default connect(mapStateToProps)(TodoList);
+export default connect((state) => ({todos: selectVisibleTodos(state)}))(TodoList);

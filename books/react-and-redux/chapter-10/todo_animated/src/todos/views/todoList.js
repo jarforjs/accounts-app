@@ -9,17 +9,21 @@ import './todoItem.css';
 const TodoList = ({todos}) => {
   return (
     <ul>
-      <TransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={200}>
-    {
-      todos.map((item) => (
-        <TodoItem
-          key={item.id}
-          id={item.id}
-          text={item.text}
-          completed={item.completed}
-        />
-        ))
-    }
+      <TransitionGroup transitionName="fade"
+                       transitionEnterTimeout={500}
+                       transitionLeaveTimeout={200}>
+                       {/* transitionAppear={true}
+                       transitionAppearTimeout={500}> */}
+        {
+          todos.map((item) => (
+            <TodoItem
+              key={item.id}
+              id={item.id}
+              text={item.text}
+              completed={item.completed}
+            />
+            ))
+        }
       </TransitionGroup>
     </ul>
   );

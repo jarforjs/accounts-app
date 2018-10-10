@@ -20,6 +20,7 @@ describe('todos/actions', () => {
       const action2 = addTodo(text);
 
       expect(action1.id !== action2.id).toBe(true);
+      expect(action1.text === action2.text).toBe(true);
     });
   });
 });

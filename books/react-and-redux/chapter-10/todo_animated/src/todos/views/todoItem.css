@@ -7,6 +7,15 @@
   transition: opacity 500ms ease-in;
 }
 
+/* .fade-enter,.fade-appear {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active,.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+} */
+
 .fade-leave {
   opacity: 1;
 }

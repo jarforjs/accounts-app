@@ -39,6 +39,30 @@ const initialState = {
       id: 2,
       text: 'Third',
       completed: true
+    },
+    {
+      id: 3,
+      text: 'Third3',
+      completed: true
+
+    },
+    {
+      id: 4,
+      text: 'Third3',
+      completed: true
+
+    },
+    {
+      id: 5,
+      text: 'Third5',
+      completed: true
+
+    },
+    {
+      id: 6,
+      text: 'Third6',
+      completed: true
+
     }
   ]
 
