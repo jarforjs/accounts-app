@@ -32,7 +32,7 @@ app.use(require('webpack-hot-middleware')(compiler, {
 }));
 
 app.use('/api/count', (req, res) => {
-  res.json({count: 100});
+  res.json({count: 1001});
 });
 
 app.get('*', (req, res) => {

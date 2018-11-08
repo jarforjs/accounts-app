@@ -12,7 +12,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware')(
   });
 
 function getAssetManifest() {
-  //const content = webpackDevMiddleware.fileSystem.readFileSync(__dirname + '/../build/asset-manifest.json');
   const content = webpackDevMiddleware.fileSystem.readFileSync(__dirname + '/../build/asset-manifest.json');
   return JSON.parse(content);
 }

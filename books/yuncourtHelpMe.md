@@ -360,3 +360,8 @@ res.header("Content-Type", "application/json;charset=utf-8");
 ```
 ssh-add ~/.ssh/id_rsa 
 ```
+
+# 安装 Homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# 卸载
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"

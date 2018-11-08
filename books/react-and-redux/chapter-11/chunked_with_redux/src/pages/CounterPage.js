@@ -5,11 +5,11 @@ const page = () => {
   return (
     <div>
       <div>Counter</div>
-      <Counter />
+      <Counter caption="any"/>
     </div>
   );
 };
-
 const initialState = 100;
 
-export {page, reducer, initialState, stateKey};
+// export default page
+export {page, reducer, initialState, stateKey}
