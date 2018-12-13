@@ -12,19 +12,33 @@ class Weather extends React.Component {
 
   componentDidMount() {
     const apiUrl = `/data/cityinfo/${cityCode}.html`;
-    fetch(apiUrl).then((response) => {
-      if (response.status !== 200) {
-        throw new Error('Fail to get response with status ' + response.status);
+    // fetch(apiUrl).then((response) => {
+    //   if (response.status !== 200) {
+    //     throw new Error('Fail to get response with status ' + response.status);
+    //   }
+
+    //   response.json().then((responseJson) => {
+    //     this.setState({weather: responseJson.weatherinfo});
+    //   }).catch((error) => {
+    //     this.setState({weather: null});
+    //   });
+    // }).catch((error) => {
+    //   this.setState({weather: null});
+    // });
+
+    fetch(apiUrl).then((response)=>{
+      if(response.state !== 200){
+        throw Error('Fail to get response with status ' + response.status)
       }
 
-      response.json().then((responseJson) => {
-        this.setState({weather: responseJson.weatherinfo});
-      }).catch((error) => {
-        this.setState({weather: null});
-      });
-    }).catch((error) => {
-      this.setState({weather: null});
-    });
+      response.json().then((responseJson)=>{
+        this.setState({weather:responseJson.weatherinfo})
+      }).catch((error)=>{
+        this.setState({weather:null})
+      })
+    }).catch((error)=>{
+      this.setState({weather:null})
+    })
   }
 
   render() {

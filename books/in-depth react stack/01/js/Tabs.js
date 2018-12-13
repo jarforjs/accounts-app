@@ -17,6 +17,7 @@ class Tabs extends Component {
     onChange: PropTypes.func,
   };
 
+  
   static defaultProps = {
     classPrefix: 'tabs',
     onChange: () => {},
