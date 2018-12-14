@@ -9,7 +9,7 @@ class Todo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: TodoStore.getAll().toJS()
+      todos: TodoStore.getAll()
     };
     this.createTodo = this.createTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
@@ -23,7 +23,7 @@ class Todo extends React.Component {
   }
   onChange() {
     this.setState({
-      todos: TodoStore.getAll().toJS()
+      todos: TodoStore.getAll()
     });
   }
   createTodo(inputValue) {

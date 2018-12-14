@@ -1,14 +1,16 @@
 import React, { PropTypes } from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
-const propType = {
-  items: PropTypes.array.isRequired,
-  onDelete: PropTypes.func.isRequired
-};
+// const propType = {
+//   items: PropTypes.array.isRequired,
+//   onDelete: PropTypes.func.isRequired
+// };
+
 function List({ items, onDelete }) {
   let itemList = items.map(item => (
-    <li key={item.id}>
-      <button onClick={() => { onDelete(item.id); }}>删除</button>
-      {item.content}
+    <li key={item.get('id')}>
+      <button onClick={() => { onDelete(item.get('id')); }}>删除</button>
+      {item.get('content')}
     </li>
   ));
   return (
@@ -19,6 +21,9 @@ function List({ items, onDelete }) {
   );
 }
 
-List.propTypes = propType;
-
+// List.propTypes = propType;
+List.propTypes = {
+  items: ImmutablePropTypes.list.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
 export default List;
