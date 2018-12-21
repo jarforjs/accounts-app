@@ -34,7 +34,10 @@
     "webpack-hot-middleware": "^2.12.2"
   },
   "dependencies": {
+    "antd": "^3.11.2",
     "classnames": "^2.2.5",
+    "events": "^3.0.0",
+    "jquery": "^3.3.1",
     "react": "~15.0.2",
     "react-dom": "~15.0.2"
   }
