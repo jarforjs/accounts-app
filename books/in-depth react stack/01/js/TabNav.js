@@ -11,6 +11,8 @@ class TabNav extends Component {
   getTabs() {
     const { panels, classPrefix, activeIndex } = this.props;
 
+    //React.Children有：count,forEach,map,only,toArray五个方法
+    console.log(React.Children,'object')
     return React.Children.map(panels, (child) => {
       if (!child) { return; }
 
