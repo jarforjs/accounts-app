@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Tabs from './Tabs';
 import TabPane from './TabPane';
 import QrCode from './QrCode';
+import MultipleSelect from './multipleSelect';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ class App extends Component {
     return (
       <div>
         <QrCode/>
-        {/* <div className="operator">
+        <div className="operator">
           <span>切换 Tab：</span>
           <select value={this.state.activeIndex} onChange={this.handleChange}>
             <option value="0">Tab 1</option>
@@ -38,7 +40,8 @@ class App extends Component {
           <TabPane order="0" tab={'Tab 1'}>第一个 Tab 里的内容</TabPane>
           <TabPane order="1" tab={'Tab 2'}>第二个 Tab 里的内容</TabPane>
           <TabPane order="2" tab={'Tab 3'}>第三个 Tab 里的内容</TabPane>
-        </Tabs> */}
+        </Tabs>
+        <MultipleSelect />
       </div>
     );
   }
