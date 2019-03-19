@@ -18,6 +18,7 @@ class InkBar extends Component {
       <div styleName={classes} style={{
         WebkitTransform: `translate3d(${left}px, 0, 0)`,
         transform: `translate3d(${left}px, 0, 0)`,
+        // left: left,
         width: width,
       }}>
       </div>

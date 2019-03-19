@@ -39,6 +39,7 @@ class TabNav extends Component {
   }
 
   componentDidMount() {
+    // 计算激活 tab 的宽度和相对屏幕的左侧位置
     const { activeIndex } = this.props;
     const node = ReactDOM.findDOMNode(this);
     const el = node.querySelectorAll('li')[activeIndex];
@@ -66,6 +67,7 @@ class TabNav extends Component {
     const { panels, activeIndex } = this.props;
     const rst = [];
 
+    // children 经过 Immutable 转换后，需要使用 Immutable API 遍历
     return panels.map((child) => {
       if (!child) { return; }
 

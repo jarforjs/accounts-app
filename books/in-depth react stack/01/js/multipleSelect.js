@@ -26,6 +26,7 @@ export default class Select extends React.Component {
     return (
       <div>
         <select
+          style={{width:150}}
           multiple={true}
           value={area}
           onChange={this.handleChange}

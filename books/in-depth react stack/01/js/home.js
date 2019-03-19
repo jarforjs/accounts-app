@@ -93,7 +93,7 @@ class Home extends Component {
 
         <hr />
 
-        <button onClick={this.showDialog.bind(this)}>Open dialog</button>
+        <button onClick={this.showDialog.bind(this)}>Open dialog（不稳定方法）</button>
         <Layer className={styles.layer} open={this.state.showDialog}>
           <Dialog options={dialogOptions}>
             <RenderDialogContent ref='customerContent' userName={this.state.userName} />

@@ -27,7 +27,7 @@ class App extends Component {
     // 如果想要作用的话，要把 defaultActiveIndex 改成 activeIndex 就可以
     return (
       <div>
-        <QrCode/>
+        <QrCode />
         <div className="operator">
           <span>切换 Tab：</span>
           <select value={this.state.activeIndex} onChange={this.handleChange}>

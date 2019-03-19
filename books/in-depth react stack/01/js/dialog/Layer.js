@@ -17,7 +17,7 @@ class Layer extends React.Component {
 	}
 	renderLayer() {
 		if (!this.props.open) {
-			this.removeLayer()
+			this.removeLayer();
 		} else {
 			if (!this.layer) {
 				this.layer = document.createElement("div");
