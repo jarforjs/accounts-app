@@ -19,7 +19,7 @@ import React, { Component } from 'react';
 const refHoc = WrappedComponent => class extends Component {
     constructor() {
         super(...arguments);
-        this.linkRef = this.linkRef.bind(this)
+        this.linkRef = this.linkRef.bind(this);
     }
 
     linkRef(wrappedInstance) {
@@ -27,6 +27,7 @@ const refHoc = WrappedComponent => class extends Component {
     }
 
     componentDidMount() {
+        console.log('ref')
         console.log(this._root, 'wrappedInstance');
     }
 

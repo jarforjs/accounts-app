@@ -1,18 +1,18 @@
-import React, { Component } from 'react';
-import StyleContainer from './container-add-style';
+import React, { Component } from 'react'
+import StyleContainer from './container-add-style'
 
 class FuncContainer extends Component {
   handleClick() {
-    console.log('click');
+    console.log('click')
   }
 
   render() {
     const props = {
       ...this.props,
       handleClick: this.handleClick,
-    };
-    return (<StyleContainer {...props} />);
+    }
+    return (<StyleContainer {...props} />)
   }
 }
 
-export default FuncContainer;
+export default FuncContainer

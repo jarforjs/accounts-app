@@ -1,8 +1,8 @@
-const path = require('path');
-const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const config = require('./config');
+const path = require('path')
+const webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OpenBrowserPlugin = require('open-browser-webpack-plugin')
+const config = require('./config')
 
 module.exports = {
   entry: {
@@ -47,6 +47,6 @@ module.exports = {
     historyApiFallback: true,
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx',],
-  }
-};
+    extensions: ['*', '.js', '.jsx'],
+  },
+}

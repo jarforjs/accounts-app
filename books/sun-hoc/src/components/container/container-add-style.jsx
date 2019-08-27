@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import Usual from './usual';
+import React, { Component } from 'react'
+import Usual from './usual'
 
 class StyleContainer extends Component {
 
@@ -7,8 +7,8 @@ class StyleContainer extends Component {
     return (<div style={{ color: '#76d0a3' }}>
       <div>container</div>
       <Usual {...this.props} />
-    </div>);
+    </div>)
   }
 }
 
-export default StyleContainer;
+export default StyleContainer
