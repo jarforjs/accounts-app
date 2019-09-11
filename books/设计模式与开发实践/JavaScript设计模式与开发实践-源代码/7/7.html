@@ -1,43 +1,43 @@
 ﻿<script type="text/javascript">
-	
-	$.each( [1, 2, 3], function( i, n ){
-		console.log( '当前下标为： '+ i );
-		console.log( '当前值为:' + n );
+
+	$.each([1, 2, 3], function (i, n) {
+		console.log('当前下标为： ' + i);
+		console.log('当前值为:' + n);
 	});
 
-	var each = function( ary, callback ){
-		for ( var i = 0, l = ary.length; i < l; i++ ){
-			callback.call( ary[i], i, ary[ i ] ); // 把下标和元素当作参数传给callback 函数
+	var each = function (ary, callback) {
+		for (var i = 0, l = ary.length; i < l; i++) {
+			callback.call(ary[i], i, ary[i]); // 把下标和元素当作参数传给callback 函数
 		}
 	};
 
-	each( [ 1, 2, 3 ], function( i, n ){
-		alert ( [ i, n ] );
+	each([1, 2, 3], function (i, n) {
+		alert([i, n]);
 	});
 
-	var compare = function( ary1, ary2 ){
-		if ( ary1.length !== ary2.length ){
-			throw new Error ( 'ary1 和ary2 不相等' );
+	var compare = function (ary1, ary2) {
+		if (ary1.length !== ary2.length) {
+			throw new Error('ary1 和ary2 不相等');
 		}
-		each( ary1, function( i, n ){
-			if ( n !== ary2[ i ] ){
-				throw new Error ( 'ary1 和ary2 不相等' );
+		each(ary1, function (i, n) {
+			if (n !== ary2[i]) {
+				throw new Error('ary1 和ary2 不相等');
 			}
 		});
-		alert ( 'ary1 和ary2 相等' );
+		alert('ary1 和ary2 相等');
 	};
-	compare( [ 1, 2, 3 ], [ 1, 2, 4 ] ); // throw new Error ( 'ary1 和ary2 不相等' );
+	compare([1, 2, 3], [1, 2, 4]); // throw new Error ( 'ary1 和ary2 不相等' );
 
-	var Iterator = function( obj ){
+	var Iterator = function (obj) {
 		var current = 0;
-		var next = function(){
+		var next = function () {
 			current += 1;
 		};
-		var isDone = function(){
+		var isDone = function () {
 			return current >= obj.length;
 		};
-		var getCurrItem = function(){
-			return obj[ current ];
+		var getCurrItem = function () {
+			return obj[current];
 		};
 		return {
 			next: next,
@@ -47,66 +47,128 @@
 	};
 
 	//再看看如何改写compare 函数：
-	var compare = function( iterator1, iterator2 ){
-		while( !iterator1.isDone() && !iterator2.isDone() ){
-			if ( iterator1.getCurrItem() !== iterator2.getCurrItem() ){
-				throw new Error ( 'iterator1 和iterator2 不相等' );
+	var compare = function (iterator1, iterator2) {
+		while (!iterator1.isDone() && !iterator2.isDone()) {
+			if (iterator1.getCurrItem() !== iterator2.getCurrItem()) {
+				throw new Error('iterator1 和iterator2 不相等');
 			}
 			iterator1.next();
 			iterator2.next();
 		}
-		alert ( 'iterator1 和iterator2 相等' );
+		alert('iterator1 和iterator2 相等');
 	}
-	var iterator1 = Iterator( [ 1, 2, 3 ] );
-	var iterator2 = Iterator( [ 1, 2, 3 ] );
-	compare( iterator1, iterator2 ); // 输出：iterator1 和iterator2 相等
+	var iterator1 = Iterator([1, 2, 3]);
+	var iterator2 = Iterator([1, 2, 3]);
+	compare(iterator1, iterator2); // 输出：iterator1 和iterator2 相等
 
-	$.each = function( obj, callback ) {
+	$.each = function (obj, callback) {
 		var value,
-		i = 0,
-		length = obj.length,
-		isArray = isArraylike( obj );
-		if ( isArray ) { // 迭代类数组
-			for ( ; i < length; i++ ) {
-				value = callback.call( obj[ i ], i, obj[ i ] );
-				if ( value === false ) {
+			i = 0,
+			length = obj.length,
+			isArray = isArraylike(obj);
+		if (isArray) { // 迭代类数组
+			for (; i < length; i++) {
+				value = callback.call(obj[i], i, obj[i]);
+				if (value === false) {
 					break;
 				}
 			}
 		} else {
-		for ( i in obj ) { // 迭代object 对象
-			value = callback.call( obj[ i ], i, obj[ i ] );
-			if ( value === false ) {
-				break;
+			for (i in obj) { // 迭代object 对象
+				value = callback.call(obj[i], i, obj[i]);
+				if (value === false) {
+					break;
+				}
 			}
-		}
 		}
 		return obj;
-		};
+	};
 
-	var reverseEach = function( ary, callback ){
-		for ( var l = ary.length - 1; l >= 0; l-- ){
-			callback( l, ary[ l ] );
+	//倒叙迭代器
+	var reverseEach = function (ary, callback) {
+		for (var l = ary.length - 1; l >= 0; l--) {
+			callback(l, ary[l]);
 		}
 	};
-	
-	reverseEach( [ 0, 1, 2 ], function( i, n ){
-		console.log( n ); // 分别输出：2, 1 ,0
+
+	reverseEach([0, 1, 2], function (i, n) {
+		console.log(n); // 分别输出：2, 1 ,0
 	});
 
-	var each = function( ary, callback ){
-		for ( var i = 0, l = ary.length; i < l; i++ ){
-			if ( callback( i, ary[ i ] ) === false ){ // callback 的执行结果返回false，提前终止迭代
+	var each = function (ary, callback) {
+		for (var i = 0, l = ary.length; i < l; i++) {
+			if (callback(i, ary[i]) === false) { // callback 的执行结果返回false，提前终止迭代
 				break;
 			}
 		}
 	};
 
-	each( [ 1, 2, 3, 4, 5 ], function( i, n ){
-		if ( n > 3 ){ // n 大于3 的时候终止循环
+	each([1, 2, 3, 4, 5], function (i, n) {
+		if (n > 3) { // n 大于3 的时候终止循环
 			return false;
 		}
-		console.log( n ); // 分别输出：1, 2, 3
+		console.log(n); // 分别输出：1, 2, 3
 	});
 
+	//迭代器模式的应用举例
+	var getUploadObj = function () {
+		try {
+			return new ActiveXObject("TXFTNActiveX.FTNUpload"); // IE 上传控件
+		} catch (e) {
+			if (supportFlash()) { // supportFlash 函数未提供
+				var str = '<object type="application/x-shockwave-flash"></object>';
+				return $(str).appendTo($('body'));
+			} else {
+				var str = '<input name="file" type="file"/>'; // 表单上传
+				return $(str).appendTo($('body'));
+			}
+		}
+	};
+
+	var getActiveUploadObj = function () {
+		try {
+			return new ActiveXObject("TXFTNActiveX.FTNUpload"); // IE 上传控件
+		} catch (e) {
+			return false;
+		}
+	};
+
+	var getFlashUploadObj = function () {
+		if (supportFlash()) { // supportFlash 函数未提供
+			var str = '<object type="application/x-shockwave-flash"></object>';
+			return $(str).appendTo($('body'));
+		}
+		return false;
+	};
+
+	var getFormUpladObj = function () {
+		var str = '<input name="file" type="file" class="ui-file"/>'; // 表单上传
+		return $(str).appendTo($('body'));
+	};
+	// 在getActiveUploadObj、getFlashUploadObj、getFormUpladObj 这3 个函数中都有同一个约定：如果该函数里面的upload 对象是可用的，则让函数返回该对象，反之返回false，提示迭代器继续往后面进行迭代。
+
+	// 所以我们的迭代器只需进行下面这几步工作。
+	// - 提供一个可以被迭代的方法，使得getActiveUploadObj，getFlashUploadObj 以及getFlashUploadObj依照优先级被循环迭代。
+	// - 如果正在被迭代的函数返回一个对象，则表示找到了正确的upload 对象，反之如果该函数返回false，则让迭代器继续工作。
+
+	// 迭代器代码如下：
+	var iteratorUploadObj = function () {
+		for (var i = 0, fn; fn = arguments[i++];) {
+			var uploadObj = fn();
+			if (uploadObj !== false) {
+				return uploadObj;
+			}
+		}
+	};
+	var uploadObj = iteratorUploadObj(getActiveUploadObj, getFlashUploadObj, getFormUpladObj);
+	//重构代码之后，我们可以看到，获取不同上传对象的方法被隔离在各自的函数里互不干扰，try、catch 和if 分支不再纠缠在一起，使得我们可以很方便地的维护和扩展代码。比如，后来我们又给上传项目增加了Webkit 控件上传和HTML5 上传，我们要做的仅仅是下面一些工作。
+	//- 增加分别获取Webkit 控件上传对象和HTML5 上传对象的函数：
+	var getWebkitUploadObj = function () {
+		// 具体代码略
+	};
+	var getHtml5UploadObj = function () {
+		// 具体代码略
+	};
+	//- 依照优先级把它们添加进迭代器：
+	var uploadObj = iteratorUploadObj(getActiveUploadObj, getWebkitUploadObj, getFlashUploadObj, getHtml5UploadObj, getFormUpladObj);
 </script>

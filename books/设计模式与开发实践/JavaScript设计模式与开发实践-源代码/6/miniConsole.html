@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+	var miniConsole = (function(){
+		var cache = [];
+		var handler = function( ev ){
+			if ( ev.keyCode === 113 ){
+        var script = document.createElement( 'script' );
+        console.log('miniConsole', miniConsole.log)
+				script.onload = function(){
+					for ( var i = 0, fn; fn = cache[ i++ ]; ){
+            console.log('for fn', fn);
+            console.log('this', this)
+            fn();
+            //(function(){ miniConsole.log.apply(miniConsole, args)})();
+					}
+				};
+				script.src = 'miniConsole.js';
+				document.getElementsByTagName( 'head' )[0].appendChild( script );
+				document.body.removeEventListener( 'keydown', handler );// 只加载一次miniConsole.js
+			}
+		};
+		document.body.addEventListener( 'keydown', handler, false );
+		return {
+			log: function(a){
+				var args = arguments;
+				cache.push( function(b){
+          // 这里的miniConsole是后面加载的
+          console.log('fn', miniConsole.log)
+          console.log('anonymous', this)
+          // 因为我不知道参数会有几个，目前只有a一个。所以使用apply不管传进来的参数有多少个，我用arguments获取到一个类数组，然后将集合里面的元素作为参数传递给被调用的函数。
+					return miniConsole.log.apply(miniConsole, args);
+					// return miniConsole.log.call(miniConsole, a);
+				});
+			}
+		}
+	})();
+
+	miniConsole.log( 11 ); // 开始打印log
+</script>
+</html>

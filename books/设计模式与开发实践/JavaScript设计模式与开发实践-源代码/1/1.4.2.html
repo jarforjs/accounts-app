@@ -64,26 +64,76 @@
 	console.log( b.name ); // 输出：sven
 
 	//通过Class 创建对象的一段简单示例代码①如下所示 ：
+	// class Animal {
+	// 	constructor(name) {
+	// 		this.name = name;
+	// 	}
+
+	// 	getName() {
+	// 		return this.name;
+	// 	}
+	// }
+
+	// class Dog extends Animal {
+	// 	constructor(name) {
+	// 		super(name);
+	// 	}
+	// 	speak() {
+	// 		return "woof";
+	// 	}
+	// }
+
+	// var dog = new Dog("Scamp");
+	// console.log(dog.getName() + ' says ' + dog.speak());
+
 	class Animal {
 		constructor(name) {
 			this.name = name;
 		}
 
 		getName() {
-			return this.name;
+			return this.name
 		}
 	}
 
-	class Dog extends Animal {
+	class Dag extends Animal {
 		constructor(name) {
 			super(name);
+			// A.prototype.constructor.call(this, props)
 		}
+
 		speak() {
-			return "woof";
+			return "woof"
 		}
 	}
 
-	var dog = new Dog("Scamp");
-	console.log(dog.getName() + ' says ' + dog.speak());
+	// 首先，ES6 的 class 属于一种“语法糖”，所以只是写法更加优雅，更加像面对对象的编程，其思想和 ES5 是一致的。
+	function Point(x, y) {
+		this.x = x;
+		this.y = y;
+	}
 
+	Point.prototype.toString = function() {
+		return '(' + this.x + ',' + this.y + ')';
+	}
+
+	// 等同于
+	class Point {
+		constructor(x, y) {
+			this.x = x;
+			this.y = y;
+		}
+
+		toString() {
+			return '(' + this.x + ',' + this.y + ')';
+		}
+	}
+
+  // 其中 constructor 方法是类的构造函数，是一个默认方法，通过 new 命令创建对象实例时，自动调用该方法。一个类必须有 constructor 方法，如果没有显式定义，一个默认的 consructor 方法会被默认添加。所以即使你没有添加构造函数，也是会有一个默认的构造函数的。一般 constructor 方法返回实例对象 this ，但是也可以指定  constructor 方法返回一个全新的对象，让返回的实例对象不是该类的实例。
+
+	// super当方法使用或者当对象使用。
+	// 1. 当做函数使用
+	// 注：在 constructor 中必须调用 super 方法，因为子类没有自己的 this 对象，而是继承父类的 this 对象，然后对其进行加工,而 super 就代表了父类的构造函数。super 虽然代表了父类 A 的构造函数，但是返回的是子类 B 的实例，即 super 内部的 this 指的是 B，因此 super() 在这里相当于 ```A.prototype.constructor.call(this, props)``。
+
+	// 简书：https://www.jianshu.com/p/fc79756b1dc0
 </script>

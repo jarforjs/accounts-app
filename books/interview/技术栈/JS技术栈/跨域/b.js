@@ -13,6 +13,7 @@ function GetRequest() {
 }
 
 var attrs=GetRequest();
+
 for(var attr in attrs){
 	console.log(attr);
 	console.log(attrs[attr]);

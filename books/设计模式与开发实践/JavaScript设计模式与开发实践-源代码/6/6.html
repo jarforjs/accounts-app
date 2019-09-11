@@ -25,7 +25,6 @@
 	var B = {
 		receiveFlower: function( flower ){
 			A.receiveFlower( flower );
-			90 第6 章 代理模式
 		}
 	};
 	var A = {
@@ -65,6 +64,7 @@
 
 	xiaoming.sendFlower( B );
 
+	//然后通过MyImage.setSrc 给该img 节点设置src，可以看到，在图片被加载好之前，页面中有一段长长的空白时间。
 	var myImage = (function(){
 		var imgNode = document.createElement( 'img' );
 		document.body.appendChild( imgNode );
@@ -76,6 +76,7 @@
 	})();
 	myImage.setSrc( 'http:// imgcache.qq.com/music/photo/k/000GGDys0yA0Nk.jpg' );
 
+	//现在我们通过proxyImage 间接地访问MyImage。proxyImage 控制了客户对MyImage 的访问，并且在此过程中加入一些额外的操作，比如在真正的图片加载好之前，先把img 节点的src 设置为一张本地的loading 图片。
 	var myImage = (function(){
 		var imgNode = document.createElement( 'img' );
 		document.body.appendChild( imgNode );
@@ -99,6 +100,7 @@
 	})();
 	proxyImage.setSrc( 'http:// imgcache.qq.com/music/photo/k/000GGDys0yA0Nk.jpg' );
 
+	//代理的意义
 	var MyImage = (function(){
 		var imgNode = document.createElement( 'img' );
 		document.body.appendChild( imgNode );
@@ -163,6 +165,7 @@
 		}
 	};
 
+	//虚拟代理HTTP请求
 	var synchronousFile = function( id ){
 		console.log( '开始同步文件，id 为: ' + id );
 	};
@@ -176,11 +179,11 @@
 				return;
 			}
 			timer = setTimeout(function(){
-			synchronousFile( cache.join( ',' ) ); // 2 秒后向本体发送需要同步的ID 集合
-			clearTimeout( timer ); // 清空定时器
-			timer = null;
-			cache.length = 0; // 清空ID 集合
-		}, 2000 );
+				synchronousFile( cache.join( ',' ) ); // 2 秒后向本体发送需要同步的ID 集合
+				clearTimeout( timer ); // 清空定时器
+				timer = null;
+				cache.length = 0; // 清空ID 集合
+			}, 2000 );
 		}
 	})();
 

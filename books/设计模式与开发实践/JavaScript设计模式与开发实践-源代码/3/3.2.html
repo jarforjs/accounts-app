@@ -147,7 +147,6 @@
 				var money = 0;
 				for ( var i = 0, l = args.length; i < l; i++ ){
 					money += args[ i ];
-					50 第3 章 闭包和高阶函数
 				}
 				return money;
 			}else{
@@ -240,25 +239,26 @@
 
 	apply( fn, { name: 'sven' }, [ 1, 2, 3 ] );
 
-
+	//一种uncurrying的实现
 	Function.prototype.uncurrying = function () {
 		var self = this; // self 此时是Array.prototype.push
 		return function() {
 			var obj = Array.prototype.shift.call( arguments );
 			return self.apply( obj, arguments );
 		// 相当于Array.prototype.push.apply( obj, 2 )
+		};
 	};
-};
 
-var push = Array.prototype.push.uncurrying();
-var obj = {
-	"length": 1,
-	"0": 1
-};
+	var push = Array.prototype.push.uncurrying();
+	var obj = {
+		"length": 1,
+		"0": 1
+	};
 
-push( obj, 2 );
+	push( obj, 2 );
 	console.log( obj ); // 输出：{0: 1, 1: 2, length: 2}
 
+	//另外一种uncurrying的实现
 	Function.prototype.uncurrying = function(){
 		var self = this;
 		return function(){
@@ -279,7 +279,7 @@ push( obj, 2 );
 			}
 			if ( timer ) { // 如果定时器还在，说明前一次延迟执行还没有完成
 				return false;
-
+			}
 			timer = setTimeout(function () { // 延迟一段时间执行
 				clearTimeout(timer);
 				timer = null;
@@ -339,6 +339,7 @@ push( obj, 2 );
 	}, 8 );
 	renderFriendList();
 
+	//缺点每次调用都会执行if条件分支
 	var addEvent = function( elem, type, handler ){
 		if ( window.addEventListener ){
 			return elem.addEventListener( type, handler, false );
@@ -349,6 +350,7 @@ push( obj, 2 );
 		}
 	};
 
+	//如果一次也不用完全是多余操作
 	var addEvent = (function(){
 		if ( window.addEventListener ){
 			return function( elem, type, handler ){

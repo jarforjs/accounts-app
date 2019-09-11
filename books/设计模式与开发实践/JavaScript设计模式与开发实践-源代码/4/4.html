@@ -184,6 +184,7 @@
 		loginLayer.style.display = 'block';
 	};
 
+	//如法炮制
 	var createIframe= (function(){
 		var iframe;
 		return function(){
@@ -196,6 +197,7 @@
 		}
 	})();
 
+	//通用惰性依赖
 	var getSingle = function( fn ){
 		var result;
 		return function(){

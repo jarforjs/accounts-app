@@ -16,7 +16,7 @@ class QrCode extends React.Component {
       if (e.target && e.target.matches('.qr')) {
         return;
       }
-      console.log('addEventListener click')
+      alert('addEventListener click')
       this.setState({
         active: false,
       })
@@ -37,7 +37,7 @@ class QrCode extends React.Component {
 
     // 注意：
     // 在点测试click事件的时候，触发的顺序是：
-    // 结果：原生outClick -> onClick -> (outClick因为是合成事件，被onClick中的stop给阻止了) -> addEventListener click
+    // 结果：原生outClick -> addEventListener click -> onClick -> (outClick因为是合成事件，被onClick中的stop给阻止了)
     document.getElementById('div1').addEventListener('click', () => {
       alert('原生outClick');
     })
@@ -54,14 +54,14 @@ class QrCode extends React.Component {
     this.setState({
       active: !this.state.active,
     })
-
   }
 
   handleClickQr(e) {
     // 注意：
     // React有自己的一套事件处理机制，它会将所有的事件都绑定在document上，然后再用dispatchEvent统一分发，这时候分发的是合成事件。
     // handleClickQr(e)这时候拿到的e其实是合成事件，只能阻止合成事件的冒泡。
-    e.nativeEvent.stopProagatioin();
+    console.log('hanleClickQr')
+    // e.stopPropagation();
   }
 
   outClick(e) {
@@ -72,9 +72,7 @@ class QrCode extends React.Component {
   onClick(e) {
     console.log(e.currentTarget);
     alert('onClick');
-    // e.stopPropagation();
-    // e.nativeEvent.stopPropagation();
-    e.nativeEvent.stopImmediatePropagation();
+    e.stopPropagation();
   }
 
   render() {

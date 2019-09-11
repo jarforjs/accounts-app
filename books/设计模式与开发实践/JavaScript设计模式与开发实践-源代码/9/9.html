@@ -14,6 +14,7 @@
 		var button2 = document.getElementById( 'button2' ),
 		var button3 = document.getElementById( 'button3' );
 
+		//传统面向对象版的命令模式
 		var setCommand = function( button, command ){
 			button.onclick = function(){
 				command.execute();
@@ -33,7 +34,7 @@
 				console.log( '删除子菜单' );
 			}
 		};
-		在让button 变得有用起来之前，我们要先把这些行为都封装在命令类中：
+		// 在让button 变得有用起来之前，我们要先把这些行为都封装在命令类中：
 		var RefreshMenuBarCommand = function( receiver ){
 			this.receiver = receiver;
 		};
@@ -64,6 +65,7 @@
 
 
 	<script type="text/javascript">
+	//不用命令模式
 		var bindClick = function( button, func ){
 			button.onclick = func;
 		};
@@ -81,10 +83,10 @@
 			}
 		};
 		bindClick( button1, MenuBar.refresh );
-
 		bindClick( button2, SubMenu.add );
 		bindClick( button3, SubMenu.del );
 
+		//闭包实现命令模式
 		var setCommand = function( button, func ){
 			button.onclick = function(){
 				func();
@@ -103,7 +105,7 @@
 		var refreshMenuBarCommand = RefreshMenuBarCommand( MenuBar );
 		setCommand( button1, refreshMenuBarCommand );
 
-
+		//execute
 		var RefreshMenuBarCommand = function( receiver ){
 			return {
 				execute: function(){

@@ -192,15 +192,20 @@
 		<button id="execute">点击我执行命令</button>
 		<button id="undo">点击我执行命令</button>
 		<script>
+			// 2负责实际行为的同学
+			// 电视机本身应该具有的方法
 			var Tv = {
 				open: function(){
 					console.log( '打开电视机' );
 				},
 				close: function(){
-					console.log( '关上电视机' );
+					console.log( '关闭电视机' );
 				}
 			};
 
+			// 3在让button变得有用起来之前，要先把这些行为都封装在命令类中：
+			// 命令对象本身
+			// 预先植入的命令接收者被当成对象的属性保存起来
 			var OpenTvCommand = function( receiver ){
 				this.receiver = receiver;
 			};
@@ -213,6 +218,10 @@
 				this.receiver.close(); // 撤销命令，关闭电视机
 			};
 
+			// 命令模式的意图是把请求封装为对象，从而分离请求的发起者和请求的接收者（执行者）之间的耦合关系。在命令被执行之前，可以预先往命令对象中植入命令的接收者。
+			// 1负责绘制按钮的同学
+			// 虽然还不知道这些命令（execute，undo）究竟代表什么操作，但负责绘制按钮的同学不关心这些事情，他只需要预留好安装命令的接口，command对象自然知道如何和正确的对象沟通
+			// 相当于要遥控器、命令的发出者
 			var setCommand = function( command ){
 				document.getElementById( 'execute' ).onclick = function(){
 					command.execute(); // 输出：打开电视机
@@ -223,6 +232,7 @@
 				}
 			};
 
+			// 4最后就是把命令接收者传入到command对象中，并且把command对象安装到button上面：
 			setCommand( new OpenTvCommand( Tv ) );
 		</script>
 	</body>
@@ -239,7 +249,9 @@
 		}
 	};
 
+	// 此处不使用立即执行函数的方式，也不需要createCommand对象自己持有变量，因为receiver这个局部变量会被闭包环境包围，这个局部变量被延续了生命周期
 	var createCommand = function( receiver ){
+   // this.receiver = receiver;
 		var execute = function(){
 			return receiver.open(); // 执行命令，打开电视机
 		}
@@ -261,6 +273,7 @@
 		}
 	};
 
+	// 不需要new这个对象，因为OpenTVCommand返回一个对象
 	setCommand( createCommand( Tv ) );
 
 </script>

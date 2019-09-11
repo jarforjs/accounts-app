@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>原生JavaScript封装选项卡插件</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: "\5FAE\8F6F\96C5\9ED1",
+        Helvetica, sans-serif;
+      font-size: 14px;
+      -webkit-user-select: none;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+
+    .box {
+      width: 500px;
+      margin: 20px auto;
+    }
+
+    .box ul {
+      position: relative;
+      top: 1px;
+    }
+
+    .box ul:after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+
+    .box ul li {
+      float: left;
+      margin-right: 15px;
+      width: 100px;
+      height: 30px;
+      border: 1px solid green;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .box ul li.selected {
+      background: lightblue;
+      border-bottom-color: lightblue
+    }
+
+    .box div {
+      height: 150px;
+      line-height: 150px;
+      background: lightblue;
+      border: 1px solid green;
+      text-align: center;
+      display: none;
+    }
+
+    .box div.selected {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box" id="tabFir">
+    <ul>
+      <li class="selected">页卡一</li>
+      <li>页卡二</li>
+      <li>页卡三</li>
+    </ul>
+    <div class="selected">内容一</div>
+    <div>内容二</div>
+    <div>内容三</div>
+  </div>
+</body>
+<script>
+  window.onload = function () {
+    var tabFir = document.getElementById('tabFir'),
+      oLis = tabFir.getElementsByTagName('li'),
+      oDivs = tabFir.getElementsByTagName('div');
+
+    for (var i = 0; i < oLis.length; i++) {
+      // (function (i) {
+      //   oLis[i].onclick = function () {
+      //     changeTab(i);
+      //   }
+      // })(i);
+      // oLis[i].onclick = function (i) {
+      //   return function () {
+      //     changeTab(i);
+      //   }
+      // }(i)
+      oLis[i].selfId = i
+      oLis[i].onclick = function () {
+        for (var j = 0; j < oLis.length; j++) {
+          oLis[j].className = null;
+          oDivs[j].className = null;
+        }
+        this.className = 'selected';
+        oDivs[this.selfId].className = 'selected';
+      }
+    }
+
+    function changeTab(n) {
+      for (var i = 0; i < oLis.length; i++) {
+        oLis[i].className = null;
+        oDivs[i].className = null;
+      }
+      oLis[n].className = 'selected';
+      oDivs[n].className = 'selected';
+    }
+  }
+</script>
+
+</html>
