@@ -1,0 +1,33 @@
+@prefix-sign: sign;
+
+// Color
+@black: #444444;
+@gray: #999;
+@placeholder: #a5a5a5;
+@primary-color          : #108EE9;
+@info-color             : #108EE9;
+@success-color          : #428DE2;
+@warning-color          : #fa0;
+@waiting-color          : #4B9E94;
+@border-radius-base     : 0px;
+@font-size-base         : 14px;
+@body-background        : #F3F6F6;
+@error-color            : #FF7777;
+@link-color: #108EE9;
+
+
+.textEllipsis(@width) {
+  max-width: @width;
+  white-space: nowrap;
+  word-break: keep-all;
+  word-wrap: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// antd
+body .ant-message {
+  top: 32px;
+}
+
+.ant-popover-content { position: static; }

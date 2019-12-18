@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #box {
+            width: 200px;
+            height: 200px;
+            background: #222;
+        }
+
+        #outer {
+            width: 100px;
+            height: 100px;
+            background: #ddd;
+        }
+
+        #inner {
+            width: 50px;
+            height: 50px;
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body>
+<div id="box">
+  <div id="outer">
+    <div id="inner">inner</div>
+  </div>
+</div>
+<script>
+  var oBox = document.getElementById('box');
+  var outer = document.getElementById('outer');
+  var inner = document.getElementById('inner');
+  oBox.addEventListener('click', function () {
+    console.log('1');
+  }, false);
+  outer.addEventListener('click', function () {
+    console.log('2');
+  }, false);
+  inner.addEventListener('click', function () {
+    console.log('3');
+  }, false);
+</script>
+</body>
+
+</html>
